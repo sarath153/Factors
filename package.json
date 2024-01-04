@@ -1,0 +1,20 @@
+{
+  "name": "test-automation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "my-server -p 3030",
+    "cy:run": "cypress run",
+    "test": "start-server-and-test start http://localhost:3030 cy:run"
+  },
+  "author": "Vishnu Baliga",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^13.3.1",
+    "cypress-xpath": "^2.0.1"
+  },
+  "dependencies": {
+    "moment": "^2.29.4"
+  }
+}

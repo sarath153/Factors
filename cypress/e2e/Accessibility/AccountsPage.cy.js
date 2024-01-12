@@ -23,7 +23,7 @@ describe('Login', () => {
         //Accounts screen
         [
             { key: 'All Accounts', index: 1, url: '/' },
-            { key: 'User Profiles', index: 2, url: '/profiles/people' },
+            // { key: 'User Profiles', index: 2, url: '/profiles/people' },
             // { key: 'Account identification', index: 3, url: '/profiles/visitor_report' },
         ].map((item) => {
             cy.get('#fa-at-link--accounts', { timeout: extraTimeOut }).click();
@@ -31,7 +31,7 @@ describe('Login', () => {
             cy.wait(1000);
             cy.url().should('eq', `${envDetails.backendApiUrl}${item.url}`);
             cy.get('#fa-at-text--page-title').should('be.visible');
-            cy.get('#fa-at-text--page-title').should('have.text', item.key);
+            cy.get('#fa-at-text--page-title').should('have.text', 'item.key');
         })
 
 

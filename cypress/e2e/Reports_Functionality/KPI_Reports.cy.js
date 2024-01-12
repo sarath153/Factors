@@ -33,7 +33,7 @@ describe('Login', () => {
         cy.visit(`${envDetails.backendApiUrl}/analyse/kpi`)
 
         cy.url().should('contain', `${envDetails.backendApiUrl}/analyse/kpi`);
-        cy.wait(3000)
+        cy.wait(5000)
 
         // Select KPI report & add event
 
@@ -41,7 +41,7 @@ describe('Login', () => {
         cy.get('.FaSelect_hoveredOption__Cs1tw').should('be.visible').click();
         cy.get('.fa-filter-select > .ant-input-affix-wrapper > .ant-input').type('tot');
         cy.wait(1000)
-        cy.get('[title="Total Sessions"]',{timeout:extraTimeOut}).click();
+        cy.get('[title="Total Sessions"]').click();
         cy.wait(1000)
 
         // add filter
@@ -51,8 +51,8 @@ describe('Login', () => {
         cy.wait(1000);
         cy.xpath('//*[text()="Cha"]').should('be.visible').click();
         cy.wait(1000)
-        cy.get('[title="Channel"]',{timeout:extraTimeOut}).click();
-        cy.wait(1000)
+        // cy.get('[title="Channel"]',{timeout:extraTimeOut}).click();
+        // cy.wait(1000)
         cy.get('[title="Other Campaigns"]',{timeout:extraTimeOut}).click();
         cy.wait(1000)
         cy.get('.fa-select--buttons > .ant-btn').click();

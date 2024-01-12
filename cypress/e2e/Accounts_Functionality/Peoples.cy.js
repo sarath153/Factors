@@ -51,13 +51,14 @@ describe('Login', () => {
         // Add filter
 
         cy.get('.w-full > .ant-btn').click();
-        cy.get('.pt-4 > :nth-child(2) > .ant-btn').click();
+        cy.wait(1000)
+        cy.xpath('//*[text()="Add filter"]').click();
         cy.get('.fa-select-dropdown > .flex-col > :nth-child(3)').click();
         cy.get('[title="is_email_verified"]').click();
         cy.get('[title="true"]').click();
         cy.get('.fa-select--buttons > .ant-btn > span').click();
         cy.wait(1000)
-        cy.get(':nth-child(2) > .flex-col > .ant-btn').click();
+        cy.xpath('//*[text()="Add event"]').click();
         cy.get('.fa-select-dropdown > .flex-col > :nth-child(4)').click()
         cy.get('.FaSelect_hoveredOption__Cs1tw').click();
         cy.get('.ant-btn-primary > span').click();
@@ -67,13 +68,14 @@ describe('Login', () => {
 
         cy.get('.w-full > .ant-btn-default').click();
         cy.wait(1000)
-        cy.get('.flex > .ant-input').click().type('Test Segment');
-        cy.get('.ant-btn-primary > span').click();
+        cy.xpath('//*[@placeholder="Eg- Paid search visitors"]').click().type('Demo');
+        cy.wait(1000)
+        cy.xpath('//*[text()="Save"]').click();
         cy.wait(1000)
 
         // open the saved segment
 
-        cy.get('.flex-col > :nth-child(7)').should('contain','Test Segment').click();
+        cy.get('.flex-col > :nth-child(7)').should('contain','Demo').click();
         cy.wait(1000)
 
         // renaming segment
@@ -81,11 +83,11 @@ describe('Login', () => {
         cy.get('.inline-flex > .ant-btn-default').click()
         cy.get('.ant-popover-inner-content > :nth-child(1) > .flex-col > :nth-child(1)').click();
         cy.wait(1000)
-        cy.get(':nth-child(18) > .ant-modal-root > .ant-modal-wrap > .ant-modal > .ant-modal-content > .ant-modal-body > .row-gap-5 > .flex > .ant-input').type('123');
+        cy.xpath('//*[@placeholder="Name"]').type(' Segment');
         cy.wait(1000)
-        cy.get(':nth-child(18) > .ant-modal-root > .ant-modal-wrap > .ant-modal > .ant-modal-content > .ant-modal-footer > .ant-btn-primary > span').click();
+        cy.xpath('(//span[text()="Save"])[2]').click();
         cy.wait(1000)
-        cy.get('#fa-at-text--page-title').should('contain','Test Segment123');
+        cy.get('#fa-at-text--page-title').should('contain','Demo Segment');
         cy.wait(1000)
         
         //deleting the segment
@@ -94,7 +96,7 @@ describe('Login', () => {
         cy.wait(1000)
         cy.get('.ant-popover-inner-content > :nth-child(1) > .flex-col > .border-b').click();
         cy.wait(1000)
-        cy.get(':nth-child(19) > .ant-modal-root > .ant-modal-wrap > .ant-modal > .ant-modal-content > .ant-modal-footer > .ant-btn-primary > span').click();
+        cy.xpath('//*[text()="Confirm"]').click();
         cy.wait(1000)
         cy.get('.ant-notification-notice-message').should('be.visible');
     })

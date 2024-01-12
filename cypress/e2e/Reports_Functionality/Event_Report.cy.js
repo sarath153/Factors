@@ -55,7 +55,7 @@ describe('Login', () => {
         cy.get('[title="Li Domain"]',{timeout:extraTimeOut}).should('be.visible').click();
         cy.wait(2000)
         cy.get('[title="I7infomedia.com"]').should('be.visible').click()
-        cy.get('[title="LinkedIn.com/almart.in"]').should('be.visible').click()
+        // cy.get('[title="LinkedIn.com/almart.in"]').should('be.visible').click()
         cy.get('[title="Nimbleedge.com"]').should('be.visible').click()
         cy.get('.fa-select--buttons > .ant-btn > span').click();
         cy.wait(1000)

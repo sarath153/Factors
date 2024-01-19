@@ -33,12 +33,17 @@ describe('Login', () => {
 
         cy.get('.relative > .ant-btn').click();
         cy.wait(1000)
-        cy.get('.undefined > .ant-input-affix-wrapper').type('saurabh');
         cy.wait(1000)
-        cy.get('[title="saurabh.singh@webengage.com"]').click();
+        cy.xpath('//*[@placeholder="Search Users"]').type('saurabh.singh@webengage.com');
         cy.wait(1000)
-        cy.xpath('//*[text()="Apply"]').click();
+        cy.xpath('//*[@placeholder="Search Users"]').type('{enter}');
         cy.wait(1000)
+        // cy.get('.undefined > .ant-input-affix-wrapper').type('saurabh');
+        // cy.wait(1000)
+        // cy.get('[title="saurabh.singh@webengage.com"]').click();
+        // cy.wait(1000)
+        // cy.xpath('//*[text()="Apply"]').click();
+        // cy.wait(1000)
         cy.get(':nth-child(2) > .ant-table-cell-fix-left').click();
         cy.wait(1000)
         cy.get('.timeline-view',{timeout:extraTimeOut}).should('be.visible');
@@ -61,22 +66,22 @@ describe('Login', () => {
 
         // contract the pageview 
 
-        cy.get('.collapse-btn--right').click();
+        cy.get('.collapse-btn--right').click({ force: true });
         cy.wait(1000)
         cy.get(':nth-child(1) > .bg-gradient--120px > .timeline-events > .timeline-events__num').should('be.visible');
         cy.wait(1000)
-        cy.get('.pb-8 > .milestone-section > .green-stripe > .text').trigger('mouseover', { force: true });
+        // cy.get('.pb-8 > .milestone-section > .green-stripe > .text').trigger('mouseover', { force: true });
         cy.wait(1000)
 
         // event select
 
-        cy.get('.timeline-actions__group > .ant-btn-lg').click();
+        cy.get('.timeline-actions__group > .ant-btn-lg').click({ force: true });
         cy.wait(1000)
-        cy.xpath('//h4[text()="Form Button Click"]').click();
+        cy.xpath('//h4[text()="Contact List"]').click();
         cy.wait(1000)
         cy.get(':nth-child(1) > .bg-gradient--44px.pb-NaN > .timeline-events').should('not.be.empty');
         cy.wait(1000)
-        cy.xpath('//h4[text()="Form Button Click"]').click();
+        cy.xpath('//h4[text()="Contact List"]').click();
         cy.wait(1000)
 
         // user millistone

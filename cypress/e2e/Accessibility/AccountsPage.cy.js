@@ -31,7 +31,7 @@ describe('Login', () => {
             cy.wait(1000);
             cy.url().should('eq', `${envDetails.backendApiUrl}${item.url}`);
             cy.get('#fa-at-text--page-title').should('be.visible');
-            cy.get('#fa-at-text--page-title').should('have.text', 'item.key');
+            cy.get('#fa-at-text--page-title').should('have.text', item.key);
         })
 
 

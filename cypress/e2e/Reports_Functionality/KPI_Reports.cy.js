@@ -41,7 +41,7 @@ describe('Login', () => {
         cy.get('.FaSelect_hoveredOption__Cs1tw').should('be.visible').click();
         cy.get('.fa-filter-select > .ant-input-affix-wrapper > .ant-input').type('tot');
         cy.wait(1000)
-        cy.get('[title="Total Sessions"]').click();
+        cy.xpath('(//div[@title="Total Sessions"])[1]').click({force: true});
         cy.wait(1000)
 
         // add filter

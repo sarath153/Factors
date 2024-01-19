@@ -57,11 +57,11 @@ describe('Login', () => {
 
         cy.get('.gap-4 > :nth-child(1) > .ant-btn').click();
         cy.get('.fa-select-dropdown > .flex').should('be.visible');
-        cy.get('[title="Paid Social"]').click();
+        cy.get('[title="Paid Search"]').click();
         cy.wait(1000)
-        cy.get('.ant-table-tbody > :nth-child(1) > :nth-child(2)').should('contain','Paid Social');
-        cy.get('.ant-table-tbody > :nth-child(2) > :nth-child(2)').should('contain','Paid Social');
-        cy.get('.ant-table-tbody > :nth-child(3) > :nth-child(2)').should('contain','Paid Social');
+        cy.get('.ant-table-tbody > :nth-child(1) > :nth-child(2)').should('contain','Paid Search');
+        cy.get('.ant-table-tbody > :nth-child(2) > :nth-child(2)').should('contain','Paid Search');
+        cy.get('.ant-table-tbody > :nth-child(3) > :nth-child(2)').should('contain','Paid Search');
 
          // Apply campaign filter
 
@@ -72,7 +72,6 @@ describe('Login', () => {
         cy.get('.ant-table-container',{timeout:extraTimeOut}).should('not.be.empty');
         cy.get('.gap-4 > :nth-child(2) > div > .ant-btn').click();
         cy.get('.fa-select-dropdown').should('be.visible');
-        cy.get('[title="TDD_RMK"]').click();
         cy.get('[title="TD_Search_US_Deanon_Competition"]').click();
         cy.get('.fa-select--buttons > .ant-btn').click();
 

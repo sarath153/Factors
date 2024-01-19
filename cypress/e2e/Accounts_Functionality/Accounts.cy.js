@@ -1,5 +1,6 @@
 import Login1 from '../PageObjects/Login1';
 import {deviceViewport, extraTimeOut } from '../Utils';  
+import dayjs from 'dayjs';
 
 describe('Login', () => {
 
@@ -19,6 +20,11 @@ describe('Login', () => {
     
     it('Accounts', () => {
 
+        const nowTime = dayjs().format('H:m:s');
+        const testName = `Demo_${nowTime}`;
+        const randomNumber = Math.floor(Math.random() * 90) + 10;
+        const combination = testName + randomNumber;
+
         cy.get('#fa-at-text--page-title',{timeout:extraTimeOut}).should('contain','All Accounts');
         cy.wait(1000)
         cy.get(':nth-child(2) > .ant-table-cell-fix-left',{timeout:extraTimeOut}).should('be.visible');
@@ -30,8 +36,6 @@ describe('Login', () => {
         cy.wait(1000)
         cy.xpath('//*[@placeholder="Search Accounts"]').type('{enter}');
         cy.wait(1000)
-        // cy.get('[title="factors.ai"]',{timeout:extraTimeOut}).should('be.visible').click();
-        // cy.get('.fa-select--buttons > .ant-btn').click();
         cy.get(':nth-child(2) > .ant-table-cell-fix-left',{timeout:extraTimeOut}).should('contain','factors.ai');
         cy.wait(1000)
 
@@ -62,29 +66,30 @@ describe('Login', () => {
 
         cy.get('.w-full > .ant-btn-default').click();
         cy.wait(1000)
-        cy.get('.flex > .ant-input').click().type('Demo');
+        cy.get('.flex > .ant-input').click().type(testName);
         cy.wait(1000)
         cy.xpath('//*[text()="Save"]').click();
         cy.wait(2000)
 
         // open the saved segment
 
-        cy.get('.row-gap-3 > .flex-col > .ant-input-affix-wrapper > .ant-input').type('de');
-        cy.get('.row-gap-3 > .flex-col > .cursor-pointer').click();
+        cy.get('.row-gap-3 > .flex-col > .ant-input-affix-wrapper > .ant-input').type(testName);
+        cy.wait(1000)
+        cy.xpath('//h4[text()="Segments"]//following::div[2]').click();
         cy.wait(1000)
 
         // renaming segment
 
-        cy.get('.inline-flex > .ant-btn-default').click();
+        cy.xpath('//h1[text()="filter(s)"]//following::button[4]').click({force: true});
         cy.get('.ant-popover-inner-content > :nth-child(1) > .flex-col > :nth-child(1)').click();
-        cy.get('.flex > .ant-input').type(' Segment');
+        cy.get('.flex > .ant-input').type(randomNumber);
         cy.xpath('//*[text()="Save"]').click();
-        cy.wait(1000)
-        cy.get('#fa-at-text--page-title').should('contain','Demo Segment');
+        cy.wait(2000)
+        cy.get('#fa-at-text--page-title').contains(combination);
 
         //deleting the segment
 
-        cy.get('.inline-flex > .ant-btn-default').click();
+        cy.xpath('//h1[text()="filter(s)"]//following::button[4]').click({force: true});
         cy.get('.border-b > .ant-typography').click();
         cy.wait(1000) 
         cy.xpath('//*[text()="Confirm"]').click();

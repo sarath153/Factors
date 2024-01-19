@@ -24,6 +24,15 @@ describe('Login', () => {
 
         // select account & birdview
 
+        cy.get('.relative > .ant-btn').click();
+        cy.wait(1000)
+        cy.xpath('//*[@placeholder="Search Accounts"]').type('dapeco.com.om');
+        cy.wait(1000)
+        cy.xpath('//*[@placeholder="Search Accounts"]').type('{enter}');
+        // cy.xpath('//*[text()="dapeco.com.om"]').click();
+        // cy.wait(1000)
+        // cy.xpath('//*[text()="Apply"]').click();
+        cy.wait(1000)
         cy.xpath('//h4[text()="dapeco.com.om"]').click();
         cy.wait(1000)
         cy.get('.timeline-view',{timeout:extraTimeOut}).should('be.visible');
@@ -41,14 +50,14 @@ describe('Login', () => {
 
         cy.get('.collapse-btn--left').click({ force: true });
         cy.wait(1000)
-        cy.get(':nth-child(1) > .bg-gradient--44px.pb-NaN > .timeline-events > .timeline-events__num').scrollIntoView();
+        cy.xpath('(//div[text()=" Show Less"])[1]').scrollIntoView();
         cy.wait(1000)
-        cy.get(':nth-child(1) > .bg-gradient--44px.pb-NaN > .timeline-events > .timeline-events__num').should('be.visible');
+        cy.xpath('(//div[text()=" Show Less"])[1]').should('be.visible');
         cy.wait(1000)
 
         // contract the pageview 
 
-        cy.get('.collapse-btn--right').click();
+        cy.get('.collapse-btn--right').click({ force: true });
         cy.wait(1000)
         cy.xpath('//*[contains(text(),"dapeco")]//following::div[@class="tag"][1]').scrollIntoView();
         cy.wait(1000)
@@ -57,7 +66,7 @@ describe('Login', () => {
 
         // event select
 
-        cy.get('.timeline-actions__group > .ant-btn-lg').click();
+        cy.get('.timeline-actions__group > .ant-btn-lg').click({ force: true });
         cy.wait(1000)
         cy.xpath('//h4[text()="Form Button Click"]').click();
         cy.wait(1000)
@@ -69,6 +78,10 @@ describe('Login', () => {
         // user property
 
         cy.get('#rc-tabs-1-tab-properties > .fa-activity-filter--tabname').click();
+        cy.wait(1000)
+        cy.xpath('//h4[text()="Company Country"]').click();
+        cy.wait(1000)
+        cy.xpath('(//*[contains(text(),"dapeco")])[3]//following::h4[1]').should('contain','India')
         cy.wait(1000)
         cy.xpath('//*[text()="Company State"]').click();
         cy.wait(1000)
@@ -94,11 +107,13 @@ describe('Login', () => {
 
         // // left side filter
 
-        cy.xpath('//*[text()="dapeco.com.om"]//following::button[4]').trigger('mouseover', { force: true }).click({force: true});
+        cy.xpath('//*[text()="Company"]//following::button[1]').trigger('mouseover', { force: true }).click({force: true});
+        cy.wait(1000)
+        cy.xpath('//*[text()="Hubspot Company Company Domain..."]//following::button[1]').trigger('mouseover', { force: true }).click({force: true});
         cy.wait(1000)
         cy.xpath('//*[text()="Add property"]').click({force: true});
         cy.wait(1000)
-        cy.get('.fa-select-dropdown > .flex-col > :nth-child(2)').click();
+        cy.get('.fa-select-dropdown > .flex-col > :nth-child(2)').click({force: true});
         cy.wait(1000)
         cy.get('[title="Hubspot Company Company Domain Name"] > .ant-typography').click();
         cy.wait(1000)

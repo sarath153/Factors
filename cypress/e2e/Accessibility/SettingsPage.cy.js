@@ -1,4 +1,3 @@
-
 import envDetails from '../../fixtures/envDetails.json';
 import Login from '../PageObjects/Login';
 import {deviceViewport, extraTimeOut } from '../Utils';
@@ -30,13 +29,14 @@ describe('Login', () => {
             { key: 'Sharing', index: 8, url: 'sharing' },
             { key: 'Pricing', index: 10, url: 'pricing?activeTab=billing' }
         ].map((item) => {
+            cy.wait(5000);
             cy.get('#fa-at-dropdown--settings', { timeout: extraTimeOut }).click();
             cy.get(`.fa-at-overlay--settings > ul > li:nth-child(${item.index}) > span > a`).click({ force: true });
             cy.wait(1000);
 
             cy.url().should('eq', `${envDetails.backendApiUrl}/settings/${item.url}`);
             if (item.key == 'Pricing') {
-                cy.get('.ant-breadcrumb').should('be.visible');
+                cy.get('.ant-breadcrumb',{ timeout: extraTimeOut }).should('be.visible');
                 cy.get(`.ant-breadcrumb span:nth-child(3) > span.ant-breadcrumb-link`).should('have.text', 'Billing');
             } else {
                 cy.get('#fa-at-text--page-title').should('be.visible');

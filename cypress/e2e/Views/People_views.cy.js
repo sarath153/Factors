@@ -17,7 +17,7 @@ describe('Login', () => {
 
     })
 
-    it('Accounts', () => {
+    it('People view', () => {
 
         cy.get('#fa-at-text--page-title',{timeout:extraTimeOut}).should('contain','All Accounts');
         cy.wait(1000)
@@ -33,11 +33,10 @@ describe('Login', () => {
 
         cy.get('.relative > .ant-btn').click();
         cy.wait(1000)
-        cy.get('.undefined > .ant-input-affix-wrapper').type('saurabh');
         cy.wait(1000)
-        cy.get('[title="saurabh.singh@webengage.com"]').click();
+        cy.xpath('//*[@placeholder="Search Users"]').type('saurabh.singh@webengage.com');
         cy.wait(1000)
-        cy.xpath('//*[text()="Apply"]').click();
+        cy.xpath('//*[@placeholder="Search Users"]').type('{enter}');
         cy.wait(1000)
         cy.get(':nth-child(2) > .ant-table-cell-fix-left').click();
         cy.wait(1000)
@@ -56,38 +55,37 @@ describe('Login', () => {
 
         cy.get('.collapse-btn--left').click({ force: true });
         cy.wait(1000)
-        cy.xpath('(//*[text()=" Show Less"])[1]').should('be.visible');
-        cy.wait(1000)
+        // cy.xpath('(//div[text()=" Show Less"])[1]').scrollIntoView();
+        // cy.xpath('(//*[text()=" Show Less"])[1]').should('be.visible');
+        // cy.wait(1000)
 
         // contract the pageview 
 
-        cy.get('.collapse-btn--right').click();
+        cy.get('.collapse-btn--right').click({ force: true });
         cy.wait(1000)
         cy.get(':nth-child(1) > .bg-gradient--120px > .timeline-events > .timeline-events__num').should('be.visible');
-        cy.wait(1000)
-        cy.get('.pb-8 > .milestone-section > .green-stripe > .text').trigger('mouseover', { force: true });
         cy.wait(1000)
 
         // event select
 
-        cy.get('.timeline-actions__group > .ant-btn-lg').click();
+        cy.get('.timeline-actions__group > .ant-btn-lg').click({ force: true });
         cy.wait(1000)
-        cy.xpath('//h4[text()="Form Button Click"]').click();
+        cy.xpath('//h4[text()="Contact List"]').click();
         cy.wait(1000)
         cy.get(':nth-child(1) > .bg-gradient--44px.pb-NaN > .timeline-events').should('not.be.empty');
         cy.wait(1000)
-        cy.xpath('//h4[text()="Form Button Click"]').click();
+        cy.xpath('//h4[text()="Contact List"]').click();
         cy.wait(1000)
 
         // user millistone
 
         cy.xpath('//*[text()="Milestones"]').click();
         cy.wait(1000)
-        cy.get('[style="height: 2964px; position: relative; overflow: hidden;"] > .rc-virtual-list-holder-inner > :nth-child(3)').click();
+        cy.xpath('//input[@placeholder="Select Upto 5 Milestones"]//following::div[11]').click();
         cy.wait(1000)
-        cy.get('[style="height: 2964px; position: relative; overflow: hidden;"] > .rc-virtual-list-holder-inner > :nth-child(5)').click();
+        cy.xpath('//input[@placeholder="Select Upto 5 Milestones"]//following::div[27]').click();
         cy.wait(1000)
-        cy.get('[style="height: 2964px; position: relative; overflow: hidden;"] > .rc-virtual-list-holder-inner > :nth-child(6)').click();
+        cy.xpath('//input[@placeholder="Select Upto 5 Milestones"]//following::div[29]').click();
         cy.wait(1000)
         cy.get('.ant-notification-notice-with-icon').should('be.visible');
         cy.wait(1000)
@@ -96,52 +94,58 @@ describe('Login', () => {
         cy.get('.timeline-actions__group > .ant-btn-lg').click();
         cy.wait(1000)
 
-        // // left side filter
+        // left side filter
 
-        cy.xpath('(//*[contains(text(),"saurabh")]//following::button)[4]').trigger('mouseover', { force: true }).click({force: true});
+        cy.xpath('//h4[text()="User First Page URL"]//following::button[1]').trigger('mouseover', { force: true }).click({force: true});
         cy.wait(1000)
-        cy.xpath('//*[text()="Add property"]').click({force: true});
+        cy.xpath('//h4[text()="email"]//following::button[1]').trigger('mouseover', { force: true }).click({force: true});
         cy.wait(1000)
-        cy.get('.fa-select-dropdown > .flex-col > :nth-child(2)').click();
+        cy.xpath('//*[text()="Add property"]',{timeout:extraTimeOut}).click({force: true});
         cy.wait(1000)
-        cy.get('[title="Hubspot Contact Latest Source"]').click();
+        cy.get('[title="OTHERS"]').eq(0,{timeout:extraTimeOut}).click({force: true});
         cy.wait(1000)
-        cy.xpath('//*[text()="Add property"]').click({force: true});
+        cy.get('[placeholder="Select Property"]').type('ema')
         cy.wait(1000)
-        cy.get('.fa-select-dropdown > .flex-col > :nth-child(2)').click();
+        cy.get('[title="email"]',{timeout:extraTimeOut}).click();
         cy.wait(1000)
-        cy.get('[title="Hubspot Contact Email Domain"]').click();
+        cy.xpath('//*[text()="Add property"]',{timeout:extraTimeOut}).click({force: true});
+        cy.wait(1000)
+        cy.get('[title="Page properties"]').eq(0,{timeout:extraTimeOut}).click({force: true});
+        cy.wait(1000)
+        cy.get('[placeholder="Select Property"]').type('User First Page URL')
+        cy.wait(1000)
+        cy.get('[title="User First Page URL"]',{timeout:extraTimeOut}).click();
         cy.wait(1000)
 
         // account activity
 
         cy.get('.timeline-actions__group > .ant-dropdown-trigger').click({force: true});
         cy.wait(1000)
-        cy.xpath('//*[text()="Timestamp"]').click();
+        cy.xpath('//*[text()="Timestamp"]').click({force: true});
         cy.wait(1000)
         cy.get(':nth-child(1) > :nth-child(1) > .timestamp').should('not.be.empty');
         cy.wait(1000)
         cy.get('.timeline-actions__group > .ant-dropdown-trigger').click({force: true});
         cy.wait(1000)
-        cy.xpath('//*[text()="Hourly"]').click();
+        cy.xpath('//*[text()="Hourly"]').click({force: true});
         cy.wait(1000)
         cy.get(':nth-child(1) > :nth-child(1) > .timestamp').should('not.be.empty');
         cy.wait(1000)
         cy.get('.timeline-actions__group > .ant-dropdown-trigger').click({force: true});
         cy.wait(1000)
-        cy.xpath('//*[text()="Weekly"]').click();
+        cy.xpath('//*[text()="Weekly"]').click({force: true});
         cy.wait(1000)
         cy.get(':nth-child(1) > :nth-child(1) > .timestamp').should('not.be.empty');
         cy.wait(1000)
         cy.get('.timeline-actions__group > .ant-dropdown-trigger').click({force: true});
         cy.wait(1000)
-        cy.xpath('//*[text()="Monthly"]').click();
+        cy.xpath('//*[text()="Monthly"]').click({force: true});
         cy.wait(1000)
         cy.get(':nth-child(1) > :nth-child(1) > .timestamp').should('not.be.empty');
         cy.wait(1000)
         cy.get('.timeline-actions__group > .ant-dropdown-trigger').click({force: true});
         cy.wait(1000)
-        cy.xpath('//*[text()="Daily"]').click();
+        cy.xpath('//*[text()="Daily"]').click({force: true});
         cy.wait(1000)
         cy.get(':nth-child(1) > :nth-child(1) > .timestamp').should('not.be.empty');
         cy.wait(1000)

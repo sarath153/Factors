@@ -1,7 +1,7 @@
-
 import envDetails from '../../fixtures/envDetails.json';
 import Login from '../PageObjects/Login';
 import {deviceViewport, extraTimeOut } from '../Utils';
+
 describe('Login', () => {
 
   beforeEach(() => {
@@ -21,9 +21,10 @@ describe('Login', () => {
 
     //Journey screen
     [
-      { key: 'Path Analysis', index: 1, url: 'path-analysis' },
-      { key: 'Explain', index: 2, url: 'explain' },
+      { key: 'Path Analysis', index: 2, url: 'path-analysis' },
+      { key: 'Explain', index: 3, url: 'explain' },
     ].map((item) => {
+      cy.wait(5000)
       cy.get('#fa-at-link--journeys', { timeout: extraTimeOut }).click();
       cy.get(`.ant-dropdown > .ant-dropdown-menu > li:nth-child(${item.index}) > span > a`).click({ force: true });
       cy.wait(1000);

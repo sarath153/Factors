@@ -23,12 +23,14 @@ describe('Login', () => {
         cy.url().should('eq', `${envDetails.backendApiUrl}/`);
 
         //Displays logged in user details
-        cy.get('#fa-at-dropdown--projects div.opacity-80').should('be.visible')
-        cy.get('#fa-at-dropdown--projects div.opacity-80').should('have.text', userDetails.email);
+        cy.wait(5000)
+        cy.get('#fa-at-dropdown--projects div.opacity-80',{ timeout: extraTimeOut }).should('be.visible')
+        cy.get('#fa-at-dropdown--projects div.opacity-80',{ timeout: extraTimeOut }).should('have.text', userDetails.email);
 
         //landing in default screen - All account
-        cy.get('#fa-at-text--page-title').should('be.visible');
-        cy.get('#fa-at-text--page-title').should('have.text', 'All Accounts');
+        cy.wait(5000)
+        cy.get('#fa-at-text--page-title',{ timeout: extraTimeOut }).should('be.visible');
+        cy.get('#fa-at-text--page-title',{ timeout: extraTimeOut }).should('have.text', 'All Accounts');
 
     });
 

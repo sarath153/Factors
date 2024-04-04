@@ -1,6 +1,7 @@
 import envDetails from '../../fixtures/envDetails.json';
 import Login1 from '../PageObjects/Login1';
 import {deviceViewport, extraTimeOut } from '../Utils';  
+import dayjs from 'dayjs';
 
 describe('Login', () => {
 
@@ -18,21 +19,31 @@ describe('Login', () => {
     })
 
     
-    it('Accounts', () => {
+    it('People', () => {
 
+        const nowTime = dayjs().format('H:m:s');
+        const testName = `Demo_${nowTime}`;
+        const randomNumber = Math.floor(Math.random() * 90) + 10;
+        const combination = testName + randomNumber;
+
+        cy.wait(5000)
         cy.get('#fa-at-text--page-title',{timeout:extraTimeOut}).should('contain','All Accounts');
-        cy.visit(`${envDetails.backendApiUrl}/profiles/people`);
+        cy.get('#fa-at-link--accounts').trigger('mouseover', { force: true });
+        cy.xpath('//h4[text()="People"]').click();
         cy.wait(1000)
         cy.url().should('contain', `${envDetails.backendApiUrl}/profiles/people`);
         cy.get('#fa-at-text--page-title',{timeout:extraTimeOut}).should('contain','All People');
 
         // Search username
+
+        cy.wait(3000)
         cy.get(':nth-child(2) > .ant-table-cell-fix-left',{timeout:extraTimeOut}).should('be.visible');
         cy.get('.relative > .ant-btn').click();
         cy.wait(1000)
-        cy.get('.undefined > .ant-input-affix-wrapper').type('bali');
-        cy.get('[title="baliga@factors.ai"]').should('be.visible').click();
-        cy.get('.fa-select--buttons > .ant-btn > span').click();
+        cy.xpath('//*[@placeholder="Search Users"]').type('baliga');
+        cy.wait(1000)
+        cy.xpath('//*[@placeholder="Search Users"]').type('{enter}');
+        cy.wait(1000)
         cy.get('.ant-table-row > .ant-table-cell-fix-left').should('contain','baliga@factors.ai');
         cy.wait(1000)
 
@@ -43,7 +54,7 @@ describe('Login', () => {
         cy.get('.ant-tabs').should('be.visible');
         cy.wait(1000)
         cy.get('[data-id="Company Country"] > .justify-between').click();
-        cy.get(':nth-child(2) > .ant-btn > span').click();
+        cy.xpath('//span[text()="Apply"]').click();
         cy.wait(1000)
         cy.get('.ant-table-cell-content > .flex').should('be.visible')
         cy.wait(1000)
@@ -68,33 +79,36 @@ describe('Login', () => {
 
         cy.get('.w-full > .ant-btn-default').click();
         cy.wait(1000)
-        cy.xpath('//*[@placeholder="Eg- Paid search visitors"]').click().type('Demo');
+        cy.xpath('//*[@placeholder="Eg- Paid search visitors"]').click().type(testName);
         cy.wait(1000)
         cy.xpath('//*[text()="Save"]').click();
         cy.wait(1000)
 
         // open the saved segment
 
-        cy.get('.flex-col > :nth-child(7)').should('contain','Demo').click();
+        cy.get('[placeholder="Search segment"]').type(testName);
         cy.wait(1000)
+        cy.get('.flex-col > :nth-child(7)').contains(testName).click();
+        cy.wait(3000)
 
         // renaming segment
 
-        cy.get('.inline-flex > .ant-btn-default').click()
+        cy.xpath('//h1[text()="filter(s)"]//following::button[3]').click({force: true});
+        cy.wait(1000)
         cy.get('.ant-popover-inner-content > :nth-child(1) > .flex-col > :nth-child(1)').click();
         cy.wait(1000)
-        cy.xpath('//*[@placeholder="Name"]').type(' Segment');
+        cy.xpath('//*[@placeholder="Name"]').type(randomNumber);
         cy.wait(1000)
         cy.xpath('(//span[text()="Save"])[2]').click();
         cy.wait(1000)
-        cy.get('#fa-at-text--page-title').should('contain','Demo Segment');
+        cy.get('#fa-at-text--page-title').contains(combination);
         cy.wait(1000)
         
         //deleting the segment
 
-        cy.get('.inline-flex > .ant-btn-default').click();
+        cy.xpath('//h1[text()="filter(s)"]//following::button[3]').click({force: true});
         cy.wait(1000)
-        cy.get('.ant-popover-inner-content > :nth-child(1) > .flex-col > .border-b').click();
+        cy.xpath('//h1[text()="Delete Segment"]').click({force: true});
         cy.wait(1000)
         cy.xpath('//*[text()="Confirm"]').click();
         cy.wait(1000)

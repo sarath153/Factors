@@ -1,5 +1,5 @@
 import envDetails from '../../fixtures/envDetails.json';
-import Login from '../PageObjects/Login';
+import Login3 from '../PageObjects/Login3';
 import {deviceViewport, extraTimeOut } from '../Utils';  
 
 describe('Login', () => {
@@ -13,24 +13,15 @@ describe('Login', () => {
         });
 
         //login before run test
-        Login();
+        Login3();
 
     })
 
     
     it('Event Report', () => {
 
-        
-        cy.get('#fa-at-dropdown--projects > .flex-col',{timeout:extraTimeOut}).click();
-        cy.wait(1000);
-
-        // select project
-        
-        cy.get('.fa-project-list--search').type('acme');
-        cy.wait(1000);
-        cy.xpath('//*[text()="Acme_Staging_Demo"]').click();
-        cy.get('.ant-btn-primary',{timeout:extraTimeOut}).click();
-        cy.wait(2000);
+        cy.wait(5000)
+        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
         cy.visit(`${envDetails.backendApiUrl}/analyse/event`)
 
         cy.url().should('contain', `${envDetails.backendApiUrl}/analyse/event`);
@@ -39,25 +30,21 @@ describe('Login', () => {
         // Select Event report & add event
 
         cy.xpath('(//span[text()="Add First Event"])[2]',{timeout:extraTimeOut}).click();
-        cy.get('.fa-filter-select > .ant-input-affix-wrapper > .ant-input').type('web');
+        cy.get('[placeholder="Search"]').type('webs');
         cy.wait(1000)
-        cy.get(':nth-child(2) > .flex-row > :nth-child(2) > .ant-typography').should('be.visible').click();
+        cy.get('[title="Website Session"]').eq(0).should('be.visible').click();
         cy.wait(1000)
 
         // add filter
 
         cy.xpath('(//*[text()="Add new"])[3]',{timeout:extraTimeOut}).click();
         cy.wait(1000)
-        cy.get('[title="Linkedin Company Engagements"]:nth-child(1)',{timeout:extraTimeOut}).should('be.visible').click();
+        cy.get('[title="All Accounts"]',{timeout:extraTimeOut}).eq(0).should('be.visible').click();
         cy.wait(1000)
-        cy.get('.fa-filter-select > .ant-input-affix-wrapper > .ant-input').type('dom');
+        cy.xpath('//input[@placeholder="Search"]//following::div[3]',{timeout:extraTimeOut}).click({ force: true });
         cy.wait(1000)
-        cy.get('[title="Li Domain"]',{timeout:extraTimeOut}).should('be.visible').click();
-        cy.wait(2000)
-        cy.get('[title="I7infomedia.com"]').should('be.visible').click()
-        // cy.get('[title="LinkedIn.com/almart.in"]').should('be.visible').click()
-        cy.get('[title="Nimbleedge.com"]').should('be.visible').click()
-        cy.get('.fa-select--buttons > .ant-btn > span').click();
+        cy.xpath('//span[text()="Clear all"]//following::div[1]',{timeout:extraTimeOut}).click({force:true});
+        cy.xpath('//span[text()="Apply"]').click();
         cy.wait(1000)
 
         // select date

@@ -20,8 +20,10 @@ describe('Login', () => {
     
     it('Account Identification', () => {
 
+        cy.wait(5000)
         cy.get('#fa-at-text--page-title',{timeout:extraTimeOut}).should('contain','All Accounts');
-        cy.visit(`${envDetails.backendApiUrl}/reports/visitor_report`);
+        cy.get('#fa-at-link--accounts').trigger('mouseover', { force: true });
+        cy.xpath('//h4[text()="Account identification"]').click();
         cy.wait(1000)
         cy.url().should('contain', `${envDetails.backendApiUrl}/reports/visitor_report`);
         cy.get('#fa-at-text--page-title',{timeout:extraTimeOut}).should('contain','Top accounts that visited your website');
@@ -57,11 +59,11 @@ describe('Login', () => {
 
         cy.get('.gap-4 > :nth-child(1) > .ant-btn').click();
         cy.get('.fa-select-dropdown > .flex').should('be.visible');
-        cy.get('[title="Paid Social"]').click();
+        cy.get('[title="Paid Search"]').click();
         cy.wait(1000)
-        cy.get('.ant-table-tbody > :nth-child(1) > :nth-child(2)').should('contain','Paid Social');
-        cy.get('.ant-table-tbody > :nth-child(2) > :nth-child(2)').should('contain','Paid Social');
-        cy.get('.ant-table-tbody > :nth-child(3) > :nth-child(2)').should('contain','Paid Social');
+        cy.get('.ant-table-tbody > :nth-child(1) > :nth-child(2)').should('contain','Paid Search');
+        cy.get('.ant-table-tbody > :nth-child(2) > :nth-child(2)').should('contain','Paid Search');
+        cy.get('.ant-table-tbody > :nth-child(3) > :nth-child(2)').should('contain','Paid Search');
 
          // Apply campaign filter
 
@@ -72,7 +74,6 @@ describe('Login', () => {
         cy.get('.ant-table-container',{timeout:extraTimeOut}).should('not.be.empty');
         cy.get('.gap-4 > :nth-child(2) > div > .ant-btn').click();
         cy.get('.fa-select-dropdown').should('be.visible');
-        cy.get('[title="TDD_RMK"]').click();
         cy.get('[title="TD_Search_US_Deanon_Competition"]').click();
         cy.get('.fa-select--buttons > .ant-btn').click();
 
@@ -80,10 +81,11 @@ describe('Login', () => {
 
         cy.get('.gap-4 > :nth-child(3) > div > .ant-btn').click();
         cy.get('.FaSelect_dropdown__select__1L5kx').should('be.visible');
-        cy.get('[title="app.factors.ai"]').click();
-        cy.get('[title="staging-app.factors.ai"]').click();
-        cy.get('[title="www.factors.ai"]').click();
-        cy.get('[title="staging-app.factors.ai/login"]').click();
+        cy.wait(3000)
+        cy.xpath('//input[@placeholder="Search"]//following::div[3]',{timeout:extraTimeOut}).click();
+        cy.xpath('//input[@placeholder="Search"]//following::div[5]').click();
+        cy.xpath('//input[@placeholder="Search"]//following::div[7]').click();
+        cy.xpath('//input[@placeholder="Search"]//following::div[9]').click();
         cy.wait(1000)
         cy.get('.fa-select--buttons > .ant-btn').click();
         cy.get('.ant-table-wrapper',{timeout:extraTimeOut}).should('be.visible');
@@ -91,8 +93,8 @@ describe('Login', () => {
 
         // Selete date
 
-        cy.get('.justify-between.items-center > :nth-child(2) > .ant-btn').click();
-        cy.get('[title="Dec 10th to Dec 16th"]').click();
+        cy.xpath('//h4[text()="Channel"]//following::button[3]').click();
+        cy.xpath('//div[@title="Today"]//following::div[3]').click();
         cy.get('.ant-table-wrapper',{timeout:extraTimeOut}).should('be.visible');
         cy.wait(1000)
 
@@ -100,7 +102,7 @@ describe('Login', () => {
 
         cy.get('.justify-between.align-middle > :nth-child(2)').should('be.visible').click();
         cy.wait(1000)
-        cy.get('#share-modal-form_subscriptionType > :nth-child(1)').click();
+        cy.xpath('//span[text()="Share"]').click({force: true});
         cy.get('#share-modal-form_emails_0').type('sarath_tdfect@factors.ai');
         cy.get('.justify-between > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-btn').click();
         cy.get('.ant-notification-notice',{timeout:extraTimeOut}).should('be.visible');
@@ -118,10 +120,10 @@ describe('Login', () => {
 
         // Search
 
-        cy.get('.justify-between > :nth-child(2) > :nth-child(1) > .ant-btn').click();
+        cy.get('.DataTable_searchBar__1fGz4 > .justify-between > :nth-child(2) > :nth-child(1) > .ant-btn').click();
         cy.get('.DataTable_searchBar__1fGz4').type('klenty');
         cy.get('.ant-table-row > :nth-child(1)').should('contain','Klenty');
-        cy.get('.justify-between > :nth-child(2) > :nth-child(1) > .ant-btn').click();
+        cy.get('.DataTable_searchBar__1fGz4 > .justify-between > :nth-child(2) > :nth-child(1) > .ant-btn').click();
         cy.wait(1000)
 
         // download

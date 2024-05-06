@@ -1,6 +1,7 @@
-import envDetails from '../../fixtures/envDetails.json';
 import Login from '../PageObjects/Login';
 import {deviceViewport, extraTimeOut } from '../Utils';
+import methods from '../../support/Common_Method.js'
+import locators from '../../support/Locators.js' 
 
 describe('Login', () => {
 
@@ -25,15 +26,13 @@ describe('Login', () => {
       { key: 'Explain', index: 3, url: 'explain' },
     ].map((item) => {
       cy.wait(5000)
-      cy.get('#fa-at-link--journeys', { timeout: extraTimeOut }).click();
+      methods.clickElementwithtime(locators.report_dropdown,extraTimeOut)
       cy.get(`.ant-dropdown > .ant-dropdown-menu > li:nth-child(${item.index}) > span > a`).click({ force: true });
       cy.wait(1000);
-      cy.url().should('eq', `${envDetails.backendApiUrl}/${item.url}`);
-      cy.get('#fa-at-text--page-title').should('be.visible');
-      cy.get('#fa-at-text--page-title').should('have.text', item.key);
+      methods.navigateToUrljour(item.url)
+      methods.VisibilityofElement(locators.Account_Pagetitle)
+      methods.VisibilityofElement1(locators.Account_Pagetitle,item.key)
     })
-
-
   });
 
 

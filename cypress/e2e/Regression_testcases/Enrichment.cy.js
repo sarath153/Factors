@@ -1,5 +1,7 @@
 import Login3 from '../PageObjects/Login3';
-import {deviceViewport, extraTimeOut } from '../Utils';  
+import {deviceViewport, extraTimeOut } from '../Utils';
+import methods from '../../support/Common_Method.js';
+import locators from '../../support/Locators.js';
 
 describe('Enrichment Login', () => {
 
@@ -21,28 +23,29 @@ describe('Enrichment Login', () => {
         const filePath = 'Sample_file_for_page_URL_rules.csv';
 
         cy.wait(5000)
-        cy.get('[id="fa-at-dropdown--settings"]', { timeout: extraTimeOut }).trigger('mouseover', { force: true });
+        methods.Mouseover(locators.setting,extraTimeOut)
         cy.wait(1000)
-        cy.xpath('//h4[text()="Pricing"]').click();
+        methods.clickElementByXPath(locators.Pricing)
         cy.wait(1000)
-        cy.xpath('//div[text()="Enrichment Rules"]').click()
-        cy.xpath('//h4[text()="Set up rules for Account identification"]//following::label[2]',{timeout:extraTimeOut}).click()
-        cy.xpath('//span[text()="Select pages"]').click()
-        cy.xpath('//span[text()="Upload List"]',{timeout:extraTimeOut}).click()
-        cy.xpath('//a[text()="file"]',{timeout:extraTimeOut}).click()
+        methods.clickElementByXPath(locators.Enrichment_Rules)
+        methods.clickElementByXPath(locators.Set_custom_rules)
+        methods.clickElementByXPath(locators.Select_Pages)
+        methods.clickElementByXPath(locators.Upload_List,extraTimeOut)
+        methods.clickElementByXPath(locators.File,extraTimeOut)
         cy.wait(3000)
-        cy.get('input[type="file"]').attachFile(filePath);
+        methods.AttachFile(locators.File_Upload,filePath)
         cy.wait(1000)
-        cy.xpath('//span[text()="Done"]').click()
+        methods.clickElementByXPath(locators.Done)
         cy.wait(1000)
-        cy.get(':nth-child(4) > .flex-col > :nth-child(2)').should('be.visible');
-        cy.xpath('//span[text()="Save changes"]').scrollIntoView()
-        cy.xpath('//span[text()="Save changes"]').click()
-        cy.get('.ant-notification-notice',{timeout:extraTimeOut}).should('be.visible');
-        cy.xpath('//h4[text()="Identify accounts who visited specific pages"]//following::button[2]').scrollIntoView()
-        cy.xpath('//h4[text()="Identify accounts who visited specific pages"]//following::button[2]').click()
-        cy.xpath('//span[text()="Delete"]').scrollIntoView()
-        cy.xpath('//span[text()="Delete"]',{timeout:extraTimeOut}).click()
-        cy.get('.ant-notification-notice',{timeout:extraTimeOut}).should('be.visible');
+        methods.VisibilityofElement(locators.Enrichment_page_validation)
+        methods.scrollWithXpath(locators.Save_Changes)
+        methods.clickElementByXPath(locators.Save_Changes)
+        methods.VisibilityofElement(locators.notification_popup,extraTimeOut)
+        methods.scrollWithXpath(locators.close_new)
+        methods.clickElementByXPath(locators.close_new)
+        methods.scrollWithXpath(locators.Delete)
+        methods.clickElementByXPath(locators.Delete)
+        methods.VisibilityofElement(locators.notification_popup,extraTimeOut)
+        cy.wait(2000)
     })
 })

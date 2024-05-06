@@ -1,6 +1,7 @@
 import Login3 from '../PageObjects/Login3';
 import { deviceViewport, extraTimeOut } from '../Utils';
-import dayjs from 'dayjs';
+import methods from '../../support/Common_Method.js';
+import locators from '../../support/Locators.js';
 
 describe('Properties Login', () => {
 
@@ -24,33 +25,32 @@ describe('Properties Login', () => {
 
 
         cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-dropdown--config').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Properties"]').click();
-        cy.xpath('//span[text()="Add New"]', { timeout: extraTimeOut }).click()
-        cy.get('#name',{timeout:extraTimeOut}).type(testName)
-        cy.get('#description').type('Testing Purpose')
-        cy.xpath('//span[text()="New Value"]').click()
-
-        cy.get('#rcDialogTitle0', { timeout: extraTimeOut }).should('contain', 'Add/Edit new value');
-        cy.get('#value', { timeout: extraTimeOut }).type('Test')
-        cy.xpath('//span[text()="New Filter"]').click()
-        cy.xpath('//span[contains(text(),"Select Property")]').click()
-        cy.xpath('//span[text()="name"]').click()
-        cy.xpath('//h4[text()="Filters"]//following::input[@type="text"]').type('Test')
-        cy.get('#rcDialogTitle0', { timeout: extraTimeOut }).click()
-        cy.xpath('(//span[text()="Save"])[2]').click()
+        methods.assertElementContainsText(locators.Account_Pagetitle,'All Accounts',extraTimeOut)
+        methods.Mouseover(locators.configure)
+        methods.clickElementByXPath(locators.Properties)
+        methods.clickElementByXPath(locators.Add_New)
+        methods.typeElement(locators.Name,testName,extraTimeOut)
+        methods.typeElement(locators.description,'Testing Purpose')
+        methods.clickElementByXPath(locators.New_value_1)
+        methods.assertElementContainsText(locators.Add_property_title,'Add/Edit new value',extraTimeOut)
+        methods.typeElement(locators.Value,'Test')
+        methods.clickElementByXPath(locators.New_Filter)
+        methods.clickElementByXPath(locators.Select_Property_text)
+        methods.clickElementByXPath(locators.Name_text)
+        methods.typeElementByXPath(locators.Filter_Input,'Test')
+        methods.clickElement(locators.Add_property_title,extraTimeOut)
+        methods.clickElementByXPath(locators.save1)
         cy.wait(1000)
-        cy.xpath('//span[text()="Save"]').click()
-        cy.get('.ant-notification-notice', { timeout: extraTimeOut }).should('be.visible');
-        cy.xpath('(//span[text()="Cancel"])[1]').click({ force: true })
+        methods.clickElementByXPath(locators.Save_1)
+        methods.VisibilityofElement(locators.notification_popup,extraTimeOut)
+        methods.clickElementByXPath(locators.Cancel)
         cy.wait(1000)
         cy.xpath(`//span[text()='${testName}']`, { timeout: extraTimeOut }).scrollIntoView();
         cy.xpath(`//span[text()='${testName}']//following::button[1]`).click({ force: true });
-        cy.xpath('//a[text()="Remove Property"]').click()
-        cy.xpath('//span[text()="Confirm"]').click()
-        cy.get('.ant-notification-notice', { timeout: extraTimeOut }).should('be.visible');
+        methods.clickElementByXPath(locators.Remove_Property)
+        methods.clickElementByXPath(locators.confirm_1)
+        methods.VisibilityofElement(locators.notification_popup,extraTimeOut)
+        cy.wait(2000)
 
     })
 })

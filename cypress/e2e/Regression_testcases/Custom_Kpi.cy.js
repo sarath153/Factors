@@ -1,6 +1,8 @@
 import Login3 from '../PageObjects/Login3';
 import { deviceViewport, extraTimeOut } from '../Utils';
 import dayjs from 'dayjs';
+import methods from '../../support/Common_Method.js'
+import locators from '../../support/Locators.js'
 
 describe('Custom Kpi Login', () => {
 
@@ -24,36 +26,36 @@ describe('Custom Kpi Login', () => {
 
 
         cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-        cy.get('#fa-at-dropdown--config').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Custom KPIs"]').click();
-        cy.xpath('//span[text()="Add New"]', { timeout: extraTimeOut }).click()
-        cy.get('#name',{timeout:extraTimeOut}).type(testName)
-        cy.get('#description').type('Testing Purpose')
+        methods.assertElementContainsText(locators.Account_Pagetitle,'All Accounts',extraTimeOut)
+        methods.Mouseover(locators.configure)
+        methods.clickElementByXPath(locators.Customs_KPIs)
+        methods.clickElementByXPath(locators.Add_New,extraTimeOut)
+        methods.typeElement(locators.Name,testName,extraTimeOut)
+        methods.typeElement(locators.description,'Testing Purpose')
 
-        cy.get('[title="Default"]').click({force:true})
-        cy.get('[title="Derived KPI"]').click({force:true})
+        methods.clickElement(locators.Default)
+        methods.clickElement(locators.Derived_KPI)
 
-        cy.xpath('//span[text()="Add KPI"]').click()
-        cy.get('[title="Website Session"]').eq(0).click()
-        cy.get('[placeholder="Select Event"]').type('tot')
-        cy.get('[title="Total Sessions"]').click()
-        cy.xpath('//span[text()="Add another KPI"]').click()
-        cy.get('[title="Website Session"]').eq(0).click()
-        cy.xpath('//input[@placeholder="Select Event"]//following::div[4]').click()
+        methods.clickElementByXPath(locators.Add_KPI1)
+        methods.clickElement0(locators.Website_Session,0)
+        methods.typeElement(locators.Select_Event,'tot')
+        methods.clickElement(locators.Total_Session)
+        methods.clickElementByXPath(locators.Add_another_KPI)
+        methods.clickElement0(locators.Website_Session,0)
+        methods.clickElementByXPath(locators.KPI_option_1)
 
-        cy.get('#for').type('A+B')
-        cy.get('#showAspercentage').click()
+        methods.typeElement(locators.Formula,'A+B')
+        methods.clickElement(locators.showAspercentage)
 
-        cy.get('[type="submit"]').scrollIntoView()
-        cy.get('[type="submit"]').click()
+        methods.scroll(locators.done)
+        methods.clickElement(locators.done)
 
-        cy.get('.ant-notification-notice', { timeout: extraTimeOut }).should('be.visible');
+        methods.VisibilityofElement(locators.notification_popup,extraTimeOut)
         cy.xpath(`//h4[text()='${testName}']`, { timeout: extraTimeOut }).scrollIntoView();
         cy.xpath(`//h4[text()='${testName}']//following::button[1]`).click({ force: true });
-        cy.xpath('//span[text()="Remove"]').click()
-        cy.get('.ant-notification-notice', { timeout: extraTimeOut }).should('be.visible');
-
+        methods.clickElementByXPath(locators.Remove_1)
+        methods.VisibilityofElement(locators.notification_popup,extraTimeOut)
+        cy.wait(2000)
 
     })
 })

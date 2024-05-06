@@ -1,6 +1,7 @@
-import envDetails from '../../fixtures/envDetails.json';
 import Login from '../PageObjects/Login';
-import {deviceViewport, extraTimeOut } from '../Utils';  
+import {deviceViewport, extraTimeOut } from '../Utils';
+import methods from '../../support/Common_Method.js'
+import locators from '../../support/Locators.js' 
 
 describe('Login', () => {
 
@@ -19,17 +20,13 @@ describe('Login', () => {
 
     it('Attribution Page', () => {
 
-        //attribution accessibility
-
         cy.wait(5000)
-        cy.get('#fa-at-link--journeys',{timeout:extraTimeOut}).trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Attribution"]').click({ force: true });
+        methods.Mouseover(locators.report_dropdown,extraTimeOut)
+        methods.clickElementByXPath(locators.attributes)
         cy.wait(1000);
-        cy.url().should('contain', `${envDetails.backendApiUrl}/attribution`);
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('#fa-at-text--page-title').contains('Attribution');
-
-
+        methods.UrlValidation('/attribution')
+        methods.VisibilityofElement(locators.Account_Pagetitle)
+        methods.Titletextcontains(locators.Account_Pagetitle,'Attribution')
     });
 
 

@@ -1,6 +1,7 @@
 import Login3 from '../PageObjects/Login3';
 import { deviceViewport, extraTimeOut } from '../Utils';
-import dayjs from 'dayjs';
+import methods from '../../support/Common_Method.js';
+import locators from '../../support/Locators.js';
 
 describe('Engagements Login', () => {
 
@@ -23,26 +24,28 @@ describe('Engagements Login', () => {
         const testName = `Demo_${randomNumber}`;
 
         cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-dropdown--config').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Engagements"]').click();
-        cy.get('#fa-at-text--page-title',{timeout:extraTimeOut}).should('contain', 'Engagement Scoring');
-
-        cy.xpath('//span[text()="Add signal"]').click()
+        methods.VisibilityofElement(locators.Account_Pagetitle,'All Accounts',extraTimeOut)
+        methods.Mouseover(locators.configure)
+        methods.clickElementByXPath(locators.Engagements)
+        methods.VisibilityofElement(locators.Account_Pagetitle,'Engagement Scoring',extraTimeOut)
+        methods.clickElementByXPath(locators.Add_signal)
         cy.wait(1000)
-        cy.get('[placeholder="Eg: Pricing page visit"]').type(testName)
-        cy.xpath('//span[text()="Select Event"]').click()
-        cy.get('[title="Others"]').eq(0).click({force:true});
-        cy.xpath('//input[@placeholder="Select Event"]//following::div[3]').click()
-        cy.xpath('//h4[text()="Assign weight"]//following::span[2]').click({force:true})
-        cy.xpath('//span[text()="Add Signal"]').click()
-        cy.get('.ant-notification-notice', { timeout: extraTimeOut }).should('be.visible');
-        cy.xpath('//li[@title="Next Page"]//preceding::li[1]').click()
+        methods.typeElement(locators.Pricing_page_visit_Search,testName)
+        methods.clickElementByXPath(locators.select_event)
+        methods.clickElement0(locators.others1,0)
+        cy.wait(1000)
+        methods.clickElementByXPath(locators.select_option)
+        cy.wait(1000)
+        methods.clickElementByXPath(locators.Assign_weight)
+        cy.wait(1000)
+        methods.clickElementByXPath(locators.Add_signal_1)
+        methods.VisibilityofElement(locators.notification_popup,extraTimeOut)
+        methods.clickElementByXPath(locators.Last_page)
         cy.wait(1000)
         cy.xpath(`//td[text()='${testName}']//following::button[2]`,{timeout:extraTimeOut}).click({ force: true });
-        cy.xpath('//span[text()="Yes"]').click()
-        cy.get('.ant-notification-notice', { timeout: extraTimeOut }).should('be.visible');
+        methods.clickElementByXPath(locators.Yes)
+        methods.VisibilityofElement(locators.notification_popup,extraTimeOut)
+        cy.wait(2000)
 
     })
 })

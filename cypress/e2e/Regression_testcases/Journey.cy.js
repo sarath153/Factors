@@ -1,6 +1,8 @@
 import Login3 from '../PageObjects/Login3';
 import { deviceViewport, extraTimeOut } from '../Utils';
 import dayjs from 'dayjs';
+import methods from '../../support/Common_Method.js';
+import locators from '../../support/Locators.js';
 
 describe('Journey Login', () => {
 
@@ -20,40 +22,36 @@ describe('Journey Login', () => {
     it('TC_RE_01 - Journey - Path analysis ', () => {
 
         cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-link--journeys').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Path Analysis"]').click();
+        methods.assertElementContainsText(locators.Account_Pagetitle,'All Accounts',extraTimeOut)
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Path_Analysis)
         cy.wait(8000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'Path Analysis');
-        cy.get(':nth-child(2) > .ant-col', { timeout: extraTimeOut }).should('be.visible');
+        methods.assertElementContainsText(locators.Account_Pagetitle,'Path Analysis',extraTimeOut)
+        methods.VisibilityofElement(locators.Path_Analysis_Pageload,extraTimeOut)
     })
 
     it('TC_RE_02, TC_RE_03 - Journey - Path analysis create event ', () => {
 
         cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-link--journeys').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Path Analysis"]').click();
+        methods.assertElementContainsText(locators.Account_Pagetitle,'All Accounts',extraTimeOut)
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Path_Analysis)
         cy.wait(8000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'Path Analysis');
-        cy.get(':nth-child(2) > .ant-col', { timeout: extraTimeOut }).should('be.visible');
-
-        cy.get('.ant-col-4 > .flex > .ant-btn').click();
-        cy.get('[title="Start with an event"]').eq(0).click();
-        cy.xpath('//div[text()="Start with an event"]').click();
-        cy.xpath('(//span[text()="Add Event"])[1]').click();
+        methods.assertElementContainsText(locators.Account_Pagetitle,'Path Analysis',extraTimeOut)
+        methods.VisibilityofElement(locators.Path_Analysis_Pageload,extraTimeOut)
+        methods.clickElement(locators.Create_New_PathAna)
+        methods.clickElement0(locators.Start_with_an_event_title,0)
+        methods.clickElementByXPath(locators.Start_with_an_event)
+        methods.clickElementByXPath(locators.Add_Event_1)
         cy.wait(2000)
-        cy.get('[title="Others"]').eq(1,{timeout:extraTimeOut}).click();
+        methods.clickElement0(locators.others1,1,extraTimeOut)
         cy.wait(2000)
-        cy.xpath('//input[@placeholder="Select Event"]//following::div[3]',{timeout:extraTimeOut}).click();
-
-        cy.get('[title="All events except"]').eq(0).click();
-        cy.xpath('//div[text()="All events except"]').click();
-        cy.xpath('(//span[text()="Add Event"])[1]').click();
-        cy.get('[title="Hubspot Companies"]').eq(1).click();
-        cy.get('[title="Company Created"]').click();
+        methods.clickElementByXPath(locators.select_option,extraTimeOut)
+        methods.clickElement0(locators.All_events_except_title,0)
+        methods.clickElementByXPath(locators.All_events_except)
+        methods.clickElementByXPath(locators.Add_Event_1)
+        methods.clickElement0(locators.Hubspot_Companies,1)
+        methods.clickElement(locators.Company_Created_title)
     })
 
     it('TC_RE_04, TC_RE_05 - Journey - Path analysis create event ', () => {
@@ -62,94 +60,86 @@ describe('Journey Login', () => {
         const testName = `Demo_${nowTime}`;
 
         cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-link--journeys').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Path Analysis"]').click();
+        methods.assertElementContainsText(locators.Account_Pagetitle,'All Accounts',extraTimeOut)
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Path_Analysis)
         cy.wait(8000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'Path Analysis');
-        cy.get(':nth-child(2) > .ant-col', { timeout: extraTimeOut }).should('be.visible');
-
-        cy.get('.ant-col-4 > .flex > .ant-btn').click();
-        cy.get('[title="Start with an event"]').eq(0).click();
-        cy.xpath('//div[text()="Start with an event"]').click();
-        cy.xpath('(//span[text()="Add Event"])[1]').click();
+        methods.assertElementContainsText(locators.Account_Pagetitle,'Path Analysis',extraTimeOut)
+        methods.VisibilityofElement(locators.Path_Analysis_Pageload,extraTimeOut)
+        methods.clickElement(locators.Create_New_PathAna)
+        methods.clickElement0(locators.Start_with_an_event_title,0)
+        methods.clickElementByXPath(locators.Start_with_an_event)
+        methods.clickElementByXPath(locators.Add_Event_1)
         cy.wait(2000)
-        cy.get('[title="Others"]').eq(1,{timeout:extraTimeOut}).click();
+        methods.clickElement0(locators.others1,1,extraTimeOut)
         cy.wait(2000)
-        cy.xpath('//input[@placeholder="Select Event"]//following::div[3]',{timeout:extraTimeOut}).click();
-
-        cy.get('[title="All events except"]').eq(0).click();
-        cy.xpath('//div[text()="All events except"]').click();
-        cy.xpath('(//span[text()="Add Event"])[1]').click();
-        cy.get('[title="Hubspot Companies"]').eq(1).click();
-        cy.get('[title="Company Created"]').click();
-
-        cy.xpath('//span[text()="Add new"]').click();
+        methods.clickElementByXPath(locators.select_option,extraTimeOut)
+        methods.clickElement0(locators.All_events_except_title,0)
+        methods.clickElementByXPath(locators.All_events_except)
+        methods.clickElementByXPath(locators.Add_Event_1)
+        methods.clickElement0(locators.Hubspot_Companies,1)
+        methods.clickElement(locators.Company_Created_title)
+        methods.clickElementByXPath(locators.Add_new2)
         cy.wait(1000)
-        cy.get('[title="OTHERS"]').eq(0).click();
-        cy.xpath('//input[@placeholder="Search"]//following::div[3]',{timeout:extraTimeOut}).click();
+        methods.clickElement0(locators.others,0)
+        methods.clickElementByXPath(locators.pageview_option1,extraTimeOut)
         cy.wait(1000)
-        cy.xpath('//input[@placeholder="Search"]//following::div[3]',{timeout:extraTimeOut}).click();
-        cy.xpath('//span[text()="Apply"]',{timeout:extraTimeOut}).click()
-
-        cy.xpath('//h4[text()="Show"]//following::div[2]').click();
-        cy.get('div[title="4 Steps"]').click();
-        cy.xpath('//span[text()="Select date range"]').click();
+        methods.clickElementByXPath(locators.pageview_option1,extraTimeOut)
+        methods.clickElementByXPath(locators.Apply1,extraTimeOut)
+        methods.clickElementByXPath(locators.Steps)
+        methods.clickElement(locators.Four_steps)
+        methods.clickElementByXPath(locators.Select_date_range)
         cy.wait(1000)
-        cy.xpath('//input[@placeholder="Start date"]//following::button[4]').click({force:true})
+        methods.clickElementByXPath(locators.Preview_Month)
         cy.wait(1000)
-        cy.xpath('(//div[text()="2"])[1]',{timeout:extraTimeOut}).click({force:true})
-        cy.xpath('(//div[text()="15"])[1]',{timeout:extraTimeOut}).click({force:true})
+        methods.clickElementByXPath(locators.Start_Date,extraTimeOut)
+        methods.clickElementByXPath(locators.End_Date,extraTimeOut)
         cy.wait(1000)
-        cy.xpath('//span[text()="Save and Build"]').click();
-
-        cy.get('[id="basic_title"]').type(testName);
-        cy.get('[id="basic_description"]').type('Testing Report');
-        cy.get('button[type="submit"]').click();
-        cy.get('.ant-message-notice-content', { timeout: extraTimeOut }).should('be.visible');
-
-        cy.xpath('(//*[text()="Title"]//following::tr//td)[2]').should('contain', 'Building');
-        cy.xpath('//*[text()="Title"]//following::button[1]').trigger('mouseover', { force: true });
-        cy.xpath('//a[text()="Delete Report"]').click();
-        cy.xpath('//span[text()="Yes"]').click();
-        cy.get('.ant-message-notice-content', { timeout: extraTimeOut }).should('be.visible');
+        methods.clickElementByXPath(locators.Save_and_Build)
+        methods.typeElement(locators.Basic_title,testName)
+        methods.typeElement(locators.Basic_description,'Testing Report')
+        methods.clickElement(locators.done)
+        methods.VisibilityofElement(locators.Popup_Message,extraTimeOut)
+        methods.assertElementContainsTextxpath(locators.Building_Validation,'Building')
+        methods.MouseoverWithXpath(locators.Journey_Option)
+        methods.clickElementByXPath(locators.Delete_Report)
+        methods.clickElementByXPath(locators.Yes)
+        methods.VisibilityofElement(locators.Popup_Message,extraTimeOut)
+        cy.wait(2000)
 
     })
 
     it('TC_RE_06, TC_RE_07 - Journey - Path analysis create event ', () => {
 
         cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-link--journeys').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Path Analysis"]').click();
+        methods.assertElementContainsText(locators.Account_Pagetitle,'All Accounts',extraTimeOut)
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Path_Analysis)
         cy.wait(8000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'Path Analysis');
-        cy.get(':nth-child(2) > .ant-col', { timeout: extraTimeOut }).should('be.visible');
-
-        cy.get('.ant-col-4 > .flex > .ant-btn').click();
-        cy.get('[title="Start with an event"]').eq(0).click();
-        cy.xpath('//div[text()="Start with an event"]').click();
-        cy.xpath('(//span[text()="Add Event"])[1]').click();
+        methods.assertElementContainsText(locators.Account_Pagetitle,'Path Analysis',extraTimeOut)
+        methods.VisibilityofElement(locators.Path_Analysis_Pageload,extraTimeOut)
+        methods.clickElement(locators.Create_New_PathAna)
+        methods.clickElement0(locators.Start_with_an_event_title,0)
+        methods.clickElementByXPath(locators.Start_with_an_event)
+        methods.clickElementByXPath(locators.Add_Event_1)
         cy.wait(2000)
-        cy.get('[title="Others"]').eq(1,{timeout:extraTimeOut}).click();
+        methods.clickElement0(locators.others1,1,extraTimeOut)
         cy.wait(2000)
-        cy.xpath('//input[@placeholder="Select Event"]//following::div[3]',{timeout:extraTimeOut}).click();
+        methods.clickElementByXPath(locators.select_option,extraTimeOut)
 
-        cy.get('[title="All events except"]').eq(0).click();
-        cy.xpath('//div[text()="Only specific events"]').click();
-        cy.xpath('//span[text()="Add New"]').click();
-        cy.get('[title="If the event equals"]').click();
-        cy.xpath('//div[text()="If the event equals"]').click();
-        cy.xpath('//h4[text()="In this path, Show"]//following::input[3]').click();
-        cy.xpath('//div[text()="G2 Engagements"]//following::div[2]').click();
+        methods.clickElement0(locators.All_events_except_title,0)
+        methods.clickElementByXPath(locators.Only_specific_events)
+        methods.clickElementByXPath(locators.Add_New)
+        methods.clickElement(locators.If_the_event_equals_title)
+        methods.clickElementByXPath(locators.If_the_event_equals)
+        methods.clickElementByXPath(locators.Path_Select_event)
+        methods.clickElementByXPath(locators.G2_Engagement_option)
 
-        cy.xpath('//span[text()="Add New"]').click();
-        cy.get('[title="If the event equals"]').eq(1).click();
-        cy.xpath('//div[text()="If the event is of type"]').click();
-        cy.xpath('//h4[text()="In this path, Show"]//following::input[5]').click();
-        cy.get('[title="Page Views"]').click();
+        methods.clickElementByXPath(locators.Add_New)
+        methods.clickElement0(locators.If_the_event_equals_title,1)
+        methods.clickElementByXPath(locators.If_the_event_is_of_type)
+        methods.clickElementByXPath(locators.Path_Select_event_1)
+        methods.clickElement(locators.Page_Views)
 
     })
 
@@ -159,97 +149,88 @@ describe('Journey Login', () => {
         const testName = `Demo_${nowTime}`;
 
         cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-link--journeys').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Path Analysis"]').click();
+        methods.assertElementContainsText(locators.Account_Pagetitle,'All Accounts',extraTimeOut)
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Path_Analysis)
         cy.wait(8000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'Path Analysis');
-        cy.get(':nth-child(2) > .ant-col', { timeout: extraTimeOut }).should('be.visible');
-
-        cy.get('.ant-col-4 > .flex > .ant-btn').click();
-        cy.get('[title="Start with an event"]').eq(0).click();
-        cy.xpath('//div[text()="Start with an event"]').click();
-        cy.xpath('(//span[text()="Add Event"])[1]').click();
+        methods.assertElementContainsText(locators.Account_Pagetitle,'Path Analysis',extraTimeOut)
+        methods.VisibilityofElement(locators.Path_Analysis_Pageload,extraTimeOut)
+        methods.clickElement(locators.Create_New_PathAna)
+        methods.clickElement0(locators.Start_with_an_event_title,0)
+        methods.clickElementByXPath(locators.Start_with_an_event)
+        methods.clickElementByXPath(locators.Add_Event_1)
         cy.wait(2000)
-        cy.get('[title="Others"]').eq(1,{timeout:extraTimeOut}).click();
+        methods.clickElement0(locators.others1,1,extraTimeOut)
         cy.wait(2000)
-        cy.xpath('//input[@placeholder="Select Event"]//following::div[3]',{timeout:extraTimeOut}).click();
-        cy.get('[title="All events except"]').eq(0).click();
-        cy.xpath('//div[text()="Only specific events"]').click();
-        cy.xpath('//span[text()="Add New"]').click();
-        cy.get('[title="If the event equals"]').click();
-        cy.xpath('//div[text()="If the event equals"]').click();
-        cy.xpath('//h4[text()="In this path, Show"]//following::input[3]').click();
-        cy.xpath('//div[text()="G2 Engagements"]//following::div[1]').click({force:true});
+        methods.clickElementByXPath(locators.select_option,extraTimeOut)
 
-        cy.xpath('//span[text()="Add New"]').click();
-        cy.get('[title="If the event equals"]').eq(1).click();
-        cy.xpath('//div[text()="If the event is of type"]').click();
-        cy.xpath('//h4[text()="In this path, Show"]//following::input[5]').click();
-        cy.get('[title="Page Views"]').click({force:true});
+        methods.clickElement0(locators.All_events_except_title,0)
+        methods.clickElementByXPath(locators.Only_specific_events)
+        methods.clickElementByXPath(locators.Add_New)
+        methods.clickElement(locators.If_the_event_equals_title)
+        methods.clickElementByXPath(locators.If_the_event_equals)
+        methods.clickElementByXPath(locators.Path_Select_event)
+        methods.clickElementByXPath(locators.G2_Engagement_option)
 
-        cy.xpath('//span[text()="Add new"]').click();
+        methods.clickElementByXPath(locators.Add_New)
+        methods.clickElement0(locators.If_the_event_equals_title,1)
+        methods.clickElementByXPath(locators.If_the_event_is_of_type)
+        methods.clickElementByXPath(locators.Path_Select_event_1)
+        methods.clickElement(locators.Page_Views)
+
+        methods.clickElementByXPath(locators.Add_new2)
         cy.wait(1000)
-        cy.get('[title="OTHERS"]').eq(0).click();
-        cy.xpath('//input[@placeholder="Search"]//following::div[3]',{timeout:extraTimeOut}).click();
+        methods.clickElement0(locators.others,0)
+        methods.clickElementByXPath(locators.pageview_option1,extraTimeOut)
         cy.wait(1000)
-        cy.xpath('//input[@placeholder="Search"]//following::div[3]',{timeout:extraTimeOut}).click();
-        cy.xpath('//span[text()="Apply"]',{timeout:extraTimeOut}).click()
-
-        cy.xpath('//h4[text()="Show"]//following::div[2]').click();
-        cy.get('div[title="4 Steps"]').click();
-        cy.xpath('//span[text()="Select date range"]').click();
+        methods.clickElementByXPath(locators.pageview_option1,extraTimeOut)
+        methods.clickElementByXPath(locators.Apply1,extraTimeOut)
+        methods.clickElementByXPath(locators.Steps)
+        methods.clickElement(locators.Four_steps)
+        methods.clickElementByXPath(locators.Select_date_range)
         cy.wait(1000)
-        cy.xpath('//input[@placeholder="Start date"]//following::button[4]').click({force:true})
+        methods.clickElementByXPath(locators.Preview_Month)
         cy.wait(1000)
-        cy.xpath('(//div[text()="2"])[1]',{timeout:extraTimeOut}).click({force:true})
-        cy.xpath('(//div[text()="15"])[1]',{timeout:extraTimeOut}).click({force:true})
+        methods.clickElementByXPath(locators.Start_Date,extraTimeOut)
+        methods.clickElementByXPath(locators.End_Date,extraTimeOut)
         cy.wait(1000)
-        cy.xpath('//span[text()="Save and Build"]').click();
-
-        cy.get('[id="basic_title"]').type(testName);
-        cy.get('[id="basic_description"]').type('Testing Report');
-        cy.get('button[type="submit"]').click();
-        cy.get('.ant-message-notice-content', { timeout: extraTimeOut }).should('be.visible');
-
-        cy.xpath('(//*[text()="Title"]//following::tr//td)[2]').should('contain', 'Building');
-        cy.xpath('//*[text()="Title"]//following::button[1]').trigger('mouseover', { force: true });
-        cy.xpath('//a[text()="Delete Report"]').click();
-        cy.xpath('//span[text()="Yes"]').click();
-        cy.get('.ant-message-notice-content', { timeout: extraTimeOut }).should('be.visible');
-        
-
-
+        methods.clickElementByXPath(locators.Save_and_Build)
+        methods.typeElement(locators.Basic_title,testName)
+        methods.typeElement(locators.Basic_description,'Testing Report')
+        methods.clickElement(locators.done)
+        methods.VisibilityofElement(locators.Popup_Message,extraTimeOut)
+        methods.assertElementContainsTextxpath(locators.Building_Validation,'Building')
+        methods.MouseoverWithXpath(locators.Journey_Option)
+        methods.clickElementByXPath(locators.Delete_Report)
+        methods.clickElementByXPath(locators.Yes)
+        methods.VisibilityofElement(locators.Popup_Message,extraTimeOut)
+        cy.wait(2000)
     })
 
     it('TC_RE_09 - Journey - Explain ', () => {
 
         cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-link--journeys').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Explain"]').click();
+        methods.assertElementContainsText(locators.Account_Pagetitle,'All Accounts',extraTimeOut)
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Explain)
         cy.wait(8000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'Explain');
-        cy.get('.ant-row > :nth-child(2)', { timeout: extraTimeOut }).should('be.visible');
+        methods.assertElementContainsText(locators.Account_Pagetitle,'Explain',extraTimeOut)
+        methods.VisibilityofElement(locators.Explain_pageload,extraTimeOut)
     })
 
 
     it('TC_RE_10 - Journey - Explain create', () => {
 
         cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-link--journeys').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Explain"]').click();
+        methods.assertElementContainsText(locators.Account_Pagetitle,'All Accounts',extraTimeOut)
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Explain)
         cy.wait(8000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'Explain');
-        cy.get('.ant-row > :nth-child(2)', { timeout: extraTimeOut }).should('be.visible');
-
-        cy.get('.justify-between > .ant-btn > span').click();
-        cy.get('.fa-custom-datepicker > .ant-btn').click();
-        cy.xpath('//a[text()="Last 7 days"]').click();
+        methods.assertElementContainsText(locators.Account_Pagetitle,'Explain',extraTimeOut)
+        methods.VisibilityofElement(locators.Explain_pageload,extraTimeOut)
+        methods.clickElement(locators.Explain_CreateNew)
+        methods.clickElement(locators.Select_Analysis_Window)
+        methods.clickElementByXPath(locators.Last_7_days)
 
     })
 
@@ -259,44 +240,38 @@ describe('Journey Login', () => {
         const testName = `Demo_${nowTime}`;
 
         cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-link--journeys').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Explain"]').click();
+        methods.assertElementContainsText(locators.Account_Pagetitle,'All Accounts',extraTimeOut)
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Explain)
         cy.wait(8000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'Explain');
-        cy.get('.ant-row > :nth-child(2)', { timeout: extraTimeOut }).should('be.visible');
-
-        cy.get('.justify-between > .ant-btn > span').click();
-        cy.get('.fa-custom-datepicker > .ant-btn').click();
-        cy.xpath('//a[text()="Last 7 days"]').click();
-
-        cy.xpath('(//span[text()="Add Event"])[1]').click();
+        methods.assertElementContainsText(locators.Account_Pagetitle,'Explain',extraTimeOut)
+        methods.VisibilityofElement(locators.Explain_pageload,extraTimeOut)
+        methods.clickElement(locators.Explain_CreateNew)
+        methods.clickElement(locators.Select_Analysis_Window)
+        methods.clickElementByXPath(locators.Last_7_days)
+        methods.clickElementByXPath(locators.Add_Event_1)
         cy.wait(2000)
-        cy.get('[title="Others"]').eq(1,{timeout:extraTimeOut}).click();
+        methods.clickElement0(locators.others1,1,extraTimeOut)
         cy.wait(2000)
-        cy.xpath('//input[@placeholder="Select Event"]//following::div[3]',{timeout:extraTimeOut}).click();
-
-        cy.xpath('//span[text()="Add another event"]').click();
+        methods.clickElementByXPath(locators.select_option)
+        methods.clickElementByXPath(locators.Add_another_event_1)
         cy.wait(1000)
-        cy.get('[title="Linkedin Company Engagements"]').eq(0).click({ force: true });
-        cy.get('[title="Linkedin Ad Clicked"]').click({ force: true });
-
-        cy.xpath('//span[text()="Add Event"]').click();
+        methods.clickElement0(locators.Linkedin_Company_Engagements,0)
+        methods.clickElement(locators.Linkedin_Ad_Clicked)
+        methods.clickElementByXPath(locators.Add_Event_explain)
         cy.wait(1000)
-        cy.get('[title="Hubspot Contacts"]').eq(0).click({ force: true });
-        cy.get('[title="Contact List"]').click({ force: true });
-
-        cy.xpath('//span[text()="Save and Build"]').click();
-        cy.get('[id="basic_title"]').type(testName);
-        cy.get('[id="basic_description"]').type('Testing Report');
-        cy.get('button[type="submit"]').click({force:true});
-        cy.get('.ant-message-notice-content', { timeout: extraTimeOut }).should('be.visible');
-
-        cy.xpath('(//*[text()="Title"]//following::tr//td)[2]').should('contain', 'Building');
-        cy.xpath('//*[text()="Title"]//following::button[1]').trigger('mouseover', { force: true });
-        cy.xpath('//a[text()="Delete Report"]').click();
-        cy.xpath('//span[text()="Yes"]').click();
-        cy.get('.ant-message-notice-content', { timeout: extraTimeOut }).should('be.visible');
+        methods.clickElement0(locators.Hubspot_Contacts,0)
+        methods.clickElement(locators.Contact_List_1)
+        methods.clickElementByXPath(locators.Save_and_Build)
+        methods.typeElement(locators.Basic_title,testName)
+        methods.typeElement(locators.Basic_description,'Testing Report')
+        methods.clickElement(locators.done)
+        methods.VisibilityofElement(locators.Popup_Message,extraTimeOut)
+        methods.assertElementContainsTextxpath(locators.Building_Validation,'Building')
+        methods.MouseoverWithXpath(locators.Journey_Option)
+        methods.clickElementByXPath(locators.Delete_Report)
+        methods.clickElementByXPath(locators.Yes)
+        methods.VisibilityofElement(locators.Popup_Message,extraTimeOut)
+        cy.wait(2000)
     })
 })

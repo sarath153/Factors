@@ -1,6 +1,7 @@
-import envDetails from '../../fixtures/envDetails.json';
 import Login1 from '../PageObjects/Login1';
 import { deviceViewport, extraTimeOut } from '../Utils';
+import methods from '../../support/Common_Method.js';
+import locators from '../../support/Locators.js';
 
 describe('Segment Alert Login', () => {
 
@@ -23,38 +24,39 @@ describe('Segment Alert Login', () => {
         const testName = `Demo_${randomNumber}`;
 
         cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
+        methods.assertElementContainsText(locators.Account_Pagetitle,'All Accounts',extraTimeOut)
         cy.wait(1000)
-        cy.xpath('//h4[text()="Automations"]').click();
-        cy.get('#fa-at-text--page-title').should('be.visible')
-
-        cy.xpath('//span[text()="Templates"]').click()
-        cy.xpath('(//div[text()="Account Executives"])[2]', { timeout: extraTimeOut }).click()
-        cy.xpath('//span[text()="This is correct"]').click()
-
-        cy.get('[title="Performs an event"]', { timeout: extraTimeOut }).click()
-        cy.get('[title="Enter the segment"]').click()
-        cy.get('.active').scrollIntoView()
-        cy.xpath('//h4[text()="Segment name"]//following::div[3]').click()
-        cy.xpath('//div[text()="In Hubspot"]').click({ force: true })
-
-        cy.get('#alert_name').clear()
-        cy.get('#alert_name').type(testName)
-
-        cy.xpath('(//button[@role="switch"])[1]').click();
-        cy.xpath('//span[text()="Select Channel"]').click();
-        cy.get('[placeholder="Select channels"]').type('stag');
-        cy.xpath('//div[text()="#alert-test-staging"]//preceding::input[@type="checkbox"][1]').click();
-        cy.xpath('//span[text()="Close"]//following::button').click();
-
-        cy.xpath('(//button[@type="submit"])[2]').click();
+        methods.clickElementByXPath(locators.Automation)
+        methods.VisibilityofElement(locators.Account_Pagetitle,extraTimeOut)
+        methods.clickElementByXPath(locators.Templates)
+        methods.clickElementByXPath(locators.Account_Executives,extraTimeOut)
+        methods.clickElementByXPath(locators.This_is_correct)
+        methods.clickElement(locators.Performs_an_event,extraTimeOut)
+        methods.clickElement(locators.Enter_the_segment)
+        methods.scrollWithXpath(locators.Create_new_alert_title)
         cy.wait(1000)
-        cy.get('.ant-notification-notice',{timeout:extraTimeOut}).should('be.visible');
+        methods.clickElementByXPath1(locators.segment_name_2)
+        cy.wait(1000)
+        methods.clickElementByXPath(locators.In_Hubspot_text)
+        methods.Clear(locators.Alert_name)
+        methods.typeElement(locators.Alert_name,testName)
 
+        methods.clickElementByXPath(locators.Enable_button)
+        methods.clickElementByXPath(locators.Select_channel)
+        methods.typeElement(locators.search_channel,'stag')
+        methods.clickElementByXPath(locators.choose_channel)
+        methods.clickElementByXPath(locators.save_channel)
+        methods.clickElementByXPath(locators.submit)
+        cy.wait(1000)
+        methods.VisibilityofElement(locators.notification_popup)
         cy.xpath(`//h4[text()='${testName}']//following::button[1]`).click({ force: true });
-        cy.xpath('//span[text()="Remove alert"]').click();
-        cy.xpath('//span[text()="OK"]').click({force:true});
-        cy.get('.ant-notification-notice',{timeout:extraTimeOut}).should('be.visible');
+        cy.wait(1000)
+        methods.clickElementByXPath(locators.remove_alert)
+        cy.wait(1000)
+        methods.clickElementByXPath(locators.Ok)
+        cy.wait(1000)
+        methods.VisibilityofElement(locators.notification_popup)
+        cy.wait(2000)
 
     })
 })

@@ -1,6 +1,8 @@
 import Login1 from '../PageObjects/Login1';
 import { deviceViewport, extraTimeOut } from '../Utils';
 import dayjs from 'dayjs';
+import methods from '../../support/Common_Method.js'
+import locators from '../../support/Locators.js'
 
 describe('Content_groups Login', () => {
 
@@ -23,34 +25,34 @@ describe('Content_groups Login', () => {
         const testName = `Demo_${randomNumber}`;
 
         cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-dropdown--config').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Content Groups"]').click();
-        cy.xpath('//span[text()="Add New"]', { timeout: extraTimeOut }).click()
-        cy.get('#content_group_name', { timeout: extraTimeOut }).type(testName)
-        cy.get('#content_group_description').type('Testing Purpose')
-        cy.xpath('//span[text()="New value"]').click()
-        cy.get('#content_group_value', { timeout: extraTimeOut }).type('Testing1')
-        cy.xpath('//span[text()="Add rule"]').click()
-        cy.get('#rule_0_va').type('25')
-        cy.get('[type="submit"]').eq(1).click({ force: true })
+        methods.assertElementContainsText(locators.Account_Pagetitle,'All Accounts',extraTimeOut)
+        methods.Mouseover(locators.configure)
+        methods.clickElementByXPath(locators.Content_Groups)
+        methods.clickElementByXPath(locators.Add_New,extraTimeOut)
+        methods.typeElement(locators.content_group_name,testName,extraTimeOut)
+        methods.typeElement(locators.content_group_description,'Testing Purpose')
+        methods.clickElementByXPath(locators.New_Value)
+        methods.typeElement(locators.content_group_value,'Testing1',extraTimeOut)
+        methods.clickElementByXPath(locators.Add_Rule)
+        methods.typeElement(locators.page_value,'25')
+        methods.clickElement0(locators.done,1)
         cy.wait(1000)
-        cy.xpath('//span[text()="New value"]').click()
-        cy.get('#content_group_value', { timeout: extraTimeOut }).type('Testing2')
-        cy.get('[value="OR"]').click({ force: true })
-        cy.xpath('//span[text()="Add rule"]').click()
-        cy.get('[title="Contains"]').click({ force: true })
-        cy.get('[title="Equals"]').click({ force: true })
-        cy.get('#rule_0_va').type('26')
-        cy.get('[type="submit"]').eq(1).click({ force: true })
+        methods.clickElementByXPath(locators.New_Value)
+        methods.typeElement(locators.content_group_value,'Testing2',extraTimeOut)
+        methods.clickElement(locators.Or_value)
+        methods.clickElementByXPath(locators.Add_Rule)
+        methods.clickElement(locators.Contains)
+        methods.clickElement(locators.Equals)
+        methods.typeElement(locators.page_value,'26')
+        methods.clickElement0(locators.done,1)
         cy.wait(1000)
-        cy.get('[type="submit"]').click({ force: true })
-        cy.get('.ant-notification-notice', { timeout: extraTimeOut }).should('be.visible');
+        methods.clickElement(locators.done)
+        methods.VisibilityofElement(locators.notification_popup,extraTimeOut)
         cy.wait(1000)
-        cy.xpath(`//th[text()="Values"]//following::button[1]`).click({ force: true });
-        cy.xpath('//a[text()="Remove"]').click()
-        cy.xpath('//span[text()="Confirm"]').click()
-        cy.get('.ant-notification-notice', { timeout: extraTimeOut }).should('be.visible');
+        methods.clickElementByXPath(locators.Delete_option)
+        methods.clickElementByXPath(locators.Remove)
+        methods.clickElementByXPath(locators.confirm_1)
+        methods.VisibilityofElement(locators.notification_popup,extraTimeOut)
+        cy.wait(2000)
     })
 })

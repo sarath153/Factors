@@ -2,6 +2,8 @@ import envDetails from '../../fixtures/envDetails.json';
 import Login1 from '../PageObjects/Login1';
 import {deviceViewport, extraTimeOut } from '../Utils';  
 import dayjs from 'dayjs';
+import methods from '../../support/Common_Method.js'
+import locators from '../../support/Locators.js'
 
 describe('Login', () => {
 
@@ -27,91 +29,94 @@ describe('Login', () => {
         const combination = testName + randomNumber;
 
         cy.wait(5000)
-        cy.get('#fa-at-text--page-title',{timeout:extraTimeOut}).should('contain','All Accounts');
-        cy.get('#fa-at-link--accounts').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="People"]').click();
+        methods.assertElementContainsText(locators.Account_Pagetitle,'All Accounts',extraTimeOut)
+        methods.Mouseover(locators.account_dropdown)
+        methods.clickElementByXPath(locators.People)
         cy.wait(1000)
-        cy.url().should('contain', `${envDetails.backendApiUrl}/profiles/people`);
-        cy.get('#fa-at-text--page-title',{timeout:extraTimeOut}).should('contain','All People');
+        methods.UrlvalidationPeople()
+        methods.assertElementContainsText(locators.Account_Pagetitle,'All People',extraTimeOut)
 
         // Search username
 
         cy.wait(3000)
-        cy.get(':nth-child(2) > .ant-table-cell-fix-left',{timeout:extraTimeOut}).should('be.visible');
-        cy.get('.relative > .ant-btn').click();
+        methods.VisibilityofElement(locators.account_pageloaded,extraTimeOut)
+        methods.clickElement(locators.search_button)
         cy.wait(1000)
-        cy.xpath('//*[@placeholder="Search Users"]').type('baliga');
+        methods.typeElementByXPath(locators.Search1,'baliga')
         cy.wait(1000)
-        cy.xpath('//*[@placeholder="Search Users"]').type('{enter}');
+        methods.EnterXpath(locators.Search1)
         cy.wait(1000)
-        cy.get('.ant-table-row > .ant-table-cell-fix-left').should('contain','baliga@factors.ai');
+        methods.assertElementContainsText(locators.rowname,'baliga@factors.ai')
         cy.wait(1000)
 
         // add column
 
-        cy.get('.inline-flex > :nth-child(2)').click();
+        methods.clickElement(locators.Add_column)
         cy.wait(1000)
-        cy.get('.ant-tabs').should('be.visible');
+        methods.VisibilityofElement(locators.table_property)
         cy.wait(1000)
-        cy.get('[data-id="Company Country"] > .justify-between').click();
-        cy.xpath('//span[text()="Apply"]').click();
+        methods.clickElement(locators.company_name1)
+        methods.clickElementByXPath(locators.Apply1)
         cy.wait(1000)
-        cy.get('.ant-table-cell-content > .flex').should('be.visible')
+        methods.VisibilityofElement(locators.row_validation)
         cy.wait(1000)
 
         // Add filter
 
-        cy.get('.w-full > .ant-btn').click();
+        methods.clickElement(locators.filter)
         cy.wait(1000)
-        cy.xpath('//*[text()="Add filter"]').click();
-        cy.get('.fa-select-dropdown > .flex-col > :nth-child(3)').click();
-        cy.get('[title="is_email_verified"]').click();
-        cy.get('[title="true"]').click();
-        cy.get('.fa-select--buttons > .ant-btn > span').click();
+        methods.clickElementByXPath(locators.Add_filter1)
+        methods.clickElement0(locators.others,0)
+        methods.clickElement(locators.email_option)
+        methods.clickElement(locators.true1)
+        methods.clickElementByXPath(locators.Apply1)
         cy.wait(1000)
-        cy.xpath('//*[text()="Add event"]').click();
-        cy.get('.fa-select-dropdown > .flex-col > :nth-child(4)').click()
-        cy.get('.FaSelect_hoveredOption__Cs1tw').click();
-        cy.get('.ant-btn-primary > span').click();
-        cy.get(':nth-child(2) > .ant-table-cell-fix-left',{timeout:extraTimeOut}).should('be.visible');
+        methods.clickElementByXPath(locators.Add_event)
+        methods.clickElement0(locators.others1,0)
+        methods.clickElement(locators.login_option)
+        methods.clickElement(locators.Apply_Changes)
+        cy.wait(2000)
+        methods.VisibilityofElement(locators.account_pageloaded,extraTimeOut)
 
         // Save Segment
 
-        cy.get('.w-full > .ant-btn-default').click();
+        methods.clickElement(locators.save_segment)
         cy.wait(1000)
-        cy.xpath('//*[@placeholder="Eg- Paid search visitors"]').click().type(testName);
+        methods.ClickandTypeXpath(locators.segment_namefield,testName)
         cy.wait(1000)
-        cy.xpath('//*[text()="Save"]').click();
+        methods.clickElementByXPath(locators.Save)
         cy.wait(1000)
+        methods.VisibilityofElement(locators.notification_popup,extraTimeOut)
 
         // open the saved segment
 
-        cy.get('[placeholder="Search segment"]').type(testName);
         cy.wait(1000)
-        cy.get('.flex-col > :nth-child(7)').contains(testName).click();
+        methods.typeElement(locators.Search_segment,testName)
+        cy.wait(1000)
+        methods.clickwithcontaintext(locators.seg_name,testName)
         cy.wait(3000)
 
         // renaming segment
 
-        cy.xpath('//h1[text()="filter(s)"]//following::button[3]').click({force: true});
+        methods.clickElementByXPath(locators.Threedots1)
         cy.wait(1000)
-        cy.get('.ant-popover-inner-content > :nth-child(1) > .flex-col > :nth-child(1)').click();
+        methods.clickElement(locators.rename_segment)
         cy.wait(1000)
-        cy.xpath('//*[@placeholder="Name"]').type(randomNumber);
+        methods.typeElementByXPath(locators.seg_rename,randomNumber)
         cy.wait(1000)
-        cy.xpath('(//span[text()="Save"])[2]').click();
+        methods.clickElementByXPath(locators.save1)
         cy.wait(1000)
-        cy.get('#fa-at-text--page-title').contains(combination);
+        methods.Titletextcontains(locators.Account_Pagetitle,combination)
         cy.wait(1000)
         
         //deleting the segment
 
-        cy.xpath('//h1[text()="filter(s)"]//following::button[3]').click({force: true});
+        methods.clickElementByXPath(locators.Threedots1)
         cy.wait(1000)
-        cy.xpath('//h1[text()="Delete Segment"]').click({force: true});
+        methods.clickElementByXPath(locators.Delect_segment)
         cy.wait(1000)
-        cy.xpath('//*[text()="Confirm"]').click();
+        methods.clickElementByXPath(locators.confirm)
         cy.wait(1000)
-        cy.get('.ant-notification-notice-message').should('be.visible');
+        methods.VisibilityofElement(locators.notification_popup1)
     })
 })

@@ -1,7 +1,8 @@
-
-import envDetails from '../../fixtures/envDetails.json';
 import Login from '../PageObjects/Login';
+import envDetails from '../../fixtures/envDetails.json';
 import { deviceViewport, extraTimeOut } from '../Utils';
+import methods from '../../support/Common_Method.js'
+import locators from '../../support/Locators.js'
 
 describe('Login', () => {
 
@@ -27,12 +28,14 @@ describe('Login', () => {
             // { key: 'Account identification', index: 3, url: '/profiles/visitor_report' },
         ].map((item) => {
             cy.wait(5000)
-            cy.get('#fa-at-link--accounts', { timeout: extraTimeOut }).click();
+
+            methods.clickElement(locators.account_dropdown)
             cy.get(`.ant-dropdown > .ant-dropdown-menu > li:nth-child(${item.index}) > span > a`).click({ force: true });
-            cy.wait(1000);
-            cy.url().should('eq', `${envDetails.backendApiUrl}${item.url}`);
-            cy.get('#fa-at-text--page-title').should('be.visible');
-            cy.get('#fa-at-text--page-title').should('have.text', item.key);
+            cy.wait(1000)
+            // cy.url().should('eq', `${envDetails.backendApiUrl}${item.url}`);
+            methods.navigateToUrl(item.url)
+            methods.VisibilityofElement(locators.Account_Pagetitle)
+            methods.VisibilityofElement1(locators.Account_Pagetitle,item.key)
         })
 
 

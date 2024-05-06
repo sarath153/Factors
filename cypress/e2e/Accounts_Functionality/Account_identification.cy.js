@@ -1,6 +1,7 @@
-import envDetails from '../../fixtures/envDetails.json';
 import Login1 from '../PageObjects/Login1';
 import {deviceViewport, extraTimeOut } from '../Utils';  
+import methods from '../../support/Common_Method.js'
+import locators from '../../support/Locators.js'
 
 describe('Login', () => {
 
@@ -21,114 +22,116 @@ describe('Login', () => {
     it('Account Identification', () => {
 
         cy.wait(5000)
-        cy.get('#fa-at-text--page-title',{timeout:extraTimeOut}).should('contain','All Accounts');
-        cy.get('#fa-at-link--accounts').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Account identification"]').click();
+        methods.assertElementContainsText(locators.Account_Pagetitle,'All Accounts',extraTimeOut)
+        methods.Mouseover(locators.account_dropdown)
+        methods.clickElementByXPath(locators.Account_identification)
         cy.wait(1000)
-        cy.url().should('contain', `${envDetails.backendApiUrl}/reports/visitor_report`);
-        cy.get('#fa-at-text--page-title',{timeout:extraTimeOut}).should('contain','Top accounts that visited your website');
+        methods.UrlValidationAccide()
+        methods.Titletextcontains(locators.Account_Pagetitle,'Top accounts that visited your website')
         cy.wait(2000)
 
         // Verify table
         
-        cy.get('.ant-table-container',{timeout:extraTimeOut}).should('not.be.empty');
-        cy.get('.ant-table-tbody > :nth-child(1) > :nth-child(1)').should('not.be.empty');
-        cy.get('.ant-table-tbody > :nth-child(2) > :nth-child(1)').should('not.be.empty');
+        methods.AssertNotEmpty(locators.identi_table,extraTimeOut)
+        methods.AssertNotEmpty(locators.table_row1,extraTimeOut)
+        methods.AssertNotEmpty(locators.table_row2,extraTimeOut)
 
         // Apply filter for orgnaic search
 
-        cy.get('.gap-4 > :nth-child(1) > .ant-btn').click();
-        cy.get('.fa-select-dropdown > .flex').should('be.visible');
-        cy.get('[title="Organic Search"]').click();
+        methods.clickElement(locators.channel)
+        methods.VisibilityofElement(locators.channel_dropdown,extraTimeOut)
+        methods.clickElement(locators.Organic_Search)
         cy.wait(1000)
-        cy.get('.ant-table-tbody > :nth-child(1) > :nth-child(2)').should('contain','Organic Search');
-        cy.get('.ant-table-tbody > :nth-child(2) > :nth-child(2)').should('contain','Organic Search');
-        cy.get('.ant-table-tbody > :nth-child(3) > :nth-child(2)').should('contain','Organic Search');
+        methods.assertElementContainsText(locators.organic_table1,'Organic Search',extraTimeOut)
+        methods.assertElementContainsText(locators.organic_table2,'Organic Search',extraTimeOut)
+        methods.assertElementContainsText(locators.organic_table3,'Organic Search',extraTimeOut)
 
         // Apply filter for Direct
 
-        cy.get('.gap-4 > :nth-child(1) > .ant-btn').click();
-        cy.get('.fa-select-dropdown > .flex').should('be.visible');
-        cy.get('[title="Direct"]').click();
+        methods.clickElement(locators.channel)
+        methods.VisibilityofElement(locators.channel_dropdown,extraTimeOut)
+        methods.clickElement(locators.direct)
         cy.wait(1000)
-        cy.get('.ant-table-tbody > :nth-child(1) > :nth-child(2)').should('contain','Direct');
-        cy.get('.ant-table-tbody > :nth-child(2) > :nth-child(2)').should('contain','Direct');
-        cy.get('.ant-table-tbody > :nth-child(3) > :nth-child(2)').should('contain','Direct');
+        methods.assertElementContainsText(locators.organic_table1,'Direct',extraTimeOut)
+        methods.assertElementContainsText(locators.organic_table2,'Direct',extraTimeOut)
+        methods.assertElementContainsText(locators.organic_table3,'Direct',extraTimeOut)
 
          // Apply filter for Paid Social
 
-        cy.get('.gap-4 > :nth-child(1) > .ant-btn').click();
-        cy.get('.fa-select-dropdown > .flex').should('be.visible');
-        cy.get('[title="Paid Search"]').click();
+         
+        methods.clickElement(locators.channel)
+        methods.VisibilityofElement(locators.channel_dropdown,extraTimeOut)
+        methods.clickElement(locators.paid_search)
         cy.wait(1000)
-        cy.get('.ant-table-tbody > :nth-child(1) > :nth-child(2)').should('contain','Paid Search');
-        cy.get('.ant-table-tbody > :nth-child(2) > :nth-child(2)').should('contain','Paid Search');
-        cy.get('.ant-table-tbody > :nth-child(3) > :nth-child(2)').should('contain','Paid Search');
+        methods.assertElementContainsText(locators.organic_table1,'Paid Search',extraTimeOut)
+        methods.assertElementContainsText(locators.organic_table2,'Paid Search',extraTimeOut)
+        methods.assertElementContainsText(locators.organic_table3,'Paid Search',extraTimeOut)
 
          // Apply campaign filter
 
-        cy.get('.gap-4 > :nth-child(2) > div > .ant-btn').click();
-        cy.get('.fa-select-dropdown').should('be.visible');
-        cy.get('[title="TD_Search_Remarketing_Competitors"]').click();
-        cy.get('.fa-select--buttons > .ant-btn').click();
-        cy.get('.ant-table-container',{timeout:extraTimeOut}).should('not.be.empty');
-        cy.get('.gap-4 > :nth-child(2) > div > .ant-btn').click();
-        cy.get('.fa-select-dropdown').should('be.visible');
-        cy.get('[title="TD_Search_US_Deanon_Competition"]').click();
-        cy.get('.fa-select--buttons > .ant-btn').click();
+        methods.clickElement(locators.campaign)
+        methods.VisibilityofElement(locators.campaign_dropdown,extraTimeOut)
+        methods.clickElement(locators.TD_Search_Remarketing_Competitors)
+        methods.clickElement(locators.Apply)
+        methods.AssertNotEmpty(locators.identi_table,extraTimeOut)
+        methods.clickElement(locators.campaign)
+        methods.VisibilityofElement(locators.campaign_dropdown,extraTimeOut)
+        methods.clickElement(locators.TD_Search_US_Deanon_Competition)
+        methods.clickElement(locators.Apply)
 
         // Apply page view 
 
-        cy.get('.gap-4 > :nth-child(3) > div > .ant-btn').click();
-        cy.get('.FaSelect_dropdown__select__1L5kx').should('be.visible');
+        methods.clickElement(locators.page_view)
+        methods.VisibilityofElement(locators.pageview_dropdown,extraTimeOut)
         cy.wait(3000)
-        cy.xpath('//input[@placeholder="Search"]//following::div[3]',{timeout:extraTimeOut}).click();
-        cy.xpath('//input[@placeholder="Search"]//following::div[5]').click();
-        cy.xpath('//input[@placeholder="Search"]//following::div[7]').click();
-        cy.xpath('//input[@placeholder="Search"]//following::div[9]').click();
+        methods.clickElementByXPath(locators.pageview_option1)
+        methods.clickElementByXPath(locators.pageview_option2)
+        methods.clickElementByXPath(locators.pageview_option3)
+        methods.clickElementByXPath(locators.pageview_option4)
         cy.wait(1000)
-        cy.get('.fa-select--buttons > .ant-btn').click();
-        cy.get('.ant-table-wrapper',{timeout:extraTimeOut}).should('be.visible');
+        methods.clickElement(locators.Apply)
+        methods.VisibilityofElement(locators.identi_table1,extraTimeOut)
         cy.wait(1000)
 
         // Selete date
 
-        cy.xpath('//h4[text()="Channel"]//following::button[3]').click();
-        cy.xpath('//div[@title="Today"]//following::div[3]').click();
-        cy.get('.ant-table-wrapper',{timeout:extraTimeOut}).should('be.visible');
+        methods.clickElementByXPath(locators.calender)
+        methods.clickElementByXPath(locators.select_date)
+        methods.VisibilityofElement(locators.identi_table1,extraTimeOut)
         cy.wait(1000)
 
         // Share
 
-        cy.get('.justify-between.align-middle > :nth-child(2)').should('be.visible').click();
+        methods.ElementVisibleandClick(locators.share)
         cy.wait(1000)
-        cy.xpath('//span[text()="Share"]').click({force: true});
-        cy.get('#share-modal-form_emails_0').type('sarath_tdfect@factors.ai');
-        cy.get('.justify-between > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-btn').click();
-        cy.get('.ant-notification-notice',{timeout:extraTimeOut}).should('be.visible');
+        methods.clickElementByXPath(locators.share1)
+        methods.typeElement(locators.email_field,'sarath_tdfect@factors.ai')
+        methods.clickElement(locators.done)
+        methods.VisibilityofElement(locators.notification_popup,extraTimeOut)
 
         // clear the filter
 
-        cy.get('.gap-4 > :nth-child(2) > div > .ant-btn').click();
-        cy.get('.FaSelect_dropdown__clear_opt__263i6 > .ant-btn').click();
-        cy.get('.fa-select--buttons > .ant-btn').click();
+        methods.clickElement(locators.campaign)
+        methods.clickElement(locators.clear)
+        methods.clickElement(locators.Apply)
         cy.wait(1000)
-        cy.get('.gap-4 > :nth-child(3) > div > .ant-btn').click();
-        cy.get('.FaSelect_dropdown__clear_opt__263i6 > .ant-btn').click();
-        cy.get('.fa-select--buttons > .ant-btn').click();
+        methods.clickElement(locators.page_view)
+        methods.clickElement(locators.clear)
+        methods.clickElement(locators.Apply)
         cy.wait(1000)
 
         // Search
 
-        cy.get('.DataTable_searchBar__1fGz4 > .justify-between > :nth-child(2) > :nth-child(1) > .ant-btn').click();
+        methods.clickElement(locators.search)
         cy.get('.DataTable_searchBar__1fGz4').type('klenty');
-        cy.get('.ant-table-row > :nth-child(1)').should('contain','Klenty');
-        cy.get('.DataTable_searchBar__1fGz4 > .justify-between > :nth-child(2) > :nth-child(1) > .ant-btn').click();
+        // methods.typeElement(locators.search_field,'klenty')
+        methods.assertElementContainsText(locators.Klenty_details,'Klenty',extraTimeOut)
+        methods.clickElement(locators.X_button)
         cy.wait(1000)
 
         // download
 
-        cy.get(':nth-child(2) > :nth-child(2) > .ant-btn').click();
+        methods.clickElement(locators.download)
 
     })
 })

@@ -1,6 +1,8 @@
 import envDetails from '../../fixtures/envDetails.json';
 import Login from '../PageObjects/Login';
 import {deviceViewport, extraTimeOut } from '../Utils';
+import methods from '../../support/Common_Method.js'
+import locators from '../../support/Locators.js'
 
 describe('Login', () => {
 
@@ -30,17 +32,16 @@ describe('Login', () => {
             { key: 'Pricing', index: 10, url: 'pricing?activeTab=billing' }
         ].map((item) => {
             cy.wait(5000);
-            cy.get('#fa-at-dropdown--settings', { timeout: extraTimeOut }).click();
+            methods.clickElement(locators.setting)
             cy.get(`.fa-at-overlay--settings > ul > li:nth-child(${item.index}) > span > a`).click({ force: true });
-            cy.wait(1000);
-
-            cy.url().should('eq', `${envDetails.backendApiUrl}/settings/${item.url}`);
+            cy.wait(1000)
+            methods.UrlValidationset(item.url)
             if (item.key == 'Pricing') {
-                cy.get('.ant-breadcrumb',{ timeout: extraTimeOut }).should('be.visible');
-                cy.get(`.ant-breadcrumb span:nth-child(3) > span.ant-breadcrumb-link`).should('have.text', 'Billing');
+                methods.VisibilityofElement(locators.pricing_breadcrumb,extraTimeOut)
+                methods.VisibilityofElement1(locators.billing,'Billing')
             } else {
-                cy.get('#fa-at-text--page-title').should('be.visible');
-                cy.get('#fa-at-text--page-title').contains(item.key);
+                methods.VisibilityofElement(locators.Account_Pagetitle,extraTimeOut)
+                methods.Titletextcontains(locators.Account_Pagetitle,item.key)
             }
         });
 

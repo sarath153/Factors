@@ -1,6 +1,7 @@
 import Login2 from '../PageObjects/Login2';
 import { deviceViewport, extraTimeOut } from '../Utils';
-import envDetails from '../../fixtures/envDetails.json';
+import methods from '../../support/Common_Method.js'
+import locators from '../../support/Locators.js'
 
 describe.skip('Login', () => {
 
@@ -19,32 +20,32 @@ describe.skip('Login', () => {
 
     it.skip('Pricing', () => {
 
-        //   pricing
+        // pricing
+
         cy.wait(5000)
-        cy.get('[id="fa-at-dropdown--settings"]', { timeout: extraTimeOut }).trigger('mouseover', { force: true });
+        methods.Mouseover(locators.setting,extraTimeOut)
         cy.wait(1000)
-        cy.xpath('//h4[text()="Pricing"]').click();
+        methods.clickElementByXPath(locators.Pricing)
         cy.wait(1000)
 
         // select upgrade plan
 
-        cy.get('.mt-5 > .ant-btn').click();
+        methods.clickElement(locators.upgrade_plan)
         cy.wait(1000)
-        cy.get('.fai-text__size--h4').should('contain', 'Upgrade to get more out of Factors');
+        methods.assertElementContainsText(locators.upgrade_title,'Upgrade to get more out of Factors')
         cy.wait(1000)
-        // cy.xpath('//h4[text()="Show All Plans"]').click();
 
         // buy a plan
 
-        cy.xpath('(//span[text()="Buy this Plan"])[1]').click();
+        methods.scrollWithXpath(locators.Buy_this_Plan)
         cy.wait(1000)
-        cy.get('.ant-modal-body').should('be.visible');
-        cy.xpath('//*[text()="Continue"]').should('be.visible');
-        cy.xpath('//*[text()="Continue"]').click();
+        methods.clickElementByXPath(locators.Buy_this_Plan)
         cy.wait(1000)
+        methods.VisibilityofElement(locators.Upgrade_validation)
+        methods.VisibilityofElementXpath(locators.Continue)
+        methods.clickElementByXPath(locators.Continue)
+        cy.wait(3000)
 
-
-        // Payment gateway
 
         cy.origin('https://factors-test.chargebee.com', () => {
             cy.url().should('contain', 'chargebee.com');
@@ -56,19 +57,33 @@ describe.skip('Login', () => {
 
         })
 
+        // Payment gateway
+
+        // cy.origin('https://factors-test.chargebee.com', () => {
+        //     cy.wait(2000)
+        //     methods.chargebeeURL()
+        //     methods.clickElement(locators.cart_submit)
+        //     methods.ClearAndType(locators.first_name,'sonali')
+        //     methods.clickElement(locators.Next)
+        //     methods.clickElement(locators.Subscribe)
+        //     cy.wait(5000)
+
+        // })
+
         // back to staging url
 
-        cy.visit(`${envDetails.backendApiUrl}/settings/pricing?state=succeeded`);
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('be.visible');
+        methods.PricingURL()
+        methods.VisibilityofElement(locators.Account_Pagetitle,extraTimeOut)
 
         // downgrading
 
-        cy.get('.mt-5 > .ant-btn').click();
-        // cy.xpath('//h4[text()="Show All Plans"]').click();
-        cy.xpath('(//span[text()="Buy this Plan"])[1]').click();
-        cy.get('.ant-modal-body').should('be.visible');
-        cy.xpath('//*[text()="Continue"]').click();
+        methods.clickElement(locators.upgrade_plan)
+        methods.scrollWithXpath(locators.Buy_this_Plan)
         cy.wait(1000)
+        methods.clickElementByXPath(locators.Buy_this_Plan)
+        methods.VisibilityofElement(locators.Upgrade_validation)
+        methods.clickElementByXPath(locators.Continue)
+        cy.wait(3000)
 
         cy.origin('https://factors-test.chargebee.com', () => {
             cy.url().should('contain', 'chargebee.com');
@@ -78,9 +93,17 @@ describe.skip('Login', () => {
             cy.wait(5000)
         })
 
-        cy.visit(`${envDetails.backendApiUrl}/settings/pricing?state=succeeded`);
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('be.visible');
+        // cy.origin('https://factors-test.chargebee.com', () => {
+        //     cy.wait(2000)
+        //     methods.chargebeeURL()
+        //     methods.clickElement(locators.cart_submit)
+        //     methods.clickElement(locators.Next)
+        //     methods.clickElement(locators.Subscribe)
+        //     cy.wait(5000)
+        // })
 
+        methods.PricingURL()
+        methods.VisibilityofElement(locators.Account_Pagetitle,extraTimeOut)
 
     })
 })

@@ -1,5 +1,5 @@
-
-import envDetails from '../../fixtures/envDetails.json';
+import methods from '../../support/Common_Method.js'
+import locators from '../../support/Locators.js' 
 import Login from '../PageObjects/Login';
 import { deviceViewport, extraTimeOut } from '../Utils';
 
@@ -35,16 +35,14 @@ describe('Login', () => {
     ].map((item) => {
 
       cy.wait(5000)
-      cy.get('#fa-at-dropdown--config', { timeout: extraTimeOut }).click();
+
+      methods.clickElementwithtime(locators.configure,extraTimeOut)
       cy.get(`.fa-at-overlay--config > ul > li:nth-child(${item.index}) > span > a`).click({ force: true });
       cy.wait(1000);
-
-      cy.url().should('eq', `${envDetails.backendApiUrl}/configure/${item.url}`);
-
-      cy.get('#fa-at-text--page-title').should('be.visible');
-      cy.get('#fa-at-text--page-title').contains(item.key);
-
-
+      methods.UrlValidationcon(item.url)
+      methods.VisibilityofElement(locators.Account_Pagetitle)
+      methods.Titletextcontains(locators.Account_Pagetitle,item.key)
+  
     });
 
 

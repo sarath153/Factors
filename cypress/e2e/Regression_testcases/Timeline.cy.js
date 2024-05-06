@@ -1,5 +1,7 @@
 import Login1 from '../PageObjects/Login1';
 import { deviceViewport, extraTimeOut } from '../Utils';
+import methods from '../../support/Common_Method.js';
+import locators from '../../support/Locators.js';
 
 describe('Timeline Login', () => {
 
@@ -19,45 +21,44 @@ describe('Timeline Login', () => {
     it('Account Timeline -- User Properties and Event Properties', () => {
 
         cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
+        methods.assertElementContainsText(locators.Account_Pagetitle,'All Accounts',extraTimeOut)
         cy.wait(1000)
-        cy.get(':nth-child(2) > .ant-table-cell-fix-left', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('.relative > .ant-btn').click();
-        cy.xpath('//*[@placeholder="Search Accounts"]').type('accenture.com')
-        cy.xpath('//*[@placeholder="Search Accounts"]').type('{enter}');
-        cy.xpath('(//h4[text()="accenture.com"])[1]').click();
+        methods.VisibilityofElement(locators.account_pageloaded,extraTimeOut)
+        methods.clickElement(locators.search_button)
+        methods.typeElementByXPath(locators.search_area,'accenture.com')
+        methods.EnterXpath(locators.search_area)
+        methods.clickElementByXPath(locators.Open_Accenture_Acc)
         cy.wait(1000)
-        cy.get('.timeline-view').eq(0, { timeout: extraTimeOut }).should('be.visible');
-        cy.xpath('//*[text()="Timeline"]').click({ force: true });
+        methods.VisibilityofElementIndex(locators.View_visible,0,extraTimeOut)
         cy.wait(2000)
-        cy.get('#rc-tabs-0-panel-timeline', { timeout: extraTimeOut }).should('to.visible');
+        methods.VisibilityofElement(locators.Time_line_Validation)
         cy.wait(1000)
-        cy.xpath('(//div[text()="Page View"])[1]').click()
-        cy.get('.ant-drawer-body', { timeout: extraTimeOut }).should('be.visible');
-        cy.xpath('//h4[text()="Company State"]//following::button[1]').click({ force: true })
-        cy.get('.ant-message-notice-content', { timeout: extraTimeOut }).should('to.visible');
+        methods.clickElementByXPath(locators.Page_View_1)
+        methods.VisibilityofElement(locators.Page_view_validation,extraTimeOut)
+        methods.clickElementByXPath(locators.email_delete)
+        methods.VisibilityofElement(locators.Popup_Message,extraTimeOut)
         cy.wait(1000)
-        cy.xpath('(//span[text()="Add property"])[2]', { timeout: extraTimeOut }).click()
-        cy.get('[title="Company identification"]').eq(0).click()
-        cy.get('[placeholder="Select Property"]').type('company state')
+        methods.clickElementByXPath(locators.Add_Property_1,extraTimeOut)
+        methods.clickElement0(locators.others,0)
+        methods.typeElement(locators.select_property,'ema')
         cy.wait(1000)
-        cy.get('[title="Company State"]', { timeout: extraTimeOut }).click()
-        cy.get('.ant-message-notice-content', { timeout: extraTimeOut }).should('to.visible');
+        methods.clickElement(locators.email)
+        methods.VisibilityofElement(locators.Popup_Message,extraTimeOut)
         cy.wait(2000)
-        cy.xpath('//span[text()="Event Properties"]', { timeout: extraTimeOut }).click()
+        methods.clickElementByXPath(locators.Event_Properties)
         cy.wait(1000)
-        cy.xpath('//h4[text()="Page URL"]//following::button[1]').click({ force: true })
-        cy.get('.ant-message-notice-content', { timeout: extraTimeOut }).should('to.visible');
+        methods.clickElementByXPath(locators.Page_URL_Button)
+        methods.VisibilityofElement(locators.Popup_Message,extraTimeOut)
         cy.wait(2000)
-        cy.xpath('//span[text()="Event Properties"]', { timeout: extraTimeOut }).click()
+        methods.clickElementByXPath(locators.Event_Properties)
         cy.wait(1000)
-        cy.xpath('(//span[text()="Add property"])[2]', { timeout: extraTimeOut }).click()
-        cy.get('[title="Page properties"]').eq(0).click()
+        methods.clickElementByXPath(locators.Add_Property_1,extraTimeOut)
+        methods.clickElement0(locators.Page_Properties,0)
         cy.wait(1000)
-        cy.get('[title="Page URL"]', { timeout: extraTimeOut }).click()
-        cy.get('.ant-message-notice-content', { timeout: extraTimeOut }).should('to.visible');
+        methods.clickElement(locators.page_URL,extraTimeOut)
+        methods.VisibilityofElement(locators.Popup_Message,extraTimeOut)
         cy.wait(2000)
-        cy.xpath('//span[text()="Event Properties"]', { timeout: extraTimeOut }).click()
+        methods.clickElementByXPath(locators.Event_Properties)
     })
 
 })

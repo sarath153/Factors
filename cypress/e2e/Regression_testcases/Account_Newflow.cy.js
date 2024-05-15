@@ -21,15 +21,16 @@ describe('new structure Login', () => {
     it('Accounts New flow', () => {
 
         cy.wait(5000)
-        methods.VisibilityofElement(locators.Account_Pagetitle,'All Accounts',extraTimeOut)
+        methods.VisibilityofElement(locators.Account_Pagetitle,'All Accounts')
         cy.wait(1000)
-        methods.VisibilityofElement(locators.account_pageloaded,extraTimeOut)
+        methods.VisibilityofElement(locators.account_pageloaded)
         cy.wait(2000)
         methods.clickElementByXPath(locators.Account_FirstValue)
         methods.VisibilityofElementXpath(locators.Account_value)
         methods.clickElementByXPath(locators.Account_value_Close)
         cy.wait(1000)
         methods.MouseoverAndClick(locators.Open_NewTab)
+        cy.wait(2000)
 
     })
 })

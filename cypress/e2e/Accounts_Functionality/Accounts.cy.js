@@ -1,5 +1,5 @@
 import Login1 from '../PageObjects/Login1';
-import {deviceViewport, extraTimeOut } from '../Utils';  
+import { deviceViewport, extraTimeOut } from '../Utils';
 import dayjs from 'dayjs';
 import methods from '../../support/Common_Method.js'
 import locators from '../../support/Locators.js'
@@ -19,7 +19,7 @@ describe('Login', () => {
 
     })
 
-    
+
     it('Accounts', () => {
 
         const nowTime = dayjs().format('H:m:s');
@@ -28,24 +28,24 @@ describe('Login', () => {
         const combination = testName + randomNumber;
 
         cy.wait(5000)
-        methods.assertElementContainsText(locators.Account_Pagetitle,'All Accounts',extraTimeOut)
+        methods.assertElementContainsText(locators.Account_Pagetitle, 'All Accounts')
         cy.wait(1000)
-        methods.VisibilityofElement(locators.account_pageloaded,extraTimeOut)
+        methods.VisibilityofElement(locators.account_pageloaded)
 
         // Search Account
 
         methods.clickElement(locators.search_button)
-        methods.typeElementByXPath(locators.search_area,'factors')
+        methods.typeElementByXPath(locators.search_area, 'factors')
         cy.wait(1000)
         methods.EnterXpath(locators.search_area)
         cy.wait(1000)
-        methods.assertElementContainsText(locators.account_pageloaded,'factors.ai')
+        methods.assertElementContainsText(locators.account_pageloaded, 'factors.ai')
         cy.wait(1000)
 
         // Download columns
 
         methods.clickElementByXPath(locators.download_button)
-        methods.assertElementContainsText(locators.download_header,'Selects which columns to include',extraTimeOut)
+        methods.assertElementContainsText(locators.download_header, 'Selects which columns to include')
         methods.ElementVisibleandClick(locators.exportCSV)
         cy.wait(3000)
 
@@ -65,19 +65,19 @@ describe('Login', () => {
         cy.wait(1000)
         methods.clickElement(locators.Apply_Changes)
         cy.wait(1000)
-        
+
         // Save Segment
 
         methods.clickElement(locators.save_segment)
         cy.wait(1000)
-        methods.ClickandType(locators.segment_name,testName)
+        methods.ClickandType(locators.segment_name, testName)
         cy.wait(1000)
         methods.clickElementByXPath(locators.Save)
         cy.wait(2000)
 
         // open the saved segment
 
-        methods.typeElement(locators.Search_segment,testName)
+        methods.typeElement(locators.Search_segment, testName)
         cy.wait(1000)
         methods.clickElementByXPath(locators.Select_segment)
         cy.wait(1000)
@@ -86,23 +86,23 @@ describe('Login', () => {
 
         methods.clickElementByXPath(locators.Threedots)
         methods.clickElement(locators.rename_segment)
-        methods.typeElement(locators.segment_name,randomNumber)
+        methods.typeElement(locators.segment_name, randomNumber)
         methods.clickElementByXPath(locators.Save)
         cy.wait(2000)
-        methods.Titletextcontains(locators.Account_Pagetitle,combination)
+        methods.Titletextcontains(locators.Account_Pagetitle, combination)
 
         //deleting the segment
 
         methods.clickElementByXPath(locators.Threedots)
         cy.wait(1000)
         methods.clickElementByXPath(locators.Delect_segment)
-        cy.wait(1000) 
+        cy.wait(1000)
         methods.clickElementByXPath(locators.confirm)
         cy.wait(3000)
 
         // add column
-        
-        methods.clickElement1(locators.Add_column_1,extraTimeOut)
+
+        methods.clickElement1(locators.Add_column_1)
         cy.wait(1000)
         methods.VisibilityofElement(locators.Table_properties)
         cy.wait(1000)

@@ -21,16 +21,16 @@ describe('KPI comapre Login', () => {
 
     it('KPI comapre', () => {
 
-        methods.assertElementContainsText(locators.Account_Pagetitle,'All Accounts',extraTimeOut)
+        methods.assertElementContainsText(locators.Account_Pagetitle, 'All Accounts')
         methods.VisitKPIreport()
         methods.UrlValidationKPI()
         cy.wait(5000)
 
         // Select KPI report & add event
 
-        methods.clickElementByXPath(locators.Add_KPI,extraTimeOut)
-        methods.Clickwithindexandvalidation(locators.Website_Session,0)
-        methods.typeElement(locators.search_1,'tot')
+        methods.clickElementByXPath(locators.Add_KPI)
+        methods.Clickwithindexandvalidation(locators.Website_Session, 0)
+        methods.typeElement(locators.search_1, 'tot')
         cy.wait(1000)
         methods.clickElement(locators.Total_Session)
         cy.wait(1000)
@@ -39,11 +39,11 @@ describe('KPI comapre Login', () => {
 
         methods.clickElementByXPath(locators.add_new_3)
         cy.wait(1000)
-        methods.typeElement(locators.search_1,'cha')
+        methods.typeElement(locators.search_1, 'cha')
         cy.wait(2000);
-        methods.Clickwithindexandvalidation(locators.Channel_option,0)
+        methods.Clickwithindexandvalidation(locators.Channel_option, 0)
         cy.wait(4000)
-        methods.clickElementByXPath(locators.account_filter,extraTimeOut)
+        methods.clickElementByXPath(locators.account_filter)
         cy.wait(1000)
         methods.clickElementByXPath(locators.Apply1)
 
@@ -51,13 +51,13 @@ describe('KPI comapre Login', () => {
 
         methods.clickElement(locators.cal_1)
         cy.wait(1000)
-        methods.clickElement0(locators.choose_date,7)
+        methods.clickElement0(locators.choose_date, 7)
         cy.wait(1000)
         methods.clickElement(locators.run_analysis_KPI)
-        methods.VisibilityofElement(locators.Attri_pageloaded,extraTimeOut)
+        methods.VisibilityofElement(locators.Attri_pageloaded)
         methods.clickElementByXPath(locators.Compare)
         methods.clickElementByXPath(locators.Compare_to)
-        methods.VisibilityofElement(locators.Attri_pageloaded,extraTimeOut)
+        methods.VisibilityofElement(locators.Attri_pageloaded)
 
 
     })

@@ -35,7 +35,7 @@ describe('Login', () => {
             // cy.url().should('eq', `${envDetails.backendApiUrl}${item.url}`);
             methods.navigateToUrl(item.url)
             methods.VisibilityofElement(locators.Account_Pagetitle)
-            methods.VisibilityofElement1(locators.Account_Pagetitle,item.key)
+            methods.VisibilityofElement1(locators.Account_Pagetitle, item.key)
         })
 
 

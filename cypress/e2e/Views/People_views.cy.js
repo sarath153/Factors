@@ -1,6 +1,5 @@
 import Login1 from '../PageObjects/Login1';
-import {deviceViewport, extraTimeOut } from '../Utils';  
-import envDetails from '../../fixtures/envDetails.json'; 
+import {deviceViewport, extraTimeOut } from '../Utils';   
 import methods from '../../support/Common_Method.js'
 import locators from '../../support/Locators.js' 
 
@@ -21,15 +20,15 @@ describe('Login', () => {
 
     it('People view', () => {
 
-        methods.assertElementContainsText(locators.Account_Pagetitle,'All Accounts',extraTimeOut)
+        methods.assertElementContainsText(locators.Account_Pagetitle,'All Accounts')
         cy.wait(1000)
         methods.navigateToUrlPeople()
         cy.wait(1000)
         methods.UrlValidationPeople()
         cy.wait(1000)
-        methods.assertElementContainsText(locators.Account_Pagetitle,'All People',extraTimeOut)
+        methods.assertElementContainsText(locators.Account_Pagetitle,'All People')
         cy.wait(1000)
-        methods.VisibilityofElement(locators.account_pageloaded,extraTimeOut)
+        methods.VisibilityofElement(locators.account_pageloaded)
 
         // select account & birdview
 
@@ -41,9 +40,9 @@ describe('Login', () => {
         cy.wait(1000)
         methods.clickElement(locators.account_pageloaded)
         cy.wait(1000)
-        methods.VisibilityofElement(locators.View_visible,extraTimeOut)
+        methods.VisibilityofElement(locators.View_visible)
         cy.wait(1000)
-        methods.MouseoverWithXpath(locators.people_firstvalue,extraTimeOut)
+        methods.MouseoverWithXpath(locators.people_firstvalue)
         cy.wait(1000)
         methods.VisibilityofElement(locators.popupcard)
         cy.wait(1000)
@@ -150,7 +149,7 @@ describe('Login', () => {
 
         methods.clickElementByXPath(locators.Time_line)
         cy.wait(1000)
-        methods.VisibleofElement(locators.Time_line_Validation,extraTimeOut)
+        methods.VisibleofElement(locators.Time_line_Validation)
         cy.wait(1000)
 
     })

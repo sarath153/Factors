@@ -20,7 +20,7 @@ describe('Login', () => {
 
     it('Accounts view', () => {
 
-        methods.assertElementContainsText(locators.Account_Pagetitle,'All Accounts',extraTimeOut)
+        methods.assertElementContainsText(locators.Account_Pagetitle, 'All Accounts')
         cy.wait(2000)
         methods.VisibilityofElement(locators.account_pageloaded)
 
@@ -28,14 +28,14 @@ describe('Login', () => {
 
         methods.clickElement(locators.search_button)
         cy.wait(1000)
-        methods.typeElementByXPath(locators.search_area,'infosys.com')
+        methods.typeElementByXPath(locators.search_area, 'infosys.com')
         cy.wait(1000)
         methods.EnterXpath(locators.search_area)
         cy.wait(1000)
         methods.clickElementByXPath(locators.open_account)
         cy.wait(1000)
         methods.clickElementByXPath(locators.BirdView)
-        methods.VisibilityofElement(locators.View_visible,extraTimeOut)
+        methods.VisibilityofElement(locators.View_visible)
         cy.wait(1000)
 
         // expand the pageView and verify the show less visibility
@@ -80,8 +80,8 @@ describe('Login', () => {
         cy.wait(1000)
         methods.clickElementByXPath(locators.Add_Property1)
         cy.wait(1000)
-        methods.clickElement0(locators.Company_Identification,0)
-        methods.typeElement(locators.select_property,'dom')
+        methods.clickElement0(locators.Company_Identification, 0)
+        methods.typeElement(locators.select_property, 'dom')
         cy.wait(1000)
         methods.clickElement(locators.Company_domain)
         cy.wait(1000)
@@ -123,14 +123,14 @@ describe('Login', () => {
 
         methods.clickElementByXPath(locators.Time_line)
         cy.wait(1000)
-        methods.VisibleofElement(locators.Time_line_Validation,extraTimeOut)
+        methods.VisibleofElement(locators.Time_line_Validation)
         cy.wait(1000)
 
         // Overview
 
         methods.clickElementByXPath(locators.Over_view)
         cy.wait(1000)
-        methods.VisibleofElement(locators.Over_view_validation,extraTimeOut)
-        
+        methods.VisibleofElement(locators.Over_view_validation)
+
     })
 })

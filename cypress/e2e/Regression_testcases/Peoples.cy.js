@@ -1,6 +1,6 @@
 import envDetails from '../../fixtures/envDetails.json';
 import Login1 from '../PageObjects/Login1';
-import {deviceViewport, extraTimeOut } from '../Utils';  
+import { deviceViewport, extraTimeOut } from '../Utils';
 import dayjs from 'dayjs';
 import methods from '../../support/Common_Method.js'
 import locators from '../../support/Locators.js'
@@ -23,59 +23,59 @@ describe('Peoples Login', () => {
     it('TC_RE_01 - Peoples_Page Load', () => {
 
         cy.wait(5000)
-        methods.assertElementContainsText(locators.Account_Pagetitle,'All Accounts',extraTimeOut)
+        methods.assertElementContainsText(locators.Account_Pagetitle, 'All Accounts')
         methods.Mouseover(locators.account_dropdown)
         methods.clickElementByXPath(locators.People)
         cy.wait(8000)
         methods.UrlvalidationPeople()
-        methods.assertElementContainsText(locators.Account_Pagetitle,'All People',extraTimeOut)
+        methods.assertElementContainsText(locators.Account_Pagetitle, 'All People')
 
     })
 
     it('TC_RE_02, TC_RE_03 - Peoples_Page filter', () => {
 
         cy.wait(5000)
-        methods.assertElementContainsText(locators.Account_Pagetitle,'All Accounts',extraTimeOut)
+        methods.assertElementContainsText(locators.Account_Pagetitle, 'All Accounts')
         methods.Mouseover(locators.account_dropdown)
         methods.clickElementByXPath(locators.People)
         cy.wait(8000)
         methods.UrlvalidationPeople()
-        methods.assertElementContainsText(locators.Account_Pagetitle,'All People',extraTimeOut)
+        methods.assertElementContainsText(locators.Account_Pagetitle, 'All People')
         methods.clickElement(locators.filter)
         cy.wait(1000)
         methods.clickElementByXPath(locators.Add_filter1)
-        methods.clickElement0(locators.others,0)
+        methods.clickElement0(locators.others, 0)
         methods.clickElement(locators.email_option)
         methods.clickElement(locators.true1)
         methods.clickElementByXPath(locators.Apply1)
         cy.wait(1000)
         methods.clickElementByXPath(locators.Add_event)
-        methods.clickElement0(locators.others1,0)
+        methods.clickElement0(locators.others1, 0)
         methods.clickElement(locators.login_option)
         methods.clickElement(locators.Apply_Changes)
         methods.VisibilityofElement(locators.account_pageloaded)
-        
+
     })
 
     it('TC_RE_04 - Peoples_Filter clear', () => {
 
         cy.wait(5000)
-        methods.assertElementContainsText(locators.Account_Pagetitle,'All Accounts',extraTimeOut)
+        methods.assertElementContainsText(locators.Account_Pagetitle, 'All Accounts')
         methods.Mouseover(locators.account_dropdown)
         methods.clickElementByXPath(locators.People)
         cy.wait(8000)
         methods.UrlvalidationPeople()
-        methods.assertElementContainsText(locators.Account_Pagetitle,'All People',extraTimeOut)
+        methods.assertElementContainsText(locators.Account_Pagetitle, 'All People')
         methods.clickElement(locators.filter)
         cy.wait(1000)
         methods.clickElementByXPath(locators.Add_filter1)
-        methods.clickElement0(locators.others,0)
+        methods.clickElement0(locators.others, 0)
         methods.clickElement(locators.email_option)
         methods.clickElement(locators.true1)
         methods.clickElementByXPath(locators.Apply1)
         cy.wait(1000)
         methods.clickElementByXPath(locators.Add_event)
-        methods.clickElement0(locators.others1,0)
+        methods.clickElement0(locators.others1, 0)
         methods.clickElement(locators.login_option)
         methods.clickElement(locators.Apply_Changes)
         methods.VisibilityofElement(locators.account_pageloaded)
@@ -86,47 +86,47 @@ describe('Peoples Login', () => {
     it('TC_RE_05 - Peoples_discard changes', () => {
 
         cy.wait(5000)
-        methods.assertElementContainsText(locators.Account_Pagetitle,'All Accounts',extraTimeOut)
+        methods.assertElementContainsText(locators.Account_Pagetitle, 'All Accounts')
         methods.Mouseover(locators.account_dropdown)
         methods.clickElementByXPath(locators.People)
         cy.wait(8000)
         methods.UrlvalidationPeople()
-        methods.assertElementContainsText(locators.Account_Pagetitle,'All People',extraTimeOut)
+        methods.assertElementContainsText(locators.Account_Pagetitle, 'All People')
         methods.clickElement(locators.filter)
         cy.wait(1000)
         methods.clickElementByXPath(locators.Add_filter1)
-        methods.clickElement0(locators.others,0)
+        methods.clickElement0(locators.others, 0)
         methods.clickElement(locators.email_option)
         methods.clickElement(locators.true1)
         methods.clickElementByXPath(locators.Apply1)
         cy.wait(1000)
         methods.clickElementByXPath(locators.Add_event)
-        methods.clickElement0(locators.others1,0)
+        methods.clickElement0(locators.others1, 0)
         methods.clickElement(locators.login_option)
         methods.clickElementByXPath(locators.Discard_Filter)
 
     })
 
     it('TC_RE_06, TC_RE_07 - People_Search field ', () => {
-    
+
         cy.wait(5000)
-        methods.assertElementContainsText(locators.Account_Pagetitle,'All Accounts',extraTimeOut)
+        methods.assertElementContainsText(locators.Account_Pagetitle, 'All Accounts')
         methods.Mouseover(locators.account_dropdown)
         methods.clickElementByXPath(locators.People)
         cy.wait(8000)
         methods.UrlvalidationPeople()
-        methods.assertElementContainsText(locators.Account_Pagetitle,'All People',extraTimeOut)
+        methods.assertElementContainsText(locators.Account_Pagetitle, 'All People')
 
         // Search username
-        
+
         methods.VisibilityofElement(locators.account_pageloaded)
         methods.clickElement(locators.search_button)
         cy.wait(1000)
-        methods.typeElementByXPath(locators.Search1,'baliga')
+        methods.typeElementByXPath(locators.Search1, 'baliga')
         cy.wait(1000)
         methods.EnterXpath(locators.Search1)
         cy.wait(1000)
-        methods.assertElementContainsText(locators.rowname,'baliga@factors.ai')
+        methods.assertElementContainsText(locators.rowname, 'baliga@factors.ai')
         methods.clickElementByXPath(locators.clear_search)
     })
 
@@ -138,90 +138,90 @@ describe('Peoples Login', () => {
         const combination = testName + randomNumber;
 
         cy.wait(5000)
-        methods.assertElementContainsText(locators.Account_Pagetitle,'All Accounts',extraTimeOut)
+        methods.assertElementContainsText(locators.Account_Pagetitle, 'All Accounts')
         methods.Mouseover(locators.account_dropdown)
         methods.clickElementByXPath(locators.People)
         cy.wait(8000)
         methods.UrlvalidationPeople()
-        methods.assertElementContainsText(locators.Account_Pagetitle,'All People',extraTimeOut)
+        methods.assertElementContainsText(locators.Account_Pagetitle, 'All People')
         methods.clickElementByXPath(locators.New_Segment)
         methods.clickElementByXPath(locators.Add_filter1)
-        methods.clickElement0(locators.others,0)
+        methods.clickElement0(locators.others, 0)
         methods.clickElement(locators.email_option)
         methods.clickElement(locators.true1)
         methods.clickElementByXPath(locators.Apply1)
         cy.wait(1000)
         methods.clickElementByXPath(locators.Add_event)
-        methods.clickElement0(locators.others1,0)
+        methods.clickElement0(locators.others1, 0)
         methods.clickElement(locators.login_option)
         methods.clickElement(locators.Apply_Changes)
         methods.VisibilityofElement(locators.account_pageloaded)
         methods.clickElement(locators.save_segment_css)
-        methods.ClickandType(locators.segment_name,testName)
+        methods.ClickandType(locators.segment_name, testName)
         methods.clickElementByXPath(locators.Save)
         cy.wait(1000)
         methods.VisibilityofElement(locators.notification_popup)
 
         // open the saved segment
 
-        methods.typeElement(locators.Search_segment,testName)
-        methods.clickwithcontaintext(locators.seg_name,testName)
+        methods.typeElement(locators.Search_segment, testName)
+        methods.clickwithcontaintext(locators.seg_name, testName)
 
         // renaming segment
 
         methods.clickElementByXPath(locators.Threedots1)
         methods.clickElement(locators.rename_segment)
-        methods.typeElementByXPath(locators.seg_rename,randomNumber)
+        methods.typeElementByXPath(locators.seg_rename, randomNumber)
         methods.clickElementByXPath(locators.save1)
-        methods.Titletextcontains(locators.Account_Pagetitle,combination)
+        methods.Titletextcontains(locators.Account_Pagetitle, combination)
         methods.VisibilityofElement(locators.notification_popup)
-        
+
         //deleting the segment
 
         methods.clickElementByXPath(locators.Threedots1)
         methods.clickElementByXPath(locators.Delect_segment)
         methods.clickElementByXPath(locators.confirm)
         methods.VisibilityofElement(locators.notification_popup1)
-    
+
     })
 
     it('TC_RE_12, TC_RE_13 - People_Brid views ', () => {
 
         cy.wait(5000)
-        methods.assertElementContainsText(locators.Account_Pagetitle,'All Accounts',extraTimeOut)
+        methods.assertElementContainsText(locators.Account_Pagetitle, 'All Accounts')
         methods.Mouseover(locators.account_dropdown)
         methods.clickElementByXPath(locators.People)
         cy.wait(8000)
         methods.UrlvalidationPeople()
-        methods.assertElementContainsText(locators.Account_Pagetitle,'All People',extraTimeOut)
-        methods.VisibilityofElement(locators.account_pageloaded,extraTimeOut)
+        methods.assertElementContainsText(locators.Account_Pagetitle, 'All People')
+        methods.VisibilityofElement(locators.account_pageloaded)
 
         // select account & birdview
 
         methods.clickElement(locators.search_button)
-        methods.typeElementByXPath(locators.Search1,'saurabh.singh@webengage.com')
+        methods.typeElementByXPath(locators.Search1, 'saurabh.singh@webengage.com')
         methods.EnterXpath(locators.Search1)
         methods.clickElement(locators.account_pageloaded)
-        methods.VisibilityofElement(locators.View_visible,extraTimeOut)
+        methods.VisibilityofElement(locators.View_visible)
 
     })
 
     it('TC_RE_14 - People_Birdviews expand ', () => {
 
         cy.wait(5000)
-        methods.assertElementContainsText(locators.Account_Pagetitle,'All Accounts',extraTimeOut)
+        methods.assertElementContainsText(locators.Account_Pagetitle, 'All Accounts')
         methods.Mouseover(locators.account_dropdown)
         methods.clickElementByXPath(locators.People)
         cy.wait(8000)
         methods.UrlvalidationPeople()
-        methods.assertElementContainsText(locators.Account_Pagetitle,'All People',extraTimeOut)
-        methods.VisibilityofElement(locators.account_pageloaded,extraTimeOut)
+        methods.assertElementContainsText(locators.Account_Pagetitle, 'All People')
+        methods.VisibilityofElement(locators.account_pageloaded)
 
         methods.clickElement(locators.search_button)
-        methods.typeElementByXPath(locators.Search1,'saurabh.singh@webengage.com')
+        methods.typeElementByXPath(locators.Search1, 'saurabh.singh@webengage.com')
         methods.EnterXpath(locators.Search1)
         methods.clickElement(locators.account_pageloaded)
-        methods.VisibilityofElement(locators.View_visible,extraTimeOut)
+        methods.VisibilityofElement(locators.View_visible)
         cy.wait(1000)
         methods.clickElementByXPath(locators.Expand)
     })
@@ -229,19 +229,19 @@ describe('Peoples Login', () => {
     it('TC_RE_15 - People_Birdviews account activity ', () => {
 
         cy.wait(5000)
-        methods.assertElementContainsText(locators.Account_Pagetitle,'All Accounts',extraTimeOut)
+        methods.assertElementContainsText(locators.Account_Pagetitle, 'All Accounts')
         methods.Mouseover(locators.account_dropdown)
         methods.clickElementByXPath(locators.People)
         cy.wait(8000)
         methods.UrlvalidationPeople()
-        methods.assertElementContainsText(locators.Account_Pagetitle,'All People',extraTimeOut)
-        methods.VisibilityofElement(locators.account_pageloaded,extraTimeOut)
+        methods.assertElementContainsText(locators.Account_Pagetitle, 'All People')
+        methods.VisibilityofElement(locators.account_pageloaded)
 
         methods.clickElement(locators.search_button)
-        methods.typeElementByXPath(locators.Search1,'saurabh.singh@webengage.com')
+        methods.typeElementByXPath(locators.Search1, 'saurabh.singh@webengage.com')
         methods.EnterXpath(locators.Search1)
         methods.clickElement(locators.account_pageloaded)
-        methods.VisibilityofElement(locators.View_visible,extraTimeOut)
+        methods.VisibilityofElement(locators.View_visible)
         cy.wait(1000)
         methods.clickElementByXPath(locators.time_dropdown)
         methods.clickElementByXPath(locators.Time_stamp)

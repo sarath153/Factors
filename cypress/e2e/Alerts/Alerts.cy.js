@@ -25,7 +25,7 @@ describe('Login', () => {
         const testName = `Demo_${nowTime}`;
 
         cy.wait(5000)
-        methods.assertElementContainsText(locators.Account_Pagetitle,'All Accounts',extraTimeOut)
+        methods.assertElementContainsText(locators.Account_Pagetitle,'All Accounts')
         cy.wait(1000)
         methods.clickElementByXPath(locators.Automation)
 
@@ -121,6 +121,7 @@ describe('Login', () => {
 
         methods.clickElementByXPath(locators.Enable_button)
         methods.clickElementByXPath(locators.Select_channel)
+        cy.wait(1000)
         methods.typeElement(locators.search_channel,'stag')
         methods.clickElementByXPath(locators.choose_channel)
         methods.clickElementByXPath(locators.save_channel)
@@ -141,6 +142,7 @@ describe('Login', () => {
         methods.clickElementByXPath(locators.Ok)
         cy.wait(1000)
         methods.VisibilityofElement(locators.notification_popup)
+        cy.wait(2000)
 
     })
 })

@@ -1,25 +1,26 @@
 import envDetails from '../fixtures/envDetails.json';
+import { deviceViewport, extraTimeOut } from '../e2e/Utils';
 
 class methods {
 
-    assertElementContainsText(selector, text, timeout) {
-        cy.get(selector, { timeout }).should('contain', text);
+    assertElementContainsText(selector, text) {
+        cy.get(selector, { timeout: extraTimeOut }).should('contain', text);
     }
 
-    VisibilityofElementXpath(xpath, timeout) {
-        cy.xpath(xpath, { timeout }).should('be.visible');
+    VisibilityofElementXpath(xpath) {
+        cy.xpath(xpath).should('be.visible');
     }
 
-    VisibleofElement(selector, timeout) {
-        cy.get(selector, { timeout }).should('to.visible');
+    VisibleofElement(selector) {
+        cy.get(selector).should('to.visible');
     }
 
     clickElement0(selector, int) {
-        cy.get(selector).eq(int).click({force:true});
+        cy.get(selector, { timeout: extraTimeOut }).eq(int).click({force:true});
     }
 
     clickElement(selector) {
-        cy.get(selector).click({ force: true });
+        cy.get(selector, { timeout: extraTimeOut }).click({ force: true });
     }
 
     clickElementwithindex(selector, text) {
@@ -34,12 +35,12 @@ class methods {
         cy.xpath(Xpath).scrollIntoView();
     }
 
-    clickElementwithtime(selector, timeout) {
-        cy.get(selector, { timeout }).click();
+    clickElementwithtime(selector) {
+        cy.get(selector).click();
     }
 
     clickElement1(selector) {
-        cy.get(selector).click({ force: true });
+        cy.get(selector, { timeout: extraTimeOut }).click({ force: true });
     }
 
     navigateToUrlPeople() {
@@ -60,10 +61,6 @@ class methods {
 
     UrlValidation(text) {
         cy.url().should('contain', `${envDetails.backendApiUrl}${text}`);
-    }
-
-    UrlValidationcon(text) {
-        cy.url().should('eq', `${envDetails.backendApiUrl}/configure/${text}`);
     }
 
     UrlValidationset(text) {
@@ -91,15 +88,15 @@ class methods {
     }
 
     Titletextcontains(selector, text) {
-        cy.get(selector).contains(text);
+        cy.get(selector, { timeout: extraTimeOut }).contains(text);
     }
 
-    AssertNotEmpty(selector, timeout) {
-        cy.get(selector, { timeout }).should('not.be.empty');
+    AssertNotEmpty(selector) {
+        cy.get(selector, { timeout: extraTimeOut }).should('not.be.empty');
     }
 
-    AssertNotEmptyWithXpath(Xpath, timeout) {
-        cy.xpath(Xpath, { timeout }).should('not.be.empty');
+    AssertNotEmptyWithXpath(Xpath) {
+        cy.xpath(Xpath).should('not.be.empty');
     }
 
     Enter(selector) {
@@ -111,7 +108,7 @@ class methods {
     }
 
     clickElementByXPath(xpath) {
-        cy.xpath(xpath).click({ force: true });
+        cy.xpath(xpath, { timeout: extraTimeOut }).click({ force: true });
     }
 
     clickElementByXPath1(xpath) {
@@ -123,7 +120,7 @@ class methods {
     }
 
     typeElement(selector, text) {
-        cy.get(selector).type(text, { force: true });
+        cy.get(selector, { timeout: extraTimeOut }).type(text, { force: true });
     }
 
     clickwithcontaintext(selector, text) {
@@ -138,12 +135,12 @@ class methods {
         cy.xpath(Xpath).click().type(text);
     }
 
-    assertElementContainsTextxpath(xpath, text, timeout) {
-        cy.xpath(xpath, { timeout }).should('contain', text);
+    assertElementContainsTextxpath(xpath, text) {
+        cy.xpath(xpath).should('contain', text);
     }
 
-    VisibilityofElement(selector, timeout) {
-        cy.get(selector, { timeout }).should('be.visible');
+    VisibilityofElement(selector) {
+        cy.get(selector, { timeout: extraTimeOut }).should('be.visible');
     }
 
     VisibilityofElementIndex(selector) {
@@ -151,15 +148,15 @@ class methods {
     }
 
     VisibilityofElement1(selector, text) {
-        cy.get(selector).should('have.text', text);
+        cy.get(selector, { timeout: extraTimeOut }).should('have.text', text);
     }
 
-    Mouseover(selector, timeout) {
-        cy.get(selector, { timeout }).trigger('mouseover', { force: true });
+    Mouseover(selector) {
+        cy.get(selector, { timeout: extraTimeOut }).trigger('mouseover', { force: true });
     }
 
-    MouseoverWithXpath(xpath, timeout) {
-        cy.xpath(xpath, { timeout }).trigger('mouseover', { force: true });
+    MouseoverWithXpath(xpath) {
+        cy.xpath(xpath, { timeout: extraTimeOut }).trigger('mouseover', { force: true });
     }
 
     chargebeeURL(){

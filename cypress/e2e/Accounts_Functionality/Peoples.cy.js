@@ -1,6 +1,6 @@
 import envDetails from '../../fixtures/envDetails.json';
 import Login1 from '../PageObjects/Login1';
-import {deviceViewport, extraTimeOut } from '../Utils';  
+import { deviceViewport, extraTimeOut } from '../Utils';
 import dayjs from 'dayjs';
 import methods from '../../support/Common_Method.js'
 import locators from '../../support/Locators.js'
@@ -20,7 +20,7 @@ describe('Login', () => {
 
     })
 
-    
+
     it('People', () => {
 
         const nowTime = dayjs().format('H:m:s');
@@ -29,24 +29,24 @@ describe('Login', () => {
         const combination = testName + randomNumber;
 
         cy.wait(5000)
-        methods.assertElementContainsText(locators.Account_Pagetitle,'All Accounts',extraTimeOut)
+        methods.assertElementContainsText(locators.Account_Pagetitle, 'All Accounts')
         methods.Mouseover(locators.account_dropdown)
         methods.clickElementByXPath(locators.People)
         cy.wait(1000)
         methods.UrlvalidationPeople()
-        methods.assertElementContainsText(locators.Account_Pagetitle,'All People',extraTimeOut)
+        methods.assertElementContainsText(locators.Account_Pagetitle, 'All People')
 
         // Search username
 
         cy.wait(3000)
-        methods.VisibilityofElement(locators.account_pageloaded,extraTimeOut)
+        methods.VisibilityofElement(locators.account_pageloaded)
         methods.clickElement(locators.search_button)
         cy.wait(1000)
-        methods.typeElementByXPath(locators.Search1,'baliga')
+        methods.typeElementByXPath(locators.Search1, 'baliga')
         cy.wait(1000)
         methods.EnterXpath(locators.Search1)
         cy.wait(1000)
-        methods.assertElementContainsText(locators.rowname,'baliga@factors.ai')
+        methods.assertElementContainsText(locators.rowname, 'baliga@factors.ai')
         cy.wait(1000)
 
         // add column
@@ -66,34 +66,34 @@ describe('Login', () => {
         methods.clickElement(locators.filter)
         cy.wait(1000)
         methods.clickElementByXPath(locators.Add_filter1)
-        methods.clickElement0(locators.others,0)
+        methods.clickElement0(locators.others, 0)
         methods.clickElement(locators.email_option)
         methods.clickElement(locators.true1)
         methods.clickElementByXPath(locators.Apply1)
         cy.wait(1000)
         methods.clickElementByXPath(locators.Add_event)
-        methods.clickElement0(locators.others1,0)
+        methods.clickElement0(locators.others1, 0)
         methods.clickElement(locators.login_option)
         methods.clickElement(locators.Apply_Changes)
         cy.wait(2000)
-        methods.VisibilityofElement(locators.account_pageloaded,extraTimeOut)
+        methods.VisibilityofElement(locators.account_pageloaded)
 
         // Save Segment
 
         methods.clickElement(locators.save_segment)
         cy.wait(1000)
-        methods.ClickandTypeXpath(locators.segment_namefield,testName)
+        methods.ClickandTypeXpath(locators.segment_namefield, testName)
         cy.wait(1000)
         methods.clickElementByXPath(locators.Save)
         cy.wait(1000)
-        methods.VisibilityofElement(locators.notification_popup,extraTimeOut)
+        methods.VisibilityofElement(locators.notification_popup)
 
         // open the saved segment
 
         cy.wait(1000)
-        methods.typeElement(locators.Search_segment,testName)
+        methods.typeElement(locators.Search_segment, testName)
         cy.wait(1000)
-        methods.clickwithcontaintext(locators.seg_name,testName)
+        methods.clickwithcontaintext(locators.seg_name, testName)
         cy.wait(3000)
 
         // renaming segment
@@ -102,13 +102,13 @@ describe('Login', () => {
         cy.wait(1000)
         methods.clickElement(locators.rename_segment)
         cy.wait(1000)
-        methods.typeElementByXPath(locators.seg_rename,randomNumber)
+        methods.typeElementByXPath(locators.seg_rename, randomNumber)
         cy.wait(1000)
         methods.clickElementByXPath(locators.save1)
         cy.wait(1000)
-        methods.Titletextcontains(locators.Account_Pagetitle,combination)
+        methods.Titletextcontains(locators.Account_Pagetitle, combination)
         cy.wait(1000)
-        
+
         //deleting the segment
 
         methods.clickElementByXPath(locators.Threedots1)

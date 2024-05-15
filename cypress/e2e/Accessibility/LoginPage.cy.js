@@ -1,8 +1,8 @@
 import userDetails from '../../fixtures/userDetails.json';
 import Login from '../PageObjects/Login';
-import {deviceViewport, extraTimeOut } from '../Utils';
+import { deviceViewport, extraTimeOut } from '../Utils';
 import methods from '../../support/Common_Method.js'
-import locators from '../../support/Locators.js' 
+import locators from '../../support/Locators.js'
 
 describe('Login', () => {
 
@@ -26,13 +26,13 @@ describe('Login', () => {
 
         //Displays logged in user details
         cy.wait(5000)
-        methods.VisibilityofElement(locators.usermail,extraTimeOut)
-        methods.VisibilityofElement1(locators.usermail,userDetails.email)
-        
+        methods.VisibilityofElement(locators.usermail)
+        methods.VisibilityofElement1(locators.usermail, userDetails.email)
+
         //landing in default screen - All account
         cy.wait(5000)
-        methods.VisibilityofElement(locators.Account_Pagetitle,extraTimeOut)
-        methods.VisibilityofElement1(locators.Account_Pagetitle,'All Accounts')
+        methods.VisibilityofElement(locators.Account_Pagetitle)
+        methods.VisibilityofElement1(locators.Account_Pagetitle, 'All Accounts')
     });
 
 

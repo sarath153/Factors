@@ -26,35 +26,35 @@ describe('Custom Kpi Login', () => {
 
 
         cy.wait(5000)
-        methods.assertElementContainsText(locators.Account_Pagetitle,'All Accounts',extraTimeOut)
-        methods.Mouseover(locators.configure)
+        methods.assertElementContainsText(locators.Account_Pagetitle, 'All Accounts')
+        methods.clickElement(locators.setting)
         methods.clickElementByXPath(locators.Customs_KPIs)
-        methods.clickElementByXPath(locators.Add_New,extraTimeOut)
-        methods.typeElement(locators.Name,testName,extraTimeOut)
-        methods.typeElement(locators.description,'Testing Purpose')
+        methods.clickElementByXPath(locators.Add_New)
+        methods.typeElement(locators.Name, testName)
+        methods.typeElement(locators.description, 'Testing Purpose')
 
         methods.clickElement(locators.Default)
         methods.clickElement(locators.Derived_KPI)
 
         methods.clickElementByXPath(locators.Add_KPI1)
-        methods.clickElement0(locators.Website_Session,0)
-        methods.typeElement(locators.Select_Event,'tot')
+        methods.clickElement0(locators.Website_Session, 0)
+        methods.typeElement(locators.Select_Event, 'tot')
         methods.clickElement(locators.Total_Session)
         methods.clickElementByXPath(locators.Add_another_KPI)
-        methods.clickElement0(locators.Website_Session,0)
+        methods.clickElement0(locators.Website_Session, 0)
         methods.clickElementByXPath(locators.KPI_option_1)
 
-        methods.typeElement(locators.Formula,'A+B')
+        methods.typeElement(locators.Formula, 'A+B')
         methods.clickElement(locators.showAspercentage)
 
         methods.scroll(locators.done)
         methods.clickElement(locators.done)
 
-        methods.VisibilityofElement(locators.notification_popup,extraTimeOut)
+        methods.VisibilityofElement(locators.notification_popup)
         cy.xpath(`//h4[text()='${testName}']`, { timeout: extraTimeOut }).scrollIntoView();
         cy.xpath(`//h4[text()='${testName}']//following::button[1]`).click({ force: true });
         methods.clickElementByXPath(locators.Remove_1)
-        methods.VisibilityofElement(locators.notification_popup,extraTimeOut)
+        methods.VisibilityofElement(locators.notification_popup)
         cy.wait(2000)
 
     })

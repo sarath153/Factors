@@ -25,7 +25,7 @@ describe('Login', () => {
         const testName = `Demo_${nowTime}`;
         const testName1 = `Demo_${nowTime}_1`;
 
-        methods.assertElementContainsText(locators.Account_Pagetitle,'All Accounts',extraTimeOut)
+        methods.assertElementContainsText(locators.Account_Pagetitle, 'All Accounts')
         methods.VisitKPIreport()
         methods.UrlValidationKPI()
         cy.wait(5000)
@@ -33,8 +33,8 @@ describe('Login', () => {
         // Select KPI report & add event
 
         methods.clickElementByXPath(locators.Add_KPI)
-        methods.Clickwithindexandvalidation(locators.Website_Session,0)
-        methods.typeElement(locators.search_1,'tot')
+        methods.Clickwithindexandvalidation(locators.Website_Session, 0)
+        methods.typeElement(locators.search_1, 'tot')
         cy.wait(1000)
         methods.clickElement(locators.Total_Session)
         cy.wait(1000)
@@ -43,9 +43,9 @@ describe('Login', () => {
 
         methods.clickElementByXPath(locators.add_new_3)
         cy.wait(1000)
-        methods.typeElement(locators.search_1,'cha')
+        methods.typeElement(locators.search_1, 'cha')
         cy.wait(2000);
-        methods.Clickwithindexandvalidation(locators.Channel_option,0)
+        methods.Clickwithindexandvalidation(locators.Channel_option, 0)
         cy.wait(4000)
         methods.clickElementByXPath(locators.account_filter)
         cy.wait(1000)
@@ -55,7 +55,7 @@ describe('Login', () => {
 
         methods.clickElement(locators.cal_1)
         cy.wait(1000)
-        methods.clickElement0(locators.choose_date,7)
+        methods.clickElement0(locators.choose_date, 7)
         cy.wait(1000)
         methods.clickElement(locators.run_analysis_KPI)
         methods.VisibilityofElement(locators.table_validation1)
@@ -64,10 +64,10 @@ describe('Login', () => {
         // save
 
         methods.clickElementByXPath(locators.Save_1)
-        methods.typeElement(locators.Report_Name,testName,extraTimeOut)
-        methods.typeElement(locators.Description_OP,'Testing Purpose')
+        methods.typeElement(locators.Report_Name, testName)
+        methods.typeElement(locators.Description_OP, 'Testing Purpose')
         methods.clickElementByXPath(locators.save1)
-        methods.VisibilityofElement(locators.notification_popup,extraTimeOut)
+        methods.VisibilityofElement(locators.notification_popup)
         cy.wait(2000)
 
         methods.clickElementByXPath1(locators.Closed)
@@ -76,24 +76,24 @@ describe('Login', () => {
         cy.xpath(`//h4[text()='${testName}']//following::button[1]`).trigger('mouseover', { force: true });
         methods.clickElementByXPath(locators.View_Report)
         cy.wait(2000)
-        methods.clickElementByXPath(locators.Expand_1,extraTimeOut)
+        methods.clickElementByXPath(locators.Expand_1)
 
         methods.clickElementByXPath(locators.Add_another_KPI_1)
-        methods.clickElement0(locators.Website_Session,0)
+        methods.clickElement0(locators.Website_Session, 0)
         cy.wait(1000)
         methods.clickElementByXPath(locators.pageview_option2)
 
         methods.clickElementByXPath(locators.Run_Anal)
         cy.wait(5000)
-        methods.VisibilityofElement(locators.Profile_report_gen,extraTimeOut)
+        methods.VisibilityofElement(locators.Profile_report_gen)
 
         methods.MouseoverWithXpath(locators.Save_dropdown)
         methods.clickElementByXPath(locators.Save_as_New)
 
-        methods.typeElement(locators.Report_Name,testName1,extraTimeOut)
-        methods.typeElement(locators.Description_OP,'Testing Purpose1')
+        methods.typeElement(locators.Report_Name, testName1)
+        methods.typeElement(locators.Description_OP, 'Testing Purpose1')
         methods.clickElementByXPath(locators.Save_2)
-        methods.VisibilityofElement(locators.notification_popup,extraTimeOut)
+        methods.VisibilityofElement(locators.notification_popup)
         cy.wait(2000)
         methods.clickElementByXPath(locators.Closed)
         cy.wait(1000)
@@ -104,15 +104,15 @@ describe('Login', () => {
         cy.xpath(`//h4[text()='${testName1}']//following::button[1]`).trigger('mouseover', { force: true });
         methods.clickElementByXPath(locators.View_Report)
         cy.wait(2000)
-        methods.clickElementByXPath(locators.Expand_1,extraTimeOut)
+        methods.clickElementByXPath(locators.Expand_1)
 
         methods.clickElementByXPath(locators.Add_New_Breakdown)
-        methods.clickElement0(locators.company_identification_1,0)
+        methods.clickElement0(locators.company_identification_1, 0)
         cy.wait(1000)
         methods.clickElementByXPath(locators.Filter_option1)
         methods.clickElementByXPath(locators.Run_Anal)
         cy.wait(5000)
-        methods.VisibilityofElement(locators.Profile_report_gen,extraTimeOut)
+        methods.VisibilityofElement(locators.Profile_report_gen)
 
         methods.MouseoverWithXpath(locators.Save_dropdown)
         methods.clickElementByXPath(locators.save1)
@@ -126,5 +126,79 @@ describe('Login', () => {
 
     })
 
+    it('KPI Report New Flow', () => {
+
+        const nowTime = dayjs().format('H:m:s');
+        const testName = `Demo_${nowTime}`;
+
+        methods.assertElementContainsText(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisitKPIreport()
+        methods.UrlValidationKPI()
+        cy.wait(5000)
+
+        // Select KPI report & add event
+
+        methods.clickElementByXPath(locators.Add_KPI)
+        methods.Clickwithindexandvalidation(locators.Website_Session, 0)
+        methods.typeElement(locators.search_1, 'tot')
+        cy.wait(1000)
+        methods.clickElement(locators.Total_Session)
+        cy.wait(1000)
+
+        // add filter
+
+        methods.clickElementByXPath(locators.add_new_3)
+        cy.wait(1000)
+        methods.typeElement(locators.search_1, 'cha')
+        cy.wait(2000);
+        methods.Clickwithindexandvalidation(locators.Channel_option, 0)
+        cy.wait(4000)
+        methods.clickElementByXPath(locators.account_filter)
+        cy.wait(1000)
+        methods.clickElementByXPath(locators.Apply1)
+
+        // select date
+
+        methods.clickElement(locators.cal_1)
+        cy.wait(1000)
+        methods.clickElement0(locators.choose_date, 7)
+        cy.wait(1000)
+        methods.clickElement(locators.run_analysis_KPI)
+        methods.VisibilityofElement(locators.table_validation1)
+        methods.VisibilityofElement(locators.table_validation2)
+
+        // save
+
+        methods.clickElementByXPath(locators.Save_1)
+        methods.typeElement(locators.Report_Name, testName)
+        methods.typeElement(locators.Description_OP, 'Testing Purpose')
+        methods.clickElementByXPath(locators.save1)
+        methods.VisibilityofElement(locators.notification_popup)
+        cy.wait(2000)
+
+        methods.clickElementByXPath1(locators.Closed)
+        cy.wait(1000)
+        methods.clickElementByXPath(locators.Drafts)
+        cy.xpath(`//h4[text()='${testName}']//following::button[1]`).trigger('mouseover', { force: true });
+        methods.clickElementByXPath(locators.View_Report)
+        cy.wait(2000)
+        methods.clickElementByXPath(locators.Expand_1)
+
+        methods.clickElementByXPath(locators.Remove_FilterBy1)
+        methods.clickElementByXPath(locators.Run_Anal)
+        cy.wait(5000)
+        methods.VisibilityofElement(locators.Profile_report_gen)
+        methods.clickElementByXPath(locators.Save_1)
+        methods.clickElementByXPath(locators.Overwrite)
+        methods.VisibilityofElement(locators.notification_popup)
+        cy.wait(2000)
+        methods.clickElementByXPath(locators.Closed)
+        cy.wait(1000)
+        cy.xpath(`//h4[text()='${testName}']//following::button[1]`).trigger('mouseover', { force: true });
+        methods.clickElementByXPath(locators.Delete_Report_1)
+        methods.clickElementByXPath(locators.confirm)
+        cy.wait(2000)
+
+    })
 
 })

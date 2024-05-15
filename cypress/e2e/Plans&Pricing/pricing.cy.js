@@ -23,7 +23,7 @@ describe.skip('Login', () => {
         // pricing
 
         cy.wait(5000)
-        methods.Mouseover(locators.setting,extraTimeOut)
+        methods.clickElement(locators.setting)
         cy.wait(1000)
         methods.clickElementByXPath(locators.Pricing)
         cy.wait(1000)
@@ -46,7 +46,8 @@ describe.skip('Login', () => {
         methods.clickElementByXPath(locators.Continue)
         cy.wait(3000)
 
-
+        // Payment gateway
+        
         cy.origin('https://factors-test.chargebee.com', () => {
             cy.url().should('contain', 'chargebee.com');
             cy.get('[data-cb-id="cart_submit"]').click()
@@ -57,23 +58,10 @@ describe.skip('Login', () => {
 
         })
 
-        // Payment gateway
-
-        // cy.origin('https://factors-test.chargebee.com', () => {
-        //     cy.wait(2000)
-        //     methods.chargebeeURL()
-        //     methods.clickElement(locators.cart_submit)
-        //     methods.ClearAndType(locators.first_name,'sonali')
-        //     methods.clickElement(locators.Next)
-        //     methods.clickElement(locators.Subscribe)
-        //     cy.wait(5000)
-
-        // })
-
         // back to staging url
 
         methods.PricingURL()
-        methods.VisibilityofElement(locators.Account_Pagetitle,extraTimeOut)
+        methods.VisibilityofElement(locators.Account_Pagetitle)
 
         // downgrading
 
@@ -93,17 +81,8 @@ describe.skip('Login', () => {
             cy.wait(5000)
         })
 
-        // cy.origin('https://factors-test.chargebee.com', () => {
-        //     cy.wait(2000)
-        //     methods.chargebeeURL()
-        //     methods.clickElement(locators.cart_submit)
-        //     methods.clickElement(locators.Next)
-        //     methods.clickElement(locators.Subscribe)
-        //     cy.wait(5000)
-        // })
-
         methods.PricingURL()
-        methods.VisibilityofElement(locators.Account_Pagetitle,extraTimeOut)
+        methods.VisibilityofElement(locators.Account_Pagetitle)
 
     })
 })

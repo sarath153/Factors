@@ -58,6 +58,7 @@ describe('Login', () => {
 
         methods.MouseoverAndClick(locators.Filter_this_event)
         methods.clickElement0(locators.session_properties, 0)
+        cy.wait(1000)
         methods.clickElementByXPath(locators.account_filter)
         cy.wait(1000)
         methods.clickElementByXPath(locators.account_filter)

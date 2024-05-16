@@ -8,6 +8,8 @@ npm install cypress --save -dev
 
 npm install --save-dev cypress-file-upload -- file upload
 
+import 'cypress-file-upload'; -- commands.js
+
 start cypress:
 nodes_modules/.bin/cypress open (or)
 npx cypress open

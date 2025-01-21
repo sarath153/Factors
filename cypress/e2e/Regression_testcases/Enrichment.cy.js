@@ -1,7 +1,9 @@
-import Login3 from '../PageObjects/Login3';
-import {deviceViewport, extraTimeOut } from '../Utils';  
+import Login1 from '../PageObjects/Login1';
+import { deviceViewport, extraTimeOut, Timeout } from '../Utils.js';
+import methods from '../../support/Common_Method.js';
+import locators from '../../support/Locators.js';
 
-describe('Enrichment Login', () => {
+describe('Enrichment Rules Login', () => {
 
     beforeEach(() => {
 
@@ -12,37 +14,43 @@ describe('Enrichment Login', () => {
         });
 
         //login before run test
-        Login3();
+        Login1();
 
     })
 
-    it('Enrichment', () => {
+    it('Enrichment Rules', () => {
 
         const filePath = 'Sample_file_for_page_URL_rules.csv';
 
-        cy.wait(5000)
-        cy.get('[id="fa-at-dropdown--settings"]', { timeout: extraTimeOut }).trigger('mouseover', { force: true });
-        cy.wait(1000)
-        cy.xpath('//h4[text()="Pricing"]').click();
-        cy.wait(1000)
-        cy.xpath('//div[text()="Enrichment Rules"]').click()
-        cy.xpath('//h4[text()="Set up rules for Account identification"]//following::label[2]',{timeout:extraTimeOut}).click()
-        cy.xpath('//span[text()="Select pages"]').click()
-        cy.xpath('//span[text()="Upload List"]',{timeout:extraTimeOut}).click()
-        cy.xpath('//a[text()="file"]',{timeout:extraTimeOut}).click()
-        cy.wait(3000)
-        cy.get('input[type="file"]').attachFile(filePath);
-        cy.wait(1000)
-        cy.xpath('//span[text()="Done"]').click()
-        cy.wait(1000)
-        cy.get(':nth-child(4) > .flex-col > :nth-child(2)').should('be.visible');
-        cy.xpath('//span[text()="Save changes"]').scrollIntoView()
-        cy.xpath('//span[text()="Save changes"]').click()
-        cy.get('.ant-notification-notice',{timeout:extraTimeOut}).should('be.visible');
-        cy.xpath('//h4[text()="Identify accounts who visited specific pages"]//following::button[2]').scrollIntoView()
-        cy.xpath('//h4[text()="Identify accounts who visited specific pages"]//following::button[2]').click()
-        cy.xpath('//span[text()="Delete"]').scrollIntoView()
-        cy.xpath('//span[text()="Delete"]',{timeout:extraTimeOut}).click()
-        cy.get('.ant-notification-notice',{timeout:extraTimeOut}).should('be.visible');
+        cy.wait(Timeout.md)
+        methods.scrollWithXpath(locators.Account_Pagetitle)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisibilityofElement(locators.account_pageloaded)
+        methods.clickElement(locators.setting)
+        methods.clickElementByXPath(locators.Integrations)
+        methods.clickElementByXPath(locators.Acc_Iden_enrich)
+        methods.clickElementByXPath(locators.Enrichment_Rules)
+        cy.wait(Timeout.xs)
+        methods.clickElementByXPath(locators.Set_custom_rules)
+        methods.clickElementByXPath(locators.Select_Pages)
+        methods.clickElementByXPath(locators.Upload_List)
+        methods.clickElementByXPath(locators.File)
+        cy.wait(Timeout.sm)
+        methods.AttachFile(locators.File_Upload, filePath)
+        cy.wait(Timeout.xs)
+        methods.ElementToBeClickableXpath(locators.UploadandContinue)
+        methods.clickElementByXPath(locators.UploadandContinue)
+        methods.VisibilityofElement(locators.Enrichment_page_validation)
+        methods.scrollWithXpath(locators.Savechanges1)
+        cy.wait(Timeout.sm)
+        methods.clickElementByXPath(locators.Savechanges1)
+        cy.wait(Timeout.sm)
+        methods.GetText(locators.notification_popup, "SuccessSuccessfully updated settings")
+        methods.scrollWithXpath(locators.close_new)
+        methods.clickElementByXPath(locators.close_new)
+        methods.scrollWithXpath(locators.Delete_enrich)
+        methods.clickElementByXPath(locators.Delete_enrich)
+        methods.GetText(locators.notification_popup, "SuccessSuccessfully updated settings")
+        cy.wait(Timeout.xs)
     })
 })

@@ -1,8 +1,10 @@
-import envDetails from '../../fixtures/envDetails.json';
-import Login3 from '../PageObjects/Login3';
-import { deviceViewport, extraTimeOut } from '../Utils';
+import Login1 from '../PageObjects/Login1';
+import { deviceViewport, extraTimeOut, Timeout } from '../Utils.js';
+import methods from '../../support/Common_Method.js'
+import locators from '../../support/Locators.js'
+import dayjs from 'dayjs';
 
-describe('Login', () => {
+describe('KPI Report Login', () => {
 
     beforeEach(() => {
 
@@ -13,52 +15,174 @@ describe('Login', () => {
         });
 
         //login before run test
-        Login3();
+        Login1();
 
     })
 
     it('KPI Report', () => {
 
+        const nowTime = dayjs().format('H:m:s');
+        const testName = `Demo_${nowTime}`;
+        const testName1 = `Demo_${nowTime}_1`;
 
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-        cy.visit(`${envDetails.backendApiUrl}/analyse/kpi`)
-
-        cy.url().should('contain', `${envDetails.backendApiUrl}/analyse/kpi`);
-        cy.wait(5000)
+        cy.wait(Timeout.md)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        cy.wait(Timeout.sm)
+        methods.VisibilityofElement(locators.Dashboards_Title)
+        methods.clickElementByXPath(locators.Drafts)
+        methods.VisibilityofElement(locators.Table_Body_1)
+        methods.clickElement(locators.New_Report_CSS)
+        methods.clickElementByXPath(locators.KPI_Report)
+        methods.VisibilityofElementXpath(locators.KPITOANALYSE)
 
         // Select KPI report & add event
 
-        cy.xpath('(//span[text()="Add a KPI"])[2]', { timeout: extraTimeOut }).click();
-        cy.get('.FaSelect_hoveredOption__Cs1tw').should('be.visible').click();
-        cy.get('.fa-filter-select > .ant-input-affix-wrapper > .ant-input').type('tot');
-        cy.wait(1000)
-        cy.xpath('(//div[@title="Total Sessions"])[1]').click({ force: true });
-        cy.wait(1000)
+        methods.clickElementByXPath(locators.Add_KPI)
+        methods.Clickwithindexandvalidation(locators.Website_Session, 0)
+        methods.typeElement(locators.search_1, 'tot')
+        methods.clickElement0(locators.Total_Session, 0)
 
         // add filter
-        cy.xpath('(//*[text()="Add new"])[3]').click();
-        cy.wait(1000)
-        cy.get('.fa-filter-select > .ant-input-affix-wrapper > .ant-input').type('cha');
-        cy.wait(2000);
-        cy.get('[title="Channel"]').eq(0).should('be.visible').click();
-        cy.wait(4000)
-        cy.get('[title="Others"]', { timeout: extraTimeOut }).click();
-        cy.wait(1000)
-        cy.get('.fa-select--buttons > .ant-btn').click();
+
+        methods.clickElementByXPath(locators.add_new_3)
+        methods.typeElement(locators.search_1, 'cha')
+        methods.Clickwithindexandvalidation(locators.Channel_option, 0)
+        cy.wait(Timeout.xs)
+        methods.clickElementByXPath(locators.account_filter)
+        methods.clickElementByXPath(locators.Apply1)
 
         // select date
 
-        cy.get('.query_card_open-add > :nth-child(1) > .KPIComposer_composer_footer__2DZvK > .fa-custom-datepicker > .ant-btn').click();
-        cy.wait(1000)
-        cy.get('[data-menu-id]').eq(7).click();
-        cy.wait(1000)
-        cy.get('.query_card_open-add > :nth-child(1) > .KPIComposer_composer_footer__2DZvK > .ant-btn-primary > span').click();
+        methods.clickElement(locators.cal_1)
+        methods.clickElement0(locators.choose_date, 7)
+        methods.clickElement(locators.run_analysis_KPI)
+        methods.VisibilityofElement(locators.table_validation1)
+        methods.VisibilityofElement(locators.table_validation2)
 
-        cy.get('tbody.ant-table-tbody > tr:nth-child(2) > td:nth-child(1)').should('be.visible');
+        // save
 
-        cy.get('tbody.ant-table-tbody > tr:nth-child(3) > td:nth-child(1)').should('be.visible');
+        methods.clickElementByXPath(locators.Save_1)
+        methods.typeElement(locators.Report_Name, testName)
+        methods.typeElement(locators.Description_OP, 'Testing Purpose')
+        methods.clickElementByXPath(locators.save1)
+        cy.wait(Timeout.xs)
+        methods.clickElementByXPath(locators.Closed)
+        methods.VisibilityofElement(locators.Table_Body_1)
+        cy.xpath(`//h4[text()='${testName}']//following::button[1]`, { timeout: extraTimeOut }).trigger('mouseover', { force: true });
+        methods.clickElementByXPath(locators.View_Report)
+        methods.clickElementByXPath(locators.Expand_1)
+        methods.clickElementByXPath(locators.Add_another_KPI_1)
+        methods.clickElement0(locators.Website_Session, 0)
+        methods.clickElementByXPath(locators.pageview_option2)
+        methods.clickElementByXPath(locators.Run_Anal)
+        methods.VisibilityofElement(locators.Profile_report_gen)
+        methods.MouseoverWithXpath(locators.Save_dropdown)
+        methods.clickElementByXPath(locators.Save_as_New)
+        methods.typeElement(locators.Report_Name, testName1)
+        methods.typeElement(locators.Description_OP, 'Testing Purpose1')
+        methods.clickElementByXPath(locators.Save_Report)
+        cy.wait(Timeout.xs)
+        methods.VisibilityofElement(locators.table_validation1)
+        methods.clickElementByXPath(locators.Closed)
+        methods.VisibilityofElement(locators.Dashboards_Title)
+        methods.clickElementByXPath(locators.Drafts)
+        methods.VisibilityofElement(locators.Table_Body_1)
+        cy.xpath(`//h4[text()='${testName}']//following::button[1]`, { timeout: extraTimeOut }).trigger('mouseover', { force: true });
+        methods.clickElementByXPath(locators.Delete_Report_1)
+        cy.wait(Timeout.xs)
+        methods.clickElementByXPath(locators.confirm)
+        methods.VisibilityofElement(locators.Table_Body_1)
+        cy.xpath(`//h4[text()='${testName1}']//following::button[1]`, { timeout: extraTimeOut }).trigger('mouseover', { force: true });
+        methods.clickElementByXPath(locators.View_Report)
+        methods.clickElementByXPath(locators.Expand_1)
+        methods.clickElement(locators.Add_New_Breakdown_new)
+        methods.clickElement0(locators.Company_Identification, 0)
+        methods.clickElementByXPath(locators.Filter_option1)
+        methods.clickElementByXPath(locators.Run_Anal)
+        methods.VisibilityofElement(locators.Profile_report_gen)
+        methods.MouseoverWithXpath(locators.Save_dropdown)
+        cy.wait(Timeout.xs)
+        methods.clickElementByXPath(locators.save1)
+        cy.wait(Timeout.xs)
+        methods.VisibilityofElement(locators.Profile_report_gen)
+        methods.clickElementByXPath(locators.Closed)
+        methods.VisibilityofElement(locators.Table_Body_1)
+        cy.xpath(`//h4[text()='${testName1}']//following::button[1]`, { timeout: extraTimeOut }).trigger('mouseover', { force: true });
+        methods.clickElementByXPath(locators.Delete_Report_1)
+        cy.wait(Timeout.xs)
+        methods.clickElementByXPath(locators.confirm)
+        cy.wait(Timeout.xs)
 
     })
 
+    it('KPI Report New Flow', () => {
+
+        const nowTime = dayjs().format('H:m:s');
+        const testName = `Demo_${nowTime}`;
+
+        cy.wait(Timeout.md)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        cy.wait(Timeout.sm)
+        methods.VisibilityofElement(locators.Dashboards_Title)
+        methods.clickElementByXPath(locators.Drafts)
+        methods.VisibilityofElement(locators.Table_Body_1)
+        methods.clickElement(locators.New_Report_CSS)
+        methods.clickElementByXPath(locators.KPI_Report)
+        methods.VisibilityofElementXpath(locators.KPITOANALYSE)
+
+        // Select KPI report & add event
+
+        methods.clickElementByXPath(locators.Add_KPI)
+        methods.Clickwithindexandvalidation(locators.Website_Session, 0)
+        methods.typeElement(locators.search_1, 'tot')
+        methods.clickElement(locators.Total_Session)
+
+        // add filter
+
+        methods.clickElementByXPath(locators.add_new_3)
+        methods.typeElement(locators.search_1, 'cha')
+        methods.Clickwithindexandvalidation(locators.Channel_option, 0)
+        methods.clickElementByXPath(locators.account_filter)
+        methods.clickElementByXPath(locators.Apply1)
+
+        // select date
+
+        methods.clickElement(locators.cal_1)
+        methods.clickElement0(locators.choose_date, 7)
+        methods.clickElement(locators.run_analysis_KPI)
+        methods.VisibilityofElement(locators.table_validation1)
+        methods.VisibilityofElement(locators.table_validation2)
+
+        // save
+
+        methods.clickElementByXPath(locators.Save_1)
+        methods.typeElement(locators.Report_Name, testName)
+        cy.wait(Timeout.sm)
+        methods.typeElement(locators.Description_OP, 'Testing Purpose')
+        methods.clickElementByXPath(locators.save1)
+        cy.wait(Timeout.xs)
+        methods.clickElementByXPath(locators.Closed)
+        methods.VisibilityofElement(locators.Table_Body_1)
+        cy.xpath(`//h4[text()='${testName}']//following::button[1]`, { timeout: extraTimeOut }).trigger('mouseover', { force: true });
+        methods.clickElementByXPath(locators.View_Report)
+        methods.clickElementByXPath(locators.Expand_1)
+        methods.clickElementByXPath(locators.Remove_FilterBy1)
+        methods.clickElementByXPath(locators.Run_Anal)
+        methods.VisibilityofElement(locators.Profile_report_gen)
+        methods.clickElementByXPath(locators.Save_1)
+        cy.wait(Timeout.xs)
+        methods.clickElementByXPath(locators.Closed)
+        methods.VisibilityofElement(locators.Table_Body_1)
+        cy.xpath(`//h4[text()='${testName}']//following::button[1]`, { timeout: extraTimeOut }).trigger('mouseover', { force: true });
+        methods.clickElementByXPath(locators.Delete_Report_1)
+        cy.wait(Timeout.xs)
+        methods.clickElementByXPath(locators.confirm)
+        cy.wait(Timeout.xs)
+
+    })
 
 })

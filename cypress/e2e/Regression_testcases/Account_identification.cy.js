@@ -1,7 +1,9 @@
-import Login1 from '../PageObjects/Login1';
-import {deviceViewport, extraTimeOut } from '../Utils';  
+import Login1 from '../PageObjects/Login1.js';
+import { deviceViewport, extraTimeOut, Timeout } from '../Utils.js';
+import methods from '../../support/Common_Method.js'
+import locators from '../../support/Locators.js'
 
-describe('Account Identification Login', () => {
+describe('Account Identification Regression', () => {
 
     beforeEach(() => {
 
@@ -14,200 +16,204 @@ describe('Account Identification Login', () => {
         //login before run test
         Login1();
 
+
     })
 
     it('TC_RE_01, TC_RE_02 - Account Identification ', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title',{timeout:extraTimeOut}).should('contain','All Accounts');
-        cy.get('#fa-at-link--accounts').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Account identification"]').click();
-        cy.wait(8000)
-        cy.get('#fa-at-text--page-title',{timeout:extraTimeOut}).should('contain','Top accounts that visited your website');
+        cy.wait(Timeout.md)
+        methods.scrollWithXpath(locators.Account_Pagetitle)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisibilityofElement(locators.account_pageloaded)
+        methods.Mouseover(locators.account_dropdown)
+        methods.clickElementByXPath(locators.Account_identification)
+        methods.Titletextcontainsxpath(locators.account_identification_Title, 'Top accounts that visited your website')
+        methods.VisibilityofElement(locators.Identification_Table)
 
         // Verify table
 
-        cy.get('.ant-table-container',{timeout:extraTimeOut}).should('not.be.empty');
-        cy.get('.ant-table-tbody > :nth-child(1) > :nth-child(1)').should('not.be.empty');
-        cy.get('.ant-table-tbody > :nth-child(2) > :nth-child(1)').should('not.be.empty');
+        methods.AssertNotEmpty(locators.identi_table)
+        methods.AssertNotEmpty(locators.table_row1)
+        methods.AssertNotEmpty(locators.table_row2)
+
     })
-    
+
     it('TC_RE_03 - Account Identification - Add filters ', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title',{timeout:extraTimeOut}).should('contain','All Accounts');
-        cy.get('#fa-at-link--accounts').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Account identification"]').click();
-        cy.wait(8000)
-        cy.get('#fa-at-text--page-title',{timeout:extraTimeOut}).should('contain','Top accounts that visited your website');
-        cy.get('.ant-table-tbody > :nth-child(1) > :nth-child(1)').should('not.be.empty');
-        cy.get('.ant-table-tbody > :nth-child(1) > :nth-child(1)').should('not.be.empty');
-        cy.wait(2000)
+        cy.wait(Timeout.md)
+        methods.scrollWithXpath(locators.Account_Pagetitle)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisibilityofElement(locators.account_pageloaded)
+        methods.Mouseover(locators.account_dropdown)
+        methods.clickElementByXPath(locators.Account_identification)
+        methods.Titletextcontainsxpath(locators.account_identification_Title, 'Top accounts that visited your website')
+        methods.VisibilityofElement(locators.Identification_Table)
+        methods.AssertNotEmpty(locators.table_row1)
+        methods.AssertNotEmpty(locators.table_row2)
+        cy.wait(Timeout.xs)
 
         // add direct filter 
 
-        cy.get('.gap-4 > :nth-child(1) > .ant-btn').click();
-        cy.get('.fa-select-dropdown > .flex').should('be.visible');
-        cy.get('[title="Direct"]').click();
-        cy.wait(1000)
-        cy.get('.ant-table-tbody > :nth-child(1) > :nth-child(2)').should('contain','Direct');
-        cy.get('.ant-table-tbody > :nth-child(2) > :nth-child(2)').should('contain','Direct');
-        cy.get('.ant-table-tbody > :nth-child(3) > :nth-child(2)').should('contain','Direct');
+        methods.clickElement(locators.channel)
+        methods.VisibilityofElement(locators.channel_dropdown)
+        methods.clickElement(locators.direct)
+        methods.assertElementContainsText(locators.organic_table1, 'Direct')
+        methods.assertElementContainsText(locators.organic_table2, 'Direct')
+        methods.assertElementContainsText(locators.organic_table3, 'Direct')
 
         // add Paid search filter 
 
-        cy.get('.gap-4 > :nth-child(1) > .ant-btn').click();
-        cy.get('.fa-select-dropdown > .flex').should('be.visible');
-        cy.get('[title="Paid Search"]').click();
-        cy.wait(1000)
-        cy.get('.ant-table-tbody > :nth-child(1) > :nth-child(2)').should('contain','Paid Search');
-        cy.get('.ant-table-tbody > :nth-child(2) > :nth-child(2)').should('contain','Paid Search');
-        cy.get('.ant-table-tbody > :nth-child(3) > :nth-child(2)').should('contain','Paid Search');
+        methods.clickElement(locators.channel)
+        methods.VisibilityofElement(locators.channel_dropdown)
+        methods.clickElement(locators.paid_search)
+        methods.assertElementContainsText(locators.organic_table1, 'Paid Search')
+        methods.assertElementContainsText(locators.organic_table2, 'Paid Search')
+        methods.assertElementContainsText(locators.organic_table3, 'Paid Search')
     })
 
     it('TC_RE_04 - Account Identification - Add campaign', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title',{timeout:extraTimeOut}).should('contain','All Accounts');
-        cy.get('#fa-at-link--accounts').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Account identification"]').click();
-        cy.wait(8000)
-        cy.get('#fa-at-text--page-title',{timeout:extraTimeOut}).should('contain','Top accounts that visited your website');
-        cy.get('.ant-table-container',{timeout:extraTimeOut}).should('not.be.empty');
-        cy.get('.ant-table-tbody > :nth-child(1) > :nth-child(1)',{timeout:extraTimeOut}).should('not.be.empty');
-        cy.wait(2000)
+        cy.wait(Timeout.md)
+        methods.scrollWithXpath(locators.Account_Pagetitle)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisibilityofElement(locators.account_pageloaded)
+        methods.Mouseover(locators.account_dropdown)
+        methods.clickElementByXPath(locators.Account_identification)
+        methods.Titletextcontainsxpath(locators.account_identification_Title, 'Top accounts that visited your website')
+        methods.VisibilityofElement(locators.Identification_Table)
+        methods.AssertNotEmpty(locators.identi_table)
+        methods.AssertNotEmpty(locators.table_row1)
 
         // add campaign
 
-        cy.get('.gap-4 > :nth-child(2) > div > .ant-btn').click();
-        cy.get('.fa-select-dropdown').should('be.visible');
-        cy.get('[title="TD_Search_Remarketing_Competitors"]').click();
-        cy.get('.fa-select--buttons > .ant-btn').click();
-        cy.get('.ant-table-container',{timeout:extraTimeOut}).should('not.be.empty');
-        cy.get('.gap-4 > :nth-child(2) > div > .ant-btn').click();
-        cy.get('.fa-select-dropdown').should('be.visible');
-        cy.get('[title="TD_Search_US_Deanon_Competition"]').click();
-        cy.get('.fa-select--buttons > .ant-btn').click();
+        methods.clickElement(locators.campaign)
+        methods.VisibilityofElement(locators.campaign_dropdown)
+        methods.clickElement(locators.TD_Search_Remarketing_Competitors)
+        methods.clickElement(locators.Apply)
+        methods.AssertNotEmpty(locators.identi_table)
+        methods.clickElement(locators.campaign)
+        methods.VisibilityofElement(locators.campaign_dropdown)
+        methods.clickElement(locators.TD_Search_US_Deanon_Competition)
+        methods.clickElement(locators.Apply)
     })
 
     it('TC_RE_05 - Account Identification - Page viewed', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title',{timeout:extraTimeOut}).should('contain','All Accounts');
-        cy.get('#fa-at-link--accounts').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Account identification"]').click();
-        cy.wait(8000)
-        cy.get('#fa-at-text--page-title',{timeout:extraTimeOut}).should('contain','Top accounts that visited your website');
-        cy.get('.ant-table-container',{timeout:extraTimeOut}).should('not.be.empty');
-        cy.get('.ant-table-tbody > :nth-child(1) > :nth-child(1)',{timeout:extraTimeOut}).should('not.be.empty');
-        cy.wait(2000)
+        cy.wait(Timeout.md)
+        methods.scrollWithXpath(locators.Account_Pagetitle)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisibilityofElement(locators.account_pageloaded)
+        methods.Mouseover(locators.account_dropdown)
+        methods.clickElementByXPath(locators.Account_identification)
+        methods.Titletextcontainsxpath(locators.account_identification_Title, 'Top accounts that visited your website')
+        methods.VisibilityofElement(locators.Identification_Table)
+        methods.AssertNotEmpty(locators.identi_table)
+        methods.AssertNotEmpty(locators.table_row1)
 
         // add Page viewed
 
-        cy.get('.gap-4 > :nth-child(3) > div > .ant-btn').click();
-        cy.get('.FaSelect_dropdown__select__1L5kx').should('be.visible');
-        cy.xpath('//input[@placeholder="Search"]//following::div[3]',{timeout:extraTimeOut}).click();
-        cy.xpath('//input[@placeholder="Search"]//following::div[5]').click();
-        cy.xpath('//input[@placeholder="Search"]//following::div[7]').click();
-        cy.xpath('//input[@placeholder="Search"]//following::div[9]').click();
-        cy.wait(1000)
-        cy.get('.fa-select--buttons > .ant-btn').click();
-        cy.get('.ant-table-wrapper',{timeout:extraTimeOut}).should('be.visible');
-        cy.wait(1000)
-
+        methods.clickElement(locators.page_view)
+        methods.VisibilityofElement(locators.pageview_dropdown)
+        methods.clickElementByXPath(locators.pageview_option1)
+        methods.clickElementByXPath(locators.pageview_option2)
+        methods.clickElementByXPath(locators.pageview_option3)
+        methods.clickElementByXPath(locators.pageview_option4)
+        methods.clickElement(locators.Apply)
+        methods.VisibilityofElement(locators.identi_table1)
     })
 
     it('TC_RE_06 - Account Identification - Search field', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title',{timeout:extraTimeOut}).should('contain','All Accounts');
-        cy.get('#fa-at-link--accounts').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Account identification"]').click();
-        cy.wait(8000)
-        cy.get('#fa-at-text--page-title',{timeout:extraTimeOut}).should('contain','Top accounts that visited your website');
-        cy.get('.ant-table-container',{timeout:extraTimeOut}).should('not.be.empty');
-        cy.get('.ant-table-tbody > :nth-child(1) > :nth-child(1)',{timeout:extraTimeOut}).should('not.be.empty');
-        cy.wait(2000)
+        cy.wait(Timeout.md)
+        methods.scrollWithXpath(locators.Account_Pagetitle)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisibilityofElement(locators.account_pageloaded)
+        methods.Mouseover(locators.account_dropdown)
+        methods.clickElementByXPath(locators.Account_identification)
+        methods.Titletextcontainsxpath(locators.account_identification_Title, 'Top accounts that visited your website')
+        methods.VisibilityofElement(locators.Identification_Table)
+        methods.AssertNotEmpty(locators.identi_table)
+        methods.AssertNotEmpty(locators.table_row1)
 
-        cy.get('.DataTable_searchBar__1fGz4 > .justify-between > :nth-child(2) > :nth-child(1) > .ant-btn').click();
-        cy.get('.DataTable_searchBar__1fGz4').type('klenty');
-        cy.get('.DataTable_searchBar__1fGz4').type('{enter}');
-        cy.get('.ant-table-row > :nth-child(1)').should('contain','Klenty');
-        cy.get('.DataTable_searchBar__1fGz4 > .justify-between > :nth-child(2) > :nth-child(1) > .ant-btn').click();
-        cy.wait(1000)
+        methods.clickElementByXPath(locators.search)
+        methods.typeElement(locators.search_field, 'klenty')
+        methods.Enter(locators.search_field)
+        methods.assertElementContainsText(locators.Klenty_details, 'Klenty')
+        methods.clickElement(locators.X_button)
     })
 
     it('TC_RE_07 - Account Identification - Download CSV', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title',{timeout:extraTimeOut}).should('contain','All Accounts');
-        cy.get('#fa-at-link--accounts').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Account identification"]').click();
-        cy.wait(8000)
-        cy.get('#fa-at-text--page-title',{timeout:extraTimeOut}).should('contain','Top accounts that visited your website');
-        cy.get('.ant-table-container',{timeout:extraTimeOut}).should('not.be.empty');
-        cy.get('.ant-table-tbody > :nth-child(1) > :nth-child(1)',{timeout:extraTimeOut}).should('not.be.empty');
-        cy.wait(2000)
+        cy.wait(Timeout.md)
+        methods.scrollWithXpath(locators.Account_Pagetitle)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisibilityofElement(locators.account_pageloaded)
+        methods.Mouseover(locators.account_dropdown)
+        methods.clickElementByXPath(locators.Account_identification)
+        methods.Titletextcontainsxpath(locators.account_identification_Title, 'Top accounts that visited your website')
+        methods.VisibilityofElement(locators.Identification_Table)
+        methods.AssertNotEmpty(locators.identi_table)
+        methods.AssertNotEmpty(locators.table_row1)
+        methods.clickElementByXPath(locators.download)
 
-        cy.get(':nth-child(2) > :nth-child(2) > .ant-btn').click();
     })
 
     it('TC_RE_08 - Account Identification - Date range', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title',{timeout:extraTimeOut}).should('contain','All Accounts');
-        cy.get('#fa-at-link--accounts').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Account identification"]').click();
-        cy.wait(8000)
-        cy.get('#fa-at-text--page-title',{timeout:extraTimeOut}).should('contain','Top accounts that visited your website');
-        cy.get('.ant-table-container',{timeout:extraTimeOut}).should('not.be.empty');
-        cy.get('.ant-table-tbody > :nth-child(1) > :nth-child(1)',{timeout:extraTimeOut}).should('not.be.empty');
-        cy.wait(2000)
-
-        cy.xpath('//h4[text()="Channel"]//following::button[3]').click();
-        cy.xpath('//div[@title="Today"]//following::div[3]').click();
-        cy.get('.ant-table-wrapper',{timeout:extraTimeOut}).should('be.visible');
+        cy.wait(Timeout.md)
+        methods.scrollWithXpath(locators.Account_Pagetitle)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisibilityofElement(locators.account_pageloaded)
+        methods.Mouseover(locators.account_dropdown)
+        methods.clickElementByXPath(locators.Account_identification)
+        methods.Titletextcontainsxpath(locators.account_identification_Title, 'Top accounts that visited your website')
+        methods.VisibilityofElement(locators.Identification_Table)
+        methods.AssertNotEmpty(locators.identi_table)
+        methods.AssertNotEmpty(locators.table_row1)
+        methods.clickElementByXPath(locators.calender)
+        cy.wait(Timeout.xs)
+        methods.clickElementByXPath(locators.select_date)
+        methods.VisibilityofElement(locators.identi_table1)
+        methods.AssertNotEmpty(locators.identi_table)
     })
 
     it('TC_RE_09 - Account Identification - Share_Send Once', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title',{timeout:extraTimeOut}).should('contain','All Accounts');
-        cy.get('#fa-at-link--accounts').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Account identification"]').click();
-        cy.wait(8000)
-        cy.get('#fa-at-text--page-title',{timeout:extraTimeOut}).should('contain','Top accounts that visited your website');
-        cy.get('.ant-table-container',{timeout:extraTimeOut}).should('not.be.empty');
-        cy.get('.ant-table-tbody > :nth-child(1) > :nth-child(1)',{timeout:extraTimeOut}).should('not.be.empty');
-        cy.wait(3000)
-
-        cy.xpath('//span[text()="Share"]',{timeout:extraTimeOut}).should('be.visible').click({force: true});
-        cy.wait(1000)
-        cy.get('#share-modal-form_subscriptionType > :nth-child(1)').click();
-        cy.get('#share-modal-form_emails_0').type('sarath_tdfect@factors.ai');
-        cy.get('.justify-between > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-btn').click();
-        cy.get('.ant-notification-notice',{timeout:extraTimeOut}).should('be.visible');
+        cy.wait(Timeout.md)
+        methods.scrollWithXpath(locators.Account_Pagetitle)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisibilityofElement(locators.account_pageloaded)
+        methods.Mouseover(locators.account_dropdown)
+        methods.clickElementByXPath(locators.Account_identification)
+        methods.Titletextcontainsxpath(locators.account_identification_Title, 'Top accounts that visited your website')
+        methods.VisibilityofElement(locators.Identification_Table)
+        methods.AssertNotEmpty(locators.identi_table)
+        methods.AssertNotEmpty(locators.table_row1);
+        methods.clickElementByXPath(locators.share1)
+        methods.clickElement(locators.Send_Once)
+        methods.typeElement(locators.email_field, 'sarath_tdfect@factors.ai')
+        methods.clickElement(locators.done)
+        methods.VisibilityofElement(locators.notification_popup)
 
     })
 
     it('TC_RE_10 - Account Identification - Share_Subscribe copy link', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title',{timeout:extraTimeOut}).should('contain','All Accounts');
-        cy.get('#fa-at-link--accounts').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Account identification"]').click();
-        cy.wait(8000)
-        cy.get('#fa-at-text--page-title',{timeout:extraTimeOut}).should('contain','Top accounts that visited your website');
-        cy.get('.ant-table-container',{timeout:extraTimeOut}).should('not.be.empty');
-        cy.get('.ant-table-tbody > :nth-child(1) > :nth-child(1)',{timeout:extraTimeOut}).should('not.be.empty');
-        cy.wait(3000)
-
-        cy.xpath('//span[text()="Share"]',{timeout:extraTimeOut}).should('be.visible').click({force: true});
-        cy.wait(1000)
-        cy.get('#share-modal-form_emails_0').type('sarath_tdfect@factors.ai');
-        cy.xpath('//span[text()="Copy link"]').click();
-        cy.xpath('//span[text()="Done"]').click();
-        cy.get('.ant-notification-notice',{timeout:extraTimeOut}).should('be.visible');
+        cy.wait(Timeout.md)
+        methods.scrollWithXpath(locators.Account_Pagetitle)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisibilityofElement(locators.account_pageloaded)
+        methods.Mouseover(locators.account_dropdown)
+        methods.clickElementByXPath(locators.Account_identification)
+        methods.Titletextcontainsxpath(locators.account_identification_Title, 'Top accounts that visited your website')
+        methods.VisibilityofElement(locators.Identification_Table)
+        methods.AssertNotEmpty(locators.identi_table)
+        methods.AssertNotEmpty(locators.table_row1);
+        methods.clickElementByXPath(locators.share1)
+        methods.typeElement(locators.email_field, 'sarath_tdfect@factors.ai')
+        methods.clickElementByXPath(locators.copy_Link)
+        methods.clickElement(locators.done)
+        methods.VisibilityofElement(locators.notification_popup)
 
     })
 })

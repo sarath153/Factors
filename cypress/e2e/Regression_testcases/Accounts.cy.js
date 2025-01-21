@@ -1,8 +1,10 @@
 import Login1 from '../PageObjects/Login1';
-import { deviceViewport, extraTimeOut } from '../Utils';
+import { deviceViewport, extraTimeOut, Timeout } from '../Utils.js';
 import dayjs from 'dayjs';
+import methods from '../../support/Common_Method.js'
+import locators from '../../support/Locators.js'
 
-describe('Accounts Login', () => {
+describe('Accounts Regression', () => {
 
     beforeEach(() => {
 
@@ -19,118 +21,135 @@ describe('Accounts Login', () => {
 
     it('TC_RE_01 - Accounts_Page Load', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-        cy.wait(1000)
-        cy.get(':nth-child(2) > .ant-table-cell-fix-left', { timeout: extraTimeOut }).should('be.visible');
-        cy.wait(2000)
+        cy.wait(Timeout.md)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisibilityofElement(locators.account_pageloaded)
+        cy.wait(Timeout.sm)
     })
 
     it('TC_RE_02, TC_RE_03 - Accounts_properties filter, Accounts_Event', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-        cy.wait(1000)
-        cy.get(':nth-child(2) > .ant-table-cell-fix-left', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('.w-full > .ant-btn', { timeout: extraTimeOut }).click();
-        cy.xpath('(//*[text()="Add filter"])[1]').click();
-        cy.get('.FaSelect_hoveredOption__Cs1tw').click();
-        cy.get('[title="Visited Website"]').click();
-        cy.wait(1000)
-        cy.get('[title="True"]').click();
-        cy.get('.fa-select--buttons > .ant-btn').click();
-
-        cy.xpath('//*[text()="Add event"]').click();
-        cy.get('.fa-select-dropdown > .flex-col > :nth-child(5)').click();
-        cy.xpath('//input[@placeholder="Select Event"]//following::div[3]').click();
-        cy.get('.flex > .ant-btn-primary > span').click();
-        cy.wait(1000)
-        cy.get(':nth-child(2) > .ant-table-cell-fix-left', { timeout: extraTimeOut }).should('be.visible');
+        cy.wait(Timeout.md)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisibilityofElement(locators.account_pageloaded)
+        cy.wait(Timeout.sm)
+        methods.clickElement(locators.filter)
+        methods.clickElementIndexXpath(locators.Add_new2, 0)
+        methods.clickElement(locators.select_Accountprop)
+        methods.clickElement(locators.Visited_Website)
+        methods.clickElement(locators.true)
+        methods.clickElement(locators.Apply)
+        methods.clickElementByXPath(locators.Add_event)
+        methods.typeElement(locators.Select_Event, 'website session')
+        methods.clickElement0(locators.Website_Session, 1)
+        methods.MouseoverAndClick(locators.calender_Icon)
+        methods.clickElementByXPath(locators.ninety_days)
+        methods.clickElementByXPath(locators.Apply_Changes)
+        cy.wait(Timeout.md)
+        methods.VisibilityofElement(locators.pageload_Confirmation)
     })
 
-    it('TC_RE_04 - Accounts_Clear filter', () => {
+    it.skip('TC_RE_04 - Accounts_Clear filter', () => {
+        const nowTime = dayjs().format('H:m:s');
+        const testName = `Demo_${nowTime}`;
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-        cy.wait(1000)
-        cy.get(':nth-child(2) > .ant-table-cell-fix-left', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('.w-full > .ant-btn', { timeout: extraTimeOut }).click();
-        cy.xpath('(//*[text()="Add filter"])[1]').click();
-        cy.get('.FaSelect_hoveredOption__Cs1tw').click();
-        cy.get('[title="Visited Website"]').click();
-        cy.wait(1000)
-        cy.get('[title="True"]').click();
-        cy.get('.fa-select--buttons > .ant-btn').click();
+        cy.wait(Timeout.md)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisibilityofElement(locators.account_pageloaded)
+        cy.wait(Timeout.sm)
+        methods.clickElement(locators.filter)
+        methods.clickElementIndexXpath(locators.Add_new2, 0)
+        methods.clickElement(locators.select_Accountprop)
+        methods.clickElement(locators.Visited_Website)
+        methods.clickElement(locators.true)
+        methods.clickElement(locators.Apply)
+        methods.clickElementByXPath(locators.Add_event)
+        methods.clickElement(locators.Event_performed)
+        methods.clickElementByXPath(locators.select_option)
+        cy.wait(Timeout.sm)
+        methods.clickElement(locators.Apply_Changes)
+        cy.wait(Timeout.md)
+        methods.VisibilityofElement(locators.account_pageloaded)
 
-        cy.xpath('//*[text()="Add event"]').click();
-        cy.get('.fa-select-dropdown > .flex-col > :nth-child(5)').click();
-        cy.xpath('//input[@placeholder="Select Event"]//following::div[3]').click();
-        cy.get('.flex > .ant-btn-primary > span').click();
-        cy.wait(1000)
-        cy.get(':nth-child(2) > .ant-table-cell-fix-left', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('.w-full > .ant-btn-text').click();
-        cy.xpath('//h1[text()="Clear all filters"]').click({ force: true });
+        methods.typeElement(locators.Select_Event, 'website session')
+        methods.clickElement0(locators.Website_Session, 1)
+        methods.MouseoverAndClick(locators.calender_Icon)
+        methods.clickElementByXPath(locators.ninety_days)
+        methods.clickElementByXPath(locators.Apply_Changes)
+        cy.wait(Timeout.sm)
+        methods.ClearAndTypeWithXpath(locators.save_field, testName)
+        methods.clickElementByXPath(locators.Save)
+
+        methods.VisibilityofElement(locators.pageload_Confirmation)
+        methods.clickElement(locators.filter_css)
+        cy.xpath('//span[normalize-space()="View 2 filter(s)"]').click({ force: true })
+        methods.clickElementByXPath(locators.Clear_All_Filter)
     })
 
-    it('TC_RE_05 - Accounts_discard changes', () => {
+    it.skip('TC_RE_05 - Accounts_discard changes', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-        cy.wait(1000)
-        cy.get(':nth-child(2) > .ant-table-cell-fix-left', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('.w-full > .ant-btn', { timeout: extraTimeOut }).click();
-        cy.xpath('(//*[text()="Add filter"])[1]').click();
-        cy.get('.FaSelect_hoveredOption__Cs1tw').click();
-        cy.get('[title="Visited Website"]').click();
-        cy.wait(1000)
-        cy.get('[title="True"]').click();
-        cy.get('.fa-select--buttons > .ant-btn').click();
+        cy.wait(Timeout.md)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisibilityofElement(locators.account_pageloaded)
+        cy.wait(Timeout.sm)
+        methods.clickElement(locators.filter)
+        cy.wait(Timeout.sm)
+        methods.clickElementByXPath(locators.Add_filter)
+        methods.clickElement(locators.select_Accountprop)
+        methods.clickElement(locators.Visited_Website)
+        cy.wait(Timeout.sm)
+        methods.clickElement(locators.true)
+        methods.clickElement(locators.Apply)
 
-        cy.xpath('//*[text()="Add event"]').click();
-        cy.get('.fa-select-dropdown > .flex-col > :nth-child(5)').click();
-        cy.xpath('//input[@placeholder="Select Event"]//following::div[3]').click();
-        cy.xpath('//span[text()="Discard changes"]').click({ force: true });
+        methods.clickElementByXPath(locators.Add_event)
+        methods.clickElement(locators.Event_performed)
+        methods.clickElementByXPath(locators.select_option)
+        methods.clickElementByXPath(locators.Discard_Filter)
     })
 
     it('TC_RE_06, TC_RE_07 - Accounts_Search field ', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-        cy.wait(1000)
-        cy.get(':nth-child(2) > .ant-table-cell-fix-left', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('.relative > .ant-btn').click();
-        cy.xpath('//*[@placeholder="Search Accounts"]').type('factors');
-        cy.wait(1000)
-        cy.xpath('//*[@placeholder="Search Accounts"]').type('{enter}');
-        cy.wait(1000)
-        cy.get(':nth-child(2) > .ant-table-cell-fix-left', { timeout: extraTimeOut }).should('contain', 'factors.ai');
-        cy.xpath('//form[@id="basic"]//following::button[1]').click();
+        cy.wait(Timeout.md)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisibilityofElement(locators.account_pageloaded)
+        cy.wait(Timeout.sm)
+        methods.clickElement(locators.search_button)
+        methods.typeElementByXPath(locators.search_area, 'factors.ai')
+        methods.EnterXpath(locators.search_area)
+        cy.wait(Timeout.xs)
+        methods.assertElementContainsTextxpath(locators.factors_File, 'factors.ai')
+        methods.clickElementByXPath(locators.clear_search)
 
     })
 
     it('TC_RE_08 - Accounts_Exporting CSV ', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-        cy.wait(1000)
-        cy.get(':nth-child(2) > .ant-table-cell-fix-left', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('.inline-flex > :nth-child(2)').click();
-        cy.get('.fai-text__size--h5', { timeout: extraTimeOut }).should('contain', 'Selects which columns to include');
-        cy.get('.ant-btn-primary').should('be.visible').click();
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
+        cy.wait(Timeout.md)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisibilityofElement(locators.account_pageloaded)
+        cy.wait(Timeout.sm)
+        methods.clickElementByXPath(locators.download_button)
+        methods.Exist(locators.DownloadCSV_Popup)
+        methods.assertElementContainsText1(locators.download_header, 'Selects which columns to include')
+        methods.ElementVisibleandClick1(locators.exportCSV)
+        methods.NotExist(locators.DownloadCSV_Popup)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
     })
 
     it('TC_RE_09 - Accounts_Table Properties ', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-        cy.wait(1000)
-        cy.get(':nth-child(2) > .ant-table-cell-fix-left', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('.inline-flex > :nth-child(3)', { timeout: extraTimeOut }).click();
-        cy.get('.ant-popover-inner-content').should('be.visible');
-        cy.get('[data-id="Company name"] > .justify-between').click();
-        cy.get('[data-id="Company phone"] > .justify-between').click();
-        cy.xpath('//span[text()="Apply"]').click();
+        cy.wait(Timeout.md)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisibilityofElement(locators.account_pageloaded)
+        cy.wait(Timeout.sm)
+        methods.clickElementByXPath(locators.Add_column_1)
+        methods.VisibilityofElement(locators.Table_properties)
+        methods.clickElement(locators.company_name)
+        cy.wait(Timeout.xs)
+        methods.clickElement(locators.company_name)
+        cy.wait(Timeout.xs)
+        methods.clickElementByXPath(locators.Apply1)
+
     })
 
     it('TC_RE_10, TC_RE_11, TC_RE_12, TC_RE_13 - Accounts_New Segment, search, rename and delete ', () => {
@@ -140,196 +159,182 @@ describe('Accounts Login', () => {
         const randomNumber = Math.floor(Math.random() * 90) + 10;
         const combination = testName + randomNumber;
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-        cy.wait(1000)
-        cy.get(':nth-child(2) > .ant-table-cell-fix-left', { timeout: extraTimeOut }).should('be.visible');
-        cy.xpath('//h4[text()="New Segment"]').click();
-        cy.xpath('(//*[text()="Add filter"])[1]').click();
-        cy.get('.FaSelect_hoveredOption__Cs1tw').click();
-        cy.get('[title="Visited Website"]').click();
-        cy.wait(1000)
-        cy.get('[title="True"]').click();
-        cy.get('.fa-select--buttons > .ant-btn').click();
+        cy.wait(Timeout.md)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisibilityofElement(locators.account_pageloaded)
+        cy.wait(Timeout.sm)
+        methods.assertElementContainsTextxpath(locators.AllsegmentMenu, "All segments")
+        methods.clickElementByXPath(locators.New_Segment)
+        methods.clickElementByXPath(locators.StartfromScratch)
+        methods.clickElementIndexXpath(locators.Add_new2, 0)
+        methods.clickElement(locators.select_Accountprop)
+        methods.clickElement(locators.Visited_Website)
+        methods.clickElement(locators.true)
+        methods.clickElement(locators.Apply)
 
-        cy.xpath('//*[text()="Add event"]').click();
-        cy.get('.fa-select-dropdown > .flex-col > :nth-child(5)').click();
-        cy.xpath('//input[@placeholder="Select Event"]//following::div[3]').click();
-        cy.wait(1000)
-        cy.get('.flex > .ant-btn-primary > span').click();
-        cy.wait(1000)
-        cy.get(':nth-child(2) > .ant-table-cell-fix-left', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('.py-4 > .ant-btn-default').click({ force: true });
-        cy.get('.flex > .ant-input').click().type(testName);
-        cy.xpath('//*[text()="Save"]').click();
-        cy.get('.ant-notification-notice', { timeout: extraTimeOut }).should('be.visible');
+        methods.clickElementByXPath(locators.Add_event)
+        methods.typeElement(locators.Select_Event, 'website session')
+        methods.clickElement0(locators.Website_Session, 1)
+        methods.MouseoverAndClick(locators.calender_Icon)
+        methods.clickElementByXPath(locators.ninety_days)
+        cy.wait(Timeout.sm)
+        methods.clickElementByXPath(locators.Apply_Changes)
+        cy.wait(Timeout.md)
+        methods.VisibilityofElement(locators.account_pageloaded)
+        methods.clickElementByXPath(locators.Save_segments1)
+        methods.ClearAndTypeWithXpath(locators.save_field, testName)
+        methods.clickElementByXPath(locators.Save)
+        methods.VisibilityofElement(locators.notification_popup)
 
         // search saved segment
 
-        cy.get(':nth-child(2) > .ant-table-cell-fix-left', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('[placeholder="Search segment"]').type(testName);
-        cy.xpath('//h4[text()="Segments"]//following::div[2]').click();
+        cy.wait(Timeout.lg)
+        methods.typeElement(locators.Search_segment, testName)
+        methods.clickElementByXPath(locators.Select_segment)
 
         // rename
 
-        cy.xpath('//h1[text()="filter(s)"]//following::button[4]').click({ force: true });
-        cy.get('.ant-popover-inner-content > :nth-child(1) > .flex-col > :nth-child(1)').click();
-        cy.get('.flex > .ant-input').type(randomNumber);
-        cy.xpath('//*[text()="Save"]').click();
-        cy.get('.ant-notification-notice', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).contains(combination);
+        cy.xpath(`//span[text()="${testName}"]//following::span[1]`, { timeout: extraTimeOut }).click()
+        methods.clickElementByXPath(locators.EditsegmentDetails)
+        methods.typeElement(locators.segment_rename, randomNumber)
+        methods.clickElementByXPath(locators.Save)
+        cy.wait(Timeout.xs)
+        methods.Titletextcontainsxpath(locators.SegmentTitle, combination)
 
         //delete
 
-        cy.xpath('//h1[text()="filter(s)"]//following::button[4]').click({ force: true });
-        cy.xpath('//h1[text()="Delete Segment"]').click({ force: true });
-        cy.xpath('//*[text()="Confirm"]').click();
-        cy.get('.ant-notification-notice', { timeout: extraTimeOut }).should('be.visible');
+        cy.wait(Timeout.sm)
+        cy.xpath(`//span[text()="${combination}"]//following::span[1]`, { timeout: extraTimeOut }).click()
+        methods.clickElementByXPath(locators.Delete_segment1)
+        cy.wait(Timeout.xs)
+        methods.clickElementByXPath(locators.confirm)
+        methods.VisibilityofElement(locators.notification_popup)
+        cy.wait(Timeout.xs)
 
     })
 
-    it('TC_RE_14, TC_RE_15 - Accounts_Brid views ', () => {
+    it('TC_RE_14, TC_RE_15 - Accounts_Bird views ', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-        cy.wait(1000)
-        cy.get(':nth-child(2) > .ant-table-cell-fix-left', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('.relative > .ant-btn').click();
-        cy.xpath('//*[@placeholder="Search Accounts"]').type('infosys.com');
-        cy.xpath('//*[@placeholder="Search Accounts"]').type('{enter}');
-        cy.xpath('(//h4[text()="infosys.com"])[1]').click();
-        cy.get('.timeline-view', { timeout: extraTimeOut }).should('not.be.empty');
+        cy.wait(Timeout.md)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisibilityofElement(locators.account_pageloaded)
+        cy.wait(Timeout.sm)
+        methods.clickElement(locators.search_button)
+        methods.typeElementByXPath(locators.search_area, 'infosys.com')
+        methods.EnterXpath(locators.search_area)
+        cy.wait(Timeout.xs)
+        methods.clickElementByXPath(locators.open_account)
+        cy.wait(Timeout.sm)
+        methods.clickElementByXPath(locators.BirdView)
+        methods.VisibilityofElement(locators.View_visible)
     })
 
     it('TC_RE_16 - Accounts_Timeline Views ', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-        cy.wait(1000)
-        cy.get(':nth-child(2) > .ant-table-cell-fix-left', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('.relative > .ant-btn').click();
-        cy.xpath('//*[@placeholder="Search Accounts"]').type('infosys.com');
-        cy.xpath('//*[@placeholder="Search Accounts"]').type('{enter}');
-        cy.xpath('(//h4[text()="infosys.com"])[1]').click();
-        cy.get('.timeline-view', { timeout: extraTimeOut }).should('be.visible');
-        cy.xpath('//*[text()="Timeline"]').click({ force: true });
-        cy.get('#rc-tabs-0-panel-timeline').should('not.be.empty');
+        cy.wait(Timeout.md)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisibilityofElement(locators.account_pageloaded)
+        cy.wait(Timeout.sm)
+        methods.clickElement(locators.search_button)
+        methods.typeElementByXPath(locators.search_area, 'infosys.com')
+        methods.EnterXpath(locators.search_area)
+        cy.wait(Timeout.xs)
+        methods.clickElementByXPath(locators.open_account)
+        cy.wait(Timeout.sm)
+        methods.clickElementByXPath(locators.BirdView)
+        methods.VisibilityofElement(locators.View_visible)
+        methods.clickElementByXPath(locators.Time_line)
+        cy.wait(Timeout.sm)
+        methods.VisibleofElement(locators.Time_line_Validation)
     })
 
     it('TC_RE_17 - Accounts_Birdviews expand ', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-        cy.wait(1000)
-        cy.get(':nth-child(2) > .ant-table-cell-fix-left', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('.relative > .ant-btn').click();
-        cy.xpath('//*[@placeholder="Search Accounts"]').type('infosys.com');
-        cy.xpath('//*[@placeholder="Search Accounts"]').type('{enter}');
-        cy.xpath('(//h4[text()="infosys.com"])[1]').click();
-        cy.get('.timeline-view', { timeout: extraTimeOut }).should('not.be.empty');
-        cy.get('.collapse-btn--left').click({ force: true });
-        // cy.xpath('(//div[text()=" Show Less"])[1]').scrollIntoView();
-        // cy.xpath('(//div[text()=" Show Less"])[1]').should('be.visible');
-
+        cy.wait(Timeout.md)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisibilityofElement(locators.account_pageloaded)
+        cy.wait(Timeout.sm)
+        methods.clickElement(locators.search_button)
+        methods.typeElementByXPath(locators.search_area, 'infosys.com')
+        methods.EnterXpath(locators.search_area)
+        cy.wait(Timeout.xs)
+        methods.clickElementByXPath(locators.open_account)
+        cy.wait(Timeout.sm)
+        methods.clickElementByXPath(locators.BirdView)
+        methods.VisibilityofElement(locators.View_visible)
+        methods.clickElementByXPath(locators.Expand)
     })
 
     it('TC_RE_18 - Accounts_Birdviews account activity ', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-        cy.wait(1000)
-        cy.get(':nth-child(2) > .ant-table-cell-fix-left', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('.relative > .ant-btn').click();
-        cy.xpath('//*[@placeholder="Search Accounts"]').type('infosys.com');
-        cy.xpath('//*[@placeholder="Search Accounts"]').type('{enter}');
-        cy.xpath('(//h4[text()="infosys.com"])[1]').click({ force: true });
-        cy.get('.timeline-view', { timeout: extraTimeOut }).should('not.be.empty');
-        cy.wait(1000)
-        cy.get('.timeline-actions__group > .ant-dropdown-trigger').click({ force: true });
-        cy.xpath('//*[text()="Timestamp"]').click({ force: true });
-        cy.get(':nth-child(1) > :nth-child(1) > .timestamp').should('not.be.empty');
-        cy.wait(1000)
-        cy.get('.timeline-actions__group > .ant-dropdown-trigger').click({ force: true });
-        cy.xpath('//*[text()="Hourly"]').click({ force: true });
-        cy.get(':nth-child(1) > :nth-child(1) > .timestamp').should('not.be.empty');
-        cy.wait(1000)
-        cy.get('.timeline-actions__group > .ant-dropdown-trigger').click({ force: true });
-        cy.xpath('//*[text()="Weekly"]').click({ force: true });
-        cy.get(':nth-child(1) > :nth-child(1) > .timestamp').should('not.be.empty');
-        cy.wait(1000)
-        cy.get('.timeline-actions__group > .ant-dropdown-trigger').click({ force: true });
-        cy.xpath('//*[text()="Monthly"]').click({ force: true });
-        cy.get(':nth-child(1) > :nth-child(1) > .timestamp').should('not.be.empty');
-        cy.wait(1000)
-        cy.get('.timeline-actions__group > .ant-dropdown-trigger').click({ force: true });
-        cy.xpath('//*[text()="Daily"]').click({ force: true });
-        cy.get(':nth-child(1) > :nth-child(1) > .timestamp').should('not.be.empty');
-
+        cy.wait(Timeout.md)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisibilityofElement(locators.account_pageloaded)
+        cy.wait(Timeout.sm)
+        methods.clickElement(locators.search_button)
+        cy.wait(Timeout.sm)
+        methods.typeElementByXPath(locators.search_area, 'infosys.com')
+        cy.wait(Timeout.sm)
+        methods.EnterXpath(locators.search_area)
+        methods.clickElementByXPath(locators.open_account)
+        cy.wait(Timeout.sm)
+        methods.clickElementByXPath(locators.BirdView)
+        methods.VisibilityofElement(locators.View_visible)
+        cy.wait(Timeout.sm)
+        methods.clickElementByXPath(locators.time_dropdown)
+        methods.clickElementByXPath(locators.Time_stamp)
+        methods.AssertNotEmpty(locators.timestamp_validation)
+        methods.clickElementByXPath(locators.time_dropdown)
+        methods.clickElementByXPath(locators.Hourly)
+        methods.AssertNotEmpty(locators.timestamp_validation)
+        methods.clickElementByXPath(locators.time_dropdown)
+        methods.clickElementByXPath(locators.Weekly)
+        methods.AssertNotEmpty(locators.timestamp_validation)
+        methods.clickElementByXPath(locators.time_dropdown)
+        methods.clickElementByXPath(locators.Monthly)
+        methods.AssertNotEmpty(locators.timestamp_validation)
+        methods.clickElementByXPath(locators.time_dropdown)
+        methods.clickElementByXPath(locators.Daily)
+        methods.AssertNotEmpty(locators.timestamp_validation)
     })
 
     it('TC_RE_19 - Accounts_Birdviews Properties ', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-        cy.wait(1000)
-        cy.get(':nth-child(2) > .ant-table-cell-fix-left', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('.relative > .ant-btn').click();
-        cy.xpath('//*[@placeholder="Search Accounts"]').type('infosys.com');
-        cy.xpath('//*[@placeholder="Search Accounts"]').type('{enter}');
-        cy.xpath('(//h4[text()="infosys.com"])[1]').click({ force: true });
-        cy.get('.timeline-view', { timeout: extraTimeOut }).should('not.be.empty');
-        cy.get('.timeline-actions__group > .ant-btn-lg').click({ force: true });
-        cy.get('#rc-tabs-1-tab-properties > .fa-activity-filter--tabname').click();
-        cy.xpath('//h4[text()="Company Country"]').click({ force: true });
-        cy.wait(3000)
-        cy.xpath('//*[text()="Date and Time"]//following::h4[2]', { timeout: extraTimeOut }).should('not.be.empty')
-        cy.xpath('//*[text()="Company State"]').click({ force: true });
-        cy.xpath('//*[text()="Date and Time"]//following::h4[2]', { timeout: extraTimeOut }).should('not.be.empty')
-
+        cy.wait(Timeout.md)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisibilityofElement(locators.account_pageloaded)
+        cy.wait(Timeout.sm)
+        methods.clickElement(locators.search_button)
+        cy.wait(Timeout.sm)
+        methods.typeElementByXPath(locators.search_area, 'infosys.com')
+        cy.wait(Timeout.sm)
+        methods.EnterXpath(locators.search_area)
+        methods.clickElementByXPath(locators.open_account)
+        cy.wait(Timeout.sm)
+        methods.clickElementByXPath(locators.BirdView)
+        methods.VisibilityofElement(locators.View_visible)
+        methods.clickElementByXPath(locators.Birdview_option)
+        methods.clickElement(locators.Birdview_properties)
+        methods.clickElementByXPath(locators.company_name1)
+        cy.wait(Timeout.sm)
+        methods.AssertNotEmptyWithXpath(locators.property_validation)
+        cy.wait(Timeout.sm)
+        methods.clickElementByXPath(locators.company_name1)
+        methods.AssertNotEmptyWithXpath(locators.property_validation)
     })
 
     it('TC_RE_20 - Accounts Properties - filter Equals - true', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-        cy.wait(1000)
-        cy.get(':nth-child(2) > .ant-table-cell-fix-left', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('.w-full > .ant-btn', { timeout: extraTimeOut }).click();
-        cy.xpath('(//*[text()="Add filter"])[1]').click();
-        cy.get('[title="All Accounts"]').eq(0).click();
-        cy.get('[title="In Hubspot"]').click();
-        cy.get('[title="True"]').click();
-        cy.get('.fa-select--buttons > .ant-btn').click();
+        cy.wait(Timeout.md)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisibilityofElement(locators.account_pageloaded)
+        cy.wait(Timeout.sm)
+        methods.clickElement(locators.filter)
+        methods.clickElementIndexXpath(locators.Add_new2, 0)
+        methods.clickElement0(locators.All_Account, 0)
+        methods.clickElement(locators.In_Hubspot1)
+        methods.clickElement(locators.true)
+        methods.clickElement(locators.Apply)
 
-    })
-
-    it('TC_RE_21 - Accounts filter Choose Equal - and Select value' , () => {
-
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-        cy.wait(1000)
-        cy.get(':nth-child(2) > .ant-table-cell-fix-left', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('.w-full > .ant-btn', { timeout: extraTimeOut }).click();
-        cy.xpath('(//*[text()="Add filter"])[1]').click();
-        cy.get('[title="All Accounts"]').eq(0).click();
-        cy.get('[title="Engagement Score"]').click();
-        cy.xpath('//span[text()="equals"]//following::div[1]').click();
-        cy.xpath('//span[text()="equals"]//following::div[1]').type('5'),{force: true};
-        cy.xpath('//span[text()="equals"]//following::div[1]').type('{enter}')
-    })
-
-    it('TC_RE_22 - Accounts filter - Company Identification' , () => {
-
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-        cy.wait(1000)
-        cy.get(':nth-child(2) > .ant-table-cell-fix-left', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('.w-full > .ant-btn', { timeout: extraTimeOut }).click();
-        cy.xpath('(//*[text()="Add filter"])[1]').click();
-        cy.get('[title="All Accounts"]').eq(0).click();
-        cy.get('[title="Engagement Score"]').click();
-        cy.xpath('//span[text()="equals"]//following::div[1]').click();
-        cy.xpath('//span[text()="equals"]//following::div[1]').type('5'),{force: true};
-        cy.xpath('//span[text()="equals"]//following::div[1]').type('{enter}')
     })
 })

@@ -1,8 +1,10 @@
-import Login3 from '../PageObjects/Login3';
-import { deviceViewport, extraTimeOut } from '../Utils';
-import dayjs from 'dayjs'; 
+import Login1 from '../PageObjects/Login1';
+import { deviceViewport, extraTimeOut, Timeout } from '../Utils.js';
+import dayjs from 'dayjs';
+import methods from '../../support/Common_Method.js';
+import locators from '../../support/Locators.js';
 
-describe('Funnel Report Login', () => {
+describe('Funnel Report Rregression', () => {
 
     beforeEach(() => {
 
@@ -13,493 +15,473 @@ describe('Funnel Report Login', () => {
         });
 
         //login before run test
-        Login3();
+        Login1();
 
     })
 
     it('TC_RE_01 - Funnel Report - New Report', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-link--journeys').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Dashboards"]').click();
-        cy.wait(8000)
-        cy.get('#fa-at-text--dashboard-title', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('#fa-at-btn--new-report').should('not.be.disabled')
+        cy.wait(Timeout.md)
+        methods.scrollWithXpath(locators.Account_Pagetitle)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisibilityofElement(locators.account_pageloaded)
+        cy.wait(Timeout.sm)
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        cy.wait(Timeout.xs)
+        methods.VisibilityofElement(locators.Dashboards_Title)
+        methods.ElementToBeClickable(locators.New_Report_CSS)
+        cy.wait(Timeout.sm)
 
     })
 
     it('TC_RE_02 - Funnel Report - Generate the Funnel report', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-link--journeys').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Dashboards"]').click();
-        cy.wait(10000)
-        cy.get('#fa-at-text--dashboard-title', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('#fa-at-btn--new-report').click()
-        cy.xpath('//div[text()="Funnel Report"]').click()
-        cy.xpath('(//span[text()="Add First Event"])[2]', { timeout: extraTimeOut }).click();
-        cy.get('[placeholder="Search"]').type('Web')
-        cy.get('[title="Website Session"]').eq(0, { timeout: extraTimeOut }).click()
+        cy.wait(Timeout.md)
+        methods.scrollWithXpath(locators.Account_Pagetitle)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisibilityofElement(locators.account_pageloaded)
+        cy.wait(Timeout.sm)
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        cy.wait(Timeout.xs)
+        methods.VisibilityofElement(locators.Dashboards_Title)
+        methods.clickElement(locators.New_Report_CSS)
+        methods.clickElementByXPath(locators.Funnel_Report)
+        methods.VisibilityofElementXpath(locators.FUNNEL)
+        methods.clickElementByXPath(locators.Add_First_Event)
+        methods.typeElement(locators.search_1, 'Web')
+        methods.clickElement0(locators.Website_Session, 0)
+        cy.wait(Timeout.sm)
 
     })
 
     it('TC_RE_03 - Funnel Report - adding multiple Event ', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-link--journeys').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Dashboards"]').click();
-        cy.wait(8000)
-        cy.get('#fa-at-text--dashboard-title', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('#fa-at-btn--new-report').click()
-        cy.xpath('//div[text()="Funnel Report"]').click()
-        cy.xpath('(//span[text()="Add First Event"])[2]', { timeout: extraTimeOut }).click();
-        cy.get('[placeholder="Search"]').type('Web')
-        cy.get('[title="Website Session"]').eq(0, { timeout: extraTimeOut }).click()
-        cy.xpath('(//span[text()="Add another event"])[2]',{ timeout: extraTimeOut }).click();
-        cy.wait(1000)
-        cy.get('[title="Linkedin Company Engagements"]').eq(0).click();
-        cy.wait(1000)
-        cy.get('[title="Linkedin Ad Clicked"]').click();
+        cy.wait(Timeout.md)
+        methods.scrollWithXpath(locators.Account_Pagetitle)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisibilityofElement(locators.account_pageloaded)
+        cy.wait(Timeout.sm)
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        cy.wait(Timeout.xs)
+        methods.VisibilityofElement(locators.Dashboards_Title)
+        methods.clickElement(locators.New_Report_CSS)
+        methods.clickElementByXPath(locators.Funnel_Report)
+        methods.clickElementByXPath(locators.Add_First_Event)
+        methods.typeElement(locators.search_1, 'Web')
+        methods.clickElement0(locators.Website_Session, 0)
+        methods.clickElementByXPath(locators.Add_another_event)
+        methods.clickElement0(locators.Linkedin_Company_Engagements, 0)
+        methods.clickElement(locators.Linkedin_Ad_Clicked)
+        cy.wait(Timeout.xs)
 
     })
 
     it('TC_RE_04 - Funnel Report - Local filter ', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-link--journeys').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Dashboards"]').click();
-        cy.wait(8000)
-        cy.get('#fa-at-text--dashboard-title', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('#fa-at-btn--new-report').click()
-        cy.xpath('//div[text()="Funnel Report"]').click()
-        cy.xpath('(//span[text()="Add First Event"])[2]', { timeout: extraTimeOut }).click();
-        cy.get('[placeholder="Search"]').type('Web')
-        cy.get('[title="Website Session"]').eq(0, { timeout: extraTimeOut }).click()
-        cy.xpath('(//span[text()="Add another event"])[2]',{ timeout: extraTimeOut }).click();
-        cy.wait(1000)
-        cy.get('[title="Linkedin Company Engagements"]').eq(0).click();
-        cy.wait(1000)
-        cy.get('[title="Linkedin Ad Clicked"]').click();
-        cy.wait(1000)
+        cy.wait(Timeout.md)
+        methods.scrollWithXpath(locators.Account_Pagetitle)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisibilityofElement(locators.account_pageloaded)
+        cy.wait(Timeout.sm)
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        cy.wait(Timeout.xs)
+        methods.VisibilityofElement(locators.Dashboards_Title)
+        methods.clickElement(locators.New_Report_CSS)
+        methods.clickElementByXPath(locators.Funnel_Report)
+        methods.VisibilityofElementXpath(locators.FUNNEL)
+        methods.clickElementByXPath(locators.Add_First_Event)
+        methods.typeElement(locators.search_1, 'Web')
+        methods.clickElement0(locators.Website_Session, 0)
+        methods.clickElementByXPath(locators.Add_another_event)
+        methods.clickElement0(locators.Linkedin_Company_Engagements, 0)
+        methods.clickElement(locators.Linkedin_Ad_Clicked)
+        cy.wait(Timeout.xs)
 
     })
 
     it('TC_RE_05 - Funnel Report - check the filter option is visible ', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-link--journeys').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Dashboards"]').click();
-        cy.wait(8000)
-        cy.get('#fa-at-text--dashboard-title', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('#fa-at-btn--new-report').click()
-        cy.xpath('//div[text()="Funnel Report"]').click()
-        cy.xpath('(//span[text()="Add First Event"])[2]', { timeout: extraTimeOut }).click();
-        cy.get('[placeholder="Search"]').type('Web')
-        cy.get('[title="Website Session"]').eq(0, { timeout: extraTimeOut }).click()
-
-        cy.xpath('(//span[text()="Add another event"])[2]',{ timeout: extraTimeOut }).click();
-        cy.wait(1000)
-        cy.get('[title="Linkedin Company Engagements"]').eq(0).click();
-        cy.wait(1000)
-        cy.get('[title="Linkedin Ad Clicked"]').click();
-
-        cy.get('.query_card_open-add > :nth-child(1) > :nth-child(4)').should('be.visible')
+        cy.wait(Timeout.md)
+        methods.scrollWithXpath(locators.Account_Pagetitle)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisibilityofElement(locators.account_pageloaded)
+        cy.wait(Timeout.sm)
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        cy.wait(Timeout.xs)
+        methods.VisibilityofElement(locators.Dashboards_Title)
+        methods.clickElement(locators.New_Report_CSS)
+        methods.clickElementByXPath(locators.Funnel_Report)
+        methods.VisibilityofElementXpath(locators.FUNNEL)
+        methods.clickElementByXPath(locators.Add_First_Event)
+        methods.typeElement(locators.search_1, 'Web')
+        methods.clickElement0(locators.Website_Session, 0)
+        methods.clickElementByXPath(locators.Add_another_event)
+        methods.clickElement0(locators.Linkedin_Company_Engagements, 0)
+        methods.clickElement(locators.Linkedin_Ad_Clicked)
+        methods.VisibilityofElement(locators.Filter_By_CSS)
 
     })
 
     it('TC_RE_06 - Funnel Report - add multiple filter for one session ', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-link--journeys').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Dashboards"]').click();
-        cy.wait(8000)
-        cy.get('#fa-at-text--dashboard-title', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('#fa-at-btn--new-report').click()
-        cy.xpath('//div[text()="Funnel Report"]').click()
-        cy.xpath('(//span[text()="Add First Event"])[2]', { timeout: extraTimeOut }).click();
-        cy.get('[placeholder="Search"]').type('Web')
-        cy.get('[title="Website Session"]').eq(0, { timeout: extraTimeOut }).click()
-        cy.xpath('(//span[text()="Add another event"])[2]',{ timeout: extraTimeOut }).click();
-        cy.wait(1000)
-        cy.get('[title="Linkedin Company Engagements"]').eq(0).click();
-        cy.wait(1000)
-        cy.get('[title="Linkedin Ad Clicked"]').click();
-
-        cy.xpath('(//h4[text()="Analyse"])[2]//following::button[3]').trigger('mouseover', { force: true }).click({ force: true });
-        cy.wait(1000)
-        cy.get('[title="Traffic source"]').eq(0).click();
-        cy.wait(1000)
-        cy.get('[title="Channel"]').click();
-        cy.get('[title="Others"]').click();
-        cy.xpath('//span[text()="Apply"]').click();
+        cy.wait(Timeout.md)
+        methods.scrollWithXpath(locators.Account_Pagetitle)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisibilityofElement(locators.account_pageloaded)
+        cy.wait(Timeout.sm)
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        cy.wait(Timeout.xs)
+        methods.VisibilityofElement(locators.Dashboards_Title)
+        methods.clickElement(locators.New_Report_CSS)
+        methods.clickElementByXPath(locators.Funnel_Report)
+        methods.VisibilityofElementXpath(locators.FUNNEL)
+        methods.clickElementByXPath(locators.Add_First_Event)
+        methods.typeElement(locators.search_1, 'Web')
+        methods.clickElement0(locators.Website_Session, 0)
+        methods.clickElementByXPath(locators.Add_another_event)
+        methods.clickElement0(locators.Linkedin_Company_Engagements, 0)
+        methods.clickElement(locators.Linkedin_Ad_Clicked)
+        methods.MouseoverAndClick(locators.Filter_this_funnel)
+        cy.wait(Timeout.sm)
+        methods.clickElementByXPath(locators.account_filter)
+        cy.wait(Timeout.sm)
+        methods.clickElementByXPath(locators.account_filter)
+        methods.clickElementByXPath(locators.not_Set)
+        methods.clickElementByXPath(locators.Apply1)
 
     })
 
     it('TC_RE_07 - Funnel Report - the delete option works ', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-link--journeys').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Dashboards"]').click();
-        cy.wait(8000)
-        cy.get('#fa-at-text--dashboard-title', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('#fa-at-btn--new-report').click()
-        cy.xpath('//div[text()="Funnel Report"]').click()
-        cy.xpath('(//span[text()="Add First Event"])[2]', { timeout: extraTimeOut }).click();
-        cy.get('[placeholder="Search"]').type('Web')
-        cy.get('[title="Website Session"]').eq(0, { timeout: extraTimeOut }).click()
-        cy.xpath('(//span[text()="Add another event"])[2]',{ timeout: extraTimeOut }).click();
-        cy.wait(1000)
-        cy.get('[title="Linkedin Company Engagements"]').eq(0).click();
-        cy.wait(1000)
-        cy.get('[title="Linkedin Ad Clicked"]').click();
-
-        cy.xpath('(//h4[text()="Analyse"])[2]//following::button[8]').trigger('mouseover', { force: true }).click({ force: true });
+        cy.wait(Timeout.md)
+        methods.scrollWithXpath(locators.Account_Pagetitle)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisibilityofElement(locators.account_pageloaded)
+        cy.wait(Timeout.sm)
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        cy.wait(Timeout.xs)
+        methods.VisibilityofElement(locators.Dashboards_Title)
+        methods.clickElement(locators.New_Report_CSS)
+        methods.clickElementByXPath(locators.Funnel_Report)
+        methods.VisibilityofElementXpath(locators.FUNNEL)
+        methods.clickElementByXPath(locators.Add_First_Event)
+        methods.typeElement(locators.search_1, 'Webs')
+        methods.clickElement0(locators.Website_Session, 0)
+        methods.clickElementByXPath(locators.Add_another_event)
+        methods.clickElement0(locators.Linkedin_Company_Engagements, 0)
+        methods.clickElement(locators.Linkedin_Ad_Clicked)
+        methods.MouseoverAndClick(locators.Delete_this_funnel)
 
     })
 
     it('TC_RE_08, TC_RE_09 - Funnel Report - global filter more than one ', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-link--journeys').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Dashboards"]').click();
-        cy.wait(8000)
-        cy.get('#fa-at-text--dashboard-title', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('#fa-at-btn--new-report').click()
-        cy.xpath('//div[text()="Funnel Report"]').click()
-        cy.xpath('(//span[text()="Add First Event"])[2]', { timeout: extraTimeOut }).click();
-        cy.get('[placeholder="Search"]').type('Web')
-        cy.get('[title="Website Session"]').eq(0, { timeout: extraTimeOut }).click()
-        cy.xpath('(//span[text()="Add another event"])[2]',{ timeout: extraTimeOut }).click();
-        cy.wait(1000)
-        cy.get('[title="Linkedin Company Engagements"]').eq(0).click();
-        cy.wait(1000)
-        cy.get('[title="Linkedin Ad Clicked"]').click();
-
-        cy.xpath('(//h4[text()="FILTER BY"])[2]//following::span[text()="Add new"][1]').click();
-        cy.wait(1000)
-        cy.get('[title="All Accounts"]').eq(0).click();
-        cy.wait(1000)
-        cy.get('[title="In Hubspot"]').click({ force: true });
-        cy.wait(1000)
-        cy.get('[title="True"]').click();
-        cy.xpath('//span[text()="Apply"]').click();
+        cy.wait(Timeout.md)
+        methods.scrollWithXpath(locators.Account_Pagetitle)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisibilityofElement(locators.account_pageloaded)
+        cy.wait(Timeout.sm)
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        cy.wait(Timeout.xs)
+        methods.VisibilityofElement(locators.Dashboards_Title)
+        methods.clickElement(locators.New_Report_CSS)
+        methods.clickElementByXPath(locators.Funnel_Report)
+        methods.VisibilityofElementXpath(locators.FUNNEL)
+        methods.clickElementByXPath(locators.Add_First_Event)
+        methods.typeElement(locators.search_1, 'Web')
+        methods.clickElement0(locators.Website_Session, 0)
+        methods.clickElementByXPath(locators.Add_another_event)
+        methods.clickElement0(locators.Linkedin_Company_Engagements, 0)
+        methods.clickElement(locators.Linkedin_Ad_Clicked)
+        methods.clickElementByXPath(locators.Add_New_FilterBy)
+        methods.clickElement0(locators.All_Account, 0)
+        methods.clickElement(locators.In_Hubspot1)
+        methods.clickElement(locators.true)
+        methods.clickElementByXPath(locators.Apply1)
 
     })
 
     it('TC_RE_10 - Funnel Report - clicking on the + icon ', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-link--journeys').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Dashboards"]').click();
-        cy.wait(8000)
-        cy.get('#fa-at-text--dashboard-title', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('#fa-at-btn--new-report').click()
-        cy.xpath('//div[text()="Funnel Report"]').click()
-        cy.xpath('(//span[text()="Add First Event"])[2]', { timeout: extraTimeOut }).click();
-        cy.get('[placeholder="Search"]').type('Web')
-        cy.get('[title="Website Session"]').eq(0, { timeout: extraTimeOut }).click()
-        cy.xpath('(//span[text()="Add another event"])[2]',{ timeout: extraTimeOut }).click();
-        cy.wait(1000)
-        cy.get('[title="Linkedin Company Engagements"]').eq(0).click();
-        cy.wait(1000)
-        cy.get('[title="Linkedin Ad Clicked"]').click();
-
-        cy.xpath('(//h4[text()="FILTER BY"])[2]//following::span[text()="Add new"][1]').click();
-        cy.wait(1000)
-        cy.get('[title="All Accounts"]').eq(0).click();
-        cy.wait(1000)
-        cy.get('[title="In Hubspot"]').click({ force: true });
-        cy.wait(1000)
-        cy.get('[title="True"]').click();
-        cy.xpath('//span[text()="Apply"]').click();
-
-        cy.xpath('(//h4[text()="FILTER BY"])[2]//following::button[@index="0"]').click();
-        cy.get('[title="All Accounts"]').eq(0, { timeout: extraTimeOut }).click();
-        cy.wait(3000)
-        cy.get('[title="Visited G2"]', { timeout: extraTimeOut }).click({ force: true });
-        cy.get('[title="True"]', { timeout: extraTimeOut }).click();
-        cy.xpath('//span[text()="Apply"]').click();
-
-        cy.xpath('(//h4[text()="FILTER BY"])[2]//following::h4[1]').should('contain','or')
+        cy.wait(Timeout.md)
+        methods.scrollWithXpath(locators.Account_Pagetitle)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisibilityofElement(locators.account_pageloaded)
+        cy.wait(Timeout.sm)
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        cy.wait(Timeout.xs)
+        methods.VisibilityofElement(locators.Dashboards_Title)
+        methods.clickElement(locators.New_Report_CSS)
+        methods.clickElementByXPath(locators.Funnel_Report)
+        methods.VisibilityofElementXpath(locators.FUNNEL)
+        methods.clickElementByXPath(locators.Add_First_Event)
+        methods.typeElement(locators.search_1, 'Web')
+        methods.clickElement0(locators.Website_Session, 0)
+        methods.clickElementByXPath(locators.Add_another_event)
+        methods.clickElement0(locators.Linkedin_Company_Engagements, 0)
+        methods.clickElement(locators.Linkedin_Ad_Clicked)
+        methods.clickElementByXPath(locators.Add_New_FilterBy)
+        methods.clickElement0(locators.All_Account, 0)
+        methods.clickElement(locators.In_Hubspot1)
+        methods.clickElement(locators.true)
+        methods.clickElementByXPath(locators.Apply1)
+        methods.clickElementByXPath(locators.Plus_Button)
+        methods.clickElement0(locators.All_Account, 0)
+        methods.clickElement(locators.In_Hubspot1)
+        methods.clickElement(locators.true)
+        methods.clickElementByXPath(locators.Apply1)
+        methods.assertElementContainsTextxpath(locators.Or, 'or')
 
     })
 
     it('TC_RE_11 - Funnel Report - breakdown ', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-link--journeys').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Dashboards"]').click();
-        cy.wait(8000)
-        cy.get('#fa-at-text--dashboard-title', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('#fa-at-btn--new-report').click()
-        cy.xpath('//div[text()="Funnel Report"]').click()
-        cy.xpath('(//span[text()="Add First Event"])[2]', { timeout: extraTimeOut }).click();
-        cy.get('[placeholder="Search"]').type('Web')
-        cy.get('[title="Website Session"]').eq(0, { timeout: extraTimeOut }).click()
-        cy.xpath('(//span[text()="Add another event"])[2]',{ timeout: extraTimeOut }).click();
-        cy.wait(1000)
-        cy.get('[title="Linkedin Company Engagements"]').eq(0).click();
-        cy.wait(1000)
-        cy.get('[title="Linkedin Ad Clicked"]').click();
-
-        cy.xpath('(//h4[text()="BREAKDOWN"])[2]//following::span[text()="Add new"]').click();
-        cy.get('[title="All Accounts"]').eq(0,{timeout:extraTimeOut}).click();
-        cy.get('[title="Engagement Level"]',{timeout:extraTimeOut}).click();
+        cy.wait(Timeout.md)
+        methods.scrollWithXpath(locators.Account_Pagetitle)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisibilityofElement(locators.account_pageloaded)
+        cy.wait(Timeout.sm)
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        cy.wait(Timeout.xs)
+        methods.VisibilityofElement(locators.Dashboards_Title)
+        methods.clickElement(locators.New_Report_CSS)
+        methods.clickElementByXPath(locators.Funnel_Report)
+        methods.VisibilityofElementXpath(locators.FUNNEL)
+        methods.clickElementByXPath(locators.Add_First_Event)
+        methods.typeElement(locators.search_1, 'Web')
+        methods.clickElement0(locators.Website_Session, 0)
+        methods.clickElementByXPath(locators.Add_another_event)
+        methods.clickElement0(locators.Linkedin_Company_Engagements, 0)
+        methods.clickElement(locators.Linkedin_Ad_Clicked)
+        methods.clickElementByXPath(locators.Add_New_Breakdown)
+        methods.clickElement0(locators.All_Account, 0)
+        methods.clickElementByXPath(locators.Filter_option1)
 
     })
 
     it('TC_RE_12 - Funnel Report - criteria ', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-link--journeys').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Dashboards"]').click();
-        cy.wait(8000)
-        cy.get('#fa-at-text--dashboard-title', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('#fa-at-btn--new-report').click()
-        cy.xpath('//div[text()="Funnel Report"]').click()
-        cy.xpath('(//span[text()="Add First Event"])[2]', { timeout: extraTimeOut }).click();
-        cy.get('[placeholder="Search"]').type('Web')
-        cy.get('[title="Website Session"]').eq(0, { timeout: extraTimeOut }).click()
-        cy.xpath('(//span[text()="Add another event"])[2]',{ timeout: extraTimeOut }).click();
-        cy.wait(1000)
-        cy.get('[title="Linkedin Company Engagements"]').eq(0).click();
-        cy.wait(1000)
-        cy.get('[title="Linkedin Ad Clicked"]').click();
-
-        cy.xpath('(//h4[text()="Conversion within"])[2]//following::div[1]').click();
-        cy.get('[role="tooltip"]').should('be.visible')
-        cy.xpath('(//div[@role="tooltip"]//following::span)[2]').click({force:true});
-        cy.get('[title="Hours"]').click();
-        cy.xpath('(//div[@role="tooltip"]//following::span)[2]').click({force:true});
-        cy.get('[title="Minutes"]').click();
-        cy.xpath('(//div[@role="tooltip"]//following::span)[2]').click({force:true});
-        cy.get('[title="Days"]').click();
-        cy.xpath('//span[text()="Apply"]').click();
+        cy.wait(Timeout.md)
+        methods.scrollWithXpath(locators.Account_Pagetitle)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisibilityofElement(locators.account_pageloaded)
+        cy.wait(Timeout.sm)
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        cy.wait(Timeout.xs)
+        methods.VisibilityofElement(locators.Dashboards_Title)
+        methods.clickElement(locators.New_Report_CSS)
+        methods.clickElementByXPath(locators.Funnel_Report)
+        methods.VisibilityofElementXpath(locators.FUNNEL)
+        methods.clickElementByXPath(locators.Add_First_Event)
+        methods.typeElement(locators.search_1, 'Web')
+        methods.clickElement0(locators.Website_Session, 0)
+        methods.clickElementByXPath(locators.Add_another_event)
+        methods.clickElement0(locators.Linkedin_Company_Engagements, 0)
+        methods.clickElement(locators.Linkedin_Ad_Clicked)
+        methods.clickElementByXPath(locators.Conversion_Window)
+        methods.VisibilityofElement(locators.Tooltip)
+        methods.clickElementByXPath(locators.Date_select)
+        methods.clickElement(locators.Hours)
+        methods.clickElementByXPath(locators.Date_select)
+        methods.clickElement(locators.Minutes)
+        methods.clickElementByXPath(locators.Date_select)
+        methods.clickElement(locators.Days)
+        methods.clickElementByXPath(locators.Apply1)
 
     })
 
     it('TC_RE_13 - Funnel Report - custom range ', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-link--journeys').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Dashboards"]').click();
-        cy.wait(8000)
-        cy.get('#fa-at-text--dashboard-title', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('#fa-at-btn--new-report').click()
-        cy.xpath('//div[text()="Funnel Report"]').click()
-        cy.xpath('(//span[text()="Add First Event"])[2]', { timeout: extraTimeOut }).click();
-        cy.get('[placeholder="Search"]').type('Web')
-        cy.get('[title="Website Session"]').eq(0, { timeout: extraTimeOut }).click()
-        cy.xpath('(//span[text()="Add another event"])[2]',{ timeout: extraTimeOut }).click();
-        cy.wait(1000)
-        cy.get('[title="Linkedin Company Engagements"]').eq(0).click();
-        cy.wait(1000)
-        cy.get('[title="Linkedin Ad Clicked"]').click();
-
-        cy.xpath('(//h4[text()="Conversion within"])[2]//following::div[1]').click();
-        cy.get('[role="tooltip"]').should('be.visible')
-        cy.xpath('(//div[@role="tooltip"]//following::span)[2]').click({force:true});
-        cy.get('[title="Hours"]').click();
-        cy.xpath('(//div[@role="tooltip"]//following::span)[2]').click({force:true});
-        cy.get('[title="Minutes"]').click();
-        cy.xpath('(//div[@role="tooltip"]//following::span)[2]').click({force:true});
-        cy.get('[title="Days"]').click();
-        cy.xpath('//span[text()="Apply"]').click();
-
-        cy.xpath('(//h4[text()="FUNNEL CRITERIA"])[2]//following::button[1]').click();
-        cy.get('[role="menuitem"]').eq(9).click();
-        cy.xpath('(//span[text()="Run Analysis"])[2]').click();
+        cy.wait(Timeout.md)
+        methods.scrollWithXpath(locators.Account_Pagetitle)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisibilityofElement(locators.account_pageloaded)
+        cy.wait(Timeout.sm)
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        cy.wait(Timeout.xs)
+        methods.VisibilityofElement(locators.Dashboards_Title)
+        methods.clickElement(locators.New_Report_CSS)
+        methods.clickElementByXPath(locators.Funnel_Report)
+        methods.clickElementByXPath(locators.Add_First_Event)
+        methods.typeElement(locators.search_1, 'Web')
+        methods.clickElement0(locators.Website_Session, 0)
+        methods.clickElementByXPath(locators.Add_another_event)
+        methods.clickElement0(locators.Linkedin_Company_Engagements, 0)
+        methods.clickElement(locators.Linkedin_Ad_Clicked)
+        methods.clickElementByXPath(locators.Conversion_Window)
+        methods.VisibilityofElement(locators.Tooltip)
+        methods.clickElementByXPath(locators.Date_select)
+        methods.clickElement(locators.Hours)
+        methods.clickElementByXPath(locators.Date_select)
+        methods.clickElement(locators.Minutes)
+        methods.clickElementByXPath(locators.Date_select)
+        methods.clickElement(locators.Days)
+        methods.clickElementByXPath(locators.Apply1)
+        methods.clickElementByXPath(locators.calender_MenuList)
+        methods.clickElement0(locators.Menu_Item, 9)
+        methods.clickElementByXPath(locators.Run_Anal)
 
     })
 
     it('TC_RE_14 - Funnel Report -  KPI, filters and breakdown and run analysis ', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-link--journeys').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Dashboards"]').click();
-        cy.wait(8000)
-        cy.get('#fa-at-text--dashboard-title', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('#fa-at-btn--new-report').click()
-        cy.xpath('//div[text()="Funnel Report"]').click()
-        cy.xpath('(//span[text()="Add First Event"])[2]', { timeout: extraTimeOut }).click();
-        cy.get('[placeholder="Search"]').type('Web')
-        cy.get('[title="Website Session"]').eq(0, { timeout: extraTimeOut }).click()
-        cy.xpath('(//span[text()="Add another event"])[2]',{ timeout: extraTimeOut }).click();
-        cy.wait(1000)
-        cy.get('[title="Linkedin Company Engagements"]').eq(0).click();
-        cy.wait(1000)
-        cy.get('[title="Linkedin Ad Clicked"]').click();
-
-        cy.xpath('(//h4[text()="FILTER BY"])[2]//following::span[text()="Add new"][1]').click();
-        cy.wait(1000)
-        cy.get('[title="All Accounts"]').eq(0).click();
-        cy.wait(1000)
-        cy.get('[title="In Hubspot"]').click({ force: true });
-        cy.wait(1000)
-        cy.get('[title="True"]').click();
-        cy.xpath('//span[text()="Apply"]').click();
-
-        cy.xpath('(//h4[text()="BREAKDOWN"])[2]//following::span[text()="Add new"]').click();
-        cy.get('[title="All Accounts"]').eq(0,{timeout:extraTimeOut}).click();
-        cy.get('[title="Engagement Level"]',{timeout:extraTimeOut}).click();
-
-        cy.xpath('(//span[text()="Run Analysis"])[2]').click();
+        cy.wait(Timeout.md)
+        methods.scrollWithXpath(locators.Account_Pagetitle)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisibilityofElement(locators.account_pageloaded)
+        cy.wait(Timeout.sm)
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        cy.wait(Timeout.xs)
+        methods.VisibilityofElement(locators.Dashboards_Title)
+        methods.clickElement(locators.New_Report_CSS)
+        methods.clickElementByXPath(locators.Funnel_Report)
+        methods.VisibilityofElementXpath(locators.FUNNEL)
+        methods.clickElementByXPath(locators.Add_First_Event)
+        methods.typeElement(locators.search_1, 'Web')
+        methods.clickElement0(locators.Website_Session, 0)
+        methods.clickElementByXPath(locators.Add_another_event)
+        methods.clickElement0(locators.Linkedin_Company_Engagements, 0)
+        methods.clickElement(locators.Linkedin_Ad_Clicked)
+        methods.clickElementByXPath(locators.Add_New_FilterBy)
+        methods.clickElement0(locators.All_Account, 0)
+        methods.clickElement(locators.In_Hubspot1)
+        methods.clickElement(locators.true)
+        methods.clickElementByXPath(locators.Apply1)
+        methods.clickElementByXPath(locators.Add_New_Breakdown)
+        methods.clickElement0(locators.All_Account, 0)
+        methods.clickElementByXPath(locators.Filter_option1)
+        methods.clickElementByXPath(locators.Run_Anal)
 
     })
 
     it('TC_RE_15 - Funnel Report -  download the CSV file ', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-link--journeys').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Dashboards"]').click();
-        cy.wait(8000)
-        cy.get('#fa-at-text--dashboard-title', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('#fa-at-btn--new-report').click()
-        cy.xpath('//div[text()="Funnel Report"]').click()
-        cy.xpath('(//span[text()="Add First Event"])[2]', { timeout: extraTimeOut }).click();
-        cy.get('[placeholder="Search"]').type('Web')
-        cy.wait(2000)
-        cy.get('[title="Website Session"]').eq(0, { timeout: extraTimeOut }).click()
-        cy.xpath('(//span[text()="Add another event"])[2]',{ timeout: extraTimeOut }).click();
-        cy.wait(1000)
-        cy.get('[title="Linkedin Company Engagements"]').eq(0).click();
-        cy.wait(1000)
-        cy.get('[title="Linkedin Ad Clicked"]').click();
-
-        cy.xpath('(//h4[text()="FILTER BY"])[2]//following::span[text()="Add new"][1]').click();
-        cy.wait(1000)
-        cy.get('[title="All Accounts"]').eq(0).click();
-        cy.wait(1000)
-        cy.get('[title="In Hubspot"]').click({ force: true });
-        cy.wait(1000)
-        cy.get('[title="True"]').click();
-        cy.xpath('//span[text()="Apply"]').click();
-
-        cy.xpath('(//h4[text()="BREAKDOWN"])[2]//following::span[text()="Add new"]').click();
-        cy.get('[title="All Accounts"]').eq(0,{timeout:extraTimeOut}).click();
-        cy.get('[title="Engagement Level"]',{timeout:extraTimeOut}).click();
-
-        cy.xpath('(//span[text()="Run Analysis"])[2]').click();
-
-        cy.get('[id="csvLink"]').scrollIntoView().click({force:true})
-        
+        cy.wait(Timeout.md)
+        methods.scrollWithXpath(locators.Account_Pagetitle)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisibilityofElement(locators.account_pageloaded)
+        cy.wait(Timeout.sm)
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        cy.wait(Timeout.xs)
+        methods.VisibilityofElement(locators.Dashboards_Title)
+        methods.clickElement(locators.New_Report_CSS)
+        methods.clickElementByXPath(locators.Funnel_Report)
+        methods.VisibilityofElementXpath(locators.FUNNEL)
+        methods.clickElementByXPath(locators.Add_First_Event)
+        methods.typeElement(locators.search_1, 'Webs')
+        methods.clickElement0(locators.Website_Session, 0)
+        methods.clickElementByXPath(locators.Add_another_event)
+        methods.clickElement0(locators.Linkedin_Company_Engagements, 0)
+        methods.clickElement(locators.Linkedin_Ad_Clicked)
+        methods.clickElementByXPath(locators.Add_New_FilterBy)
+        methods.clickElement0(locators.All_Account, 0)
+        methods.clickElement(locators.In_Hubspot1)
+        methods.clickElement(locators.true)
+        methods.clickElementByXPath(locators.Apply1)
+        methods.clickElementByXPath(locators.Add_New_Breakdown)
+        methods.clickElement0(locators.All_Account, 0)
+        methods.clickElementByXPath(locators.Filter_option1)
+        methods.clickElementByXPath(locators.Run_Anal)
+        cy.wait(Timeout.md)
+        methods.VisibilityofElement(locators.Attri_pageloaded)
+        methods.ScrollAndClickxpath(locators.Downloadcsv)
 
     })
 
     it('TC_RE_16 - Funnel Report -  Search ', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-link--journeys').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Dashboards"]').click();
-        cy.wait(8000)
-        cy.get('#fa-at-text--dashboard-title', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('#fa-at-btn--new-report').click()
-        cy.xpath('//div[text()="Funnel Report"]').click()
-        cy.xpath('(//span[text()="Add First Event"])[2]', { timeout: extraTimeOut }).click();
-        cy.get('[placeholder="Search"]').type('cont')
-        cy.wait(2000)
-        cy.get('[title="Contact Updated"]').eq(0, { timeout: extraTimeOut }).click()
-        cy.xpath('(//span[text()="Add another event"])[2]',{ timeout: extraTimeOut }).click();
-        cy.wait(1000)
-        cy.get('[title="Linkedin Company Engagements"]').eq(0).click();
-        cy.wait(1000)
-        cy.get('[title="Linkedin Ad Viewed"]').click();
-
-        cy.xpath('(//h4[text()="BREAKDOWN"])[2]//following::span[text()="Add new"]').click();
-        cy.get('[title="All Accounts"]').eq(0,{timeout:extraTimeOut}).click();
-        cy.get('[title="Top Engagement Signals"]',{timeout:extraTimeOut}).click();
-
-        cy.xpath('(//h4[text()="FUNNEL CRITERIA"])[2]//following::button[1]').click();
-        cy.xpath('//a[text()="Select Month"]').click()
-        cy.get('[title="2024-01"]').click();
-
-        cy.xpath('(//span[text()="Run Analysis"])[2]').click();
-
-        cy.xpath('//div[text()="Break-up"]').scrollIntoView();
-        cy.xpath('//div[text()="Break-up"]//following::button[1]').click()
-        cy.get('[placeholder="Search"]').type('Demo')
-
-        cy.get('.ant-table-container').should('be.visible')
+        cy.wait(Timeout.md)
+        methods.scrollWithXpath(locators.Account_Pagetitle)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisibilityofElement(locators.account_pageloaded)
+        cy.wait(Timeout.sm)
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        cy.wait(Timeout.xs)
+        methods.VisibilityofElement(locators.Dashboards_Title)
+        methods.clickElement(locators.New_Report_CSS)
+        methods.clickElementByXPath(locators.Funnel_Report)
+        methods.VisibilityofElementXpath(locators.FUNNEL)
+        methods.clickElementByXPath(locators.Add_First_Event)
+        methods.typeElement(locators.search_1, 'Web')
+        methods.clickElement0(locators.Website_Session, 0)
+        methods.clickElementByXPath(locators.Add_another_event)
+        methods.clickElement0(locators.Linkedin_Company_Engagements, 0)
+        methods.clickElement(locators.Linkedin_Ad_Clicked)
+        methods.clickElementByXPath(locators.Add_New_Breakdown)
+        methods.clickElement0(locators.All_Account, 0)
+        methods.clickElementByXPath(locators.Filter_option1)
+        methods.clickElementByXPath(locators.calender_MenuList)
+        methods.clickElementByXPath(locators.Select_Month)
+        methods.clickElementByXPath(locators.date_choosen)
+        methods.clickElementByXPath(locators.Run_Anal)
+        cy.wait(Timeout.md)
+        methods.VisibilityofElement(locators.Attri_pageloaded)
+        methods.scrollWithXpath(locators.Break_up)
+        methods.clickElementByXPath(locators.Breakup_Search)
+        methods.typeElement(locators.search_1, 'Demo')
+        methods.VisibilityofElement(locators.identi_table)
 
     })
 
-    it ('TC_RE_17 - Funnel Report -  save ', () => {
+    it('TC_RE_17 - Funnel Report -  save ', () => {
 
         const nowTime = dayjs().format('H:m:s');
         const testName = `Demo_${nowTime}`;
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-link--journeys').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Dashboards"]').click({ force: true });
-        cy.wait(8000)
-        cy.get('#fa-at-text--dashboard-title', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('#fa-at-btn--new-report').click()
-        cy.xpath('//div[text()="Funnel Report"]').click()
-        cy.xpath('(//span[text()="Add First Event"])[2]', { timeout: extraTimeOut }).click();
-        cy.get('[placeholder="Search"]').type('cont')
-        cy.wait(2000)
-        cy.get('[title="Contact Updated"]').eq(0, { timeout: extraTimeOut }).click()
-        cy.xpath('(//span[text()="Add another event"])[2]',{ timeout: extraTimeOut }).click();
-        cy.wait(1000)
-        cy.get('[title="Linkedin Company Engagements"]').eq(0).click();
-        cy.wait(1000)
-        cy.get('[title="Linkedin Ad Viewed"]').click();
-
-        cy.xpath('(//h4[text()="BREAKDOWN"])[2]//following::span[text()="Add new"]').click();
-        cy.get('[title="All Accounts"]').eq(0,{timeout:extraTimeOut}).click();
-        cy.get('[title="Top Engagement Signals"]',{timeout:extraTimeOut}).click();
-
-        cy.xpath('(//h4[text()="FUNNEL CRITERIA"])[2]//following::button[1]').click();
-        cy.xpath('//a[text()="Select Month"]').click()
-        cy.get('[title="2024-01"]').click();
-
-        cy.xpath('(//span[text()="Run Analysis"])[2]').click();
-        cy.wait(2000)
-        cy.get('.mt-24',{timeout : extraTimeOut }).should('be.visible');
-
-        cy.xpath('//span[text()="Save"]').click()
-        cy.get('[placeholder="Report Name"]').type(testName)
-        cy.get('[placeholder="Description (Optional)"]').type('Testing Report')
-        cy.xpath('(//span[text()="Save"])[2]').click()
-
-        cy.get('.ant-notification-notice',{timeout : extraTimeOut }).should('be.visible');
-        cy.xpath('(//span[text()="Close"])[1]').click({force:true})
-        cy.xpath('//h4[text()="Drafts"]').click()
-        cy.xpath('//th[text()="Date"]//following::button[1]').trigger('mouseover', { force: true });
-        cy.xpath('//*[text()="Delete Report"]').click();
-        cy.xpath('//span[text()="Confirm"]').click()
+        cy.wait(Timeout.md)
+        methods.scrollWithXpath(locators.Account_Pagetitle)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisibilityofElement(locators.account_pageloaded)
+        cy.wait(Timeout.sm)
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        cy.wait(Timeout.xs)
+        methods.VisibilityofElement(locators.Dashboards_Title)
+        methods.clickElementByXPath(locators.Drafts)
+        methods.VisibilityofElement(locators.Table_Body_1)
+        methods.clickElement(locators.New_Report_CSS)
+        methods.clickElementByXPath(locators.Funnel_Report)
+        methods.clickElementByXPath(locators.Add_First_Event)
+        methods.typeElement(locators.search_1, 'Web')
+        methods.clickElement0(locators.Website_Session, 0)
+        methods.clickElementByXPath(locators.Add_another_event)
+        methods.clickElement0(locators.Linkedin_Company_Engagements, 0)
+        methods.clickElement(locators.Linkedin_Ad_Clicked)
+        methods.clickElementByXPath(locators.Add_New_Breakdown)
+        methods.clickElement0(locators.All_Account, 0)
+        methods.clickElementByXPath(locators.Filter_option1)
+        methods.clickElementByXPath(locators.calender_MenuList)
+        methods.clickElementByXPath(locators.Select_Month)
+        methods.clickElementByXPath(locators.date_choosen)
+        methods.clickElementByXPath(locators.Run_Anal)
+        cy.wait(Timeout.md)
+        methods.VisibilityofElement(locators.Attri_pageloaded)
+        methods.clickElementByXPath(locators.Save_1)
+        methods.typeElement(locators.Report_Name, testName)
+        methods.typeElement(locators.Description_OP, 'Testing Report')
+        methods.clickElementByXPath(locators.save1)
+        methods.VisibilityofElement(locators.notification_popup)
+        cy.wait(Timeout.xs)
+        methods.clickElementByXPath(locators.Closed)
+        methods.MouseoverWithXpath(locators.Saved_report_option)
+        methods.clickElementByXPath(locators.Delete_Report)
+        methods.clickElementByXPath(locators.confirm_1)
+        cy.wait(Timeout.xs)
 
     })
 
@@ -508,63 +490,53 @@ describe('Funnel Report Login', () => {
         const nowTime = dayjs().format('H:m:s');
         const testName = `Demo_${nowTime}`;
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-link--journeys').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Dashboards"]').click({ force: true });
-        cy.wait(8000)
-        cy.get('#fa-at-text--dashboard-title', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('#fa-at-btn--new-report').click()
-        cy.xpath('//div[text()="Funnel Report"]').click()
-        cy.wait(1000)
-        cy.xpath('(//span[text()="Add First Event"])[2]', { timeout: extraTimeOut }).click({ force: true });
-        cy.get('[placeholder="Search"]').type('cont')
-        cy.wait(2000)
-        cy.get('[title="Contact Updated"]').eq(0, { timeout: extraTimeOut }).click()
-        cy.xpath('(//span[text()="Add another event"])[2]',{ timeout: extraTimeOut }).click();
-        cy.wait(1000)
-        cy.get('[title="Linkedin Company Engagements"]').eq(0).click();
-        cy.wait(1000)
-        cy.get('[title="Linkedin Ad Viewed"]').click();
-
-        cy.xpath('(//h4[text()="BREAKDOWN"])[2]//following::span[text()="Add new"]').click();
-        cy.get('[title="All Accounts"]').eq(0,{timeout:extraTimeOut}).click();
-        cy.get('[title="Top Engagement Signals"]',{timeout:extraTimeOut}).click();
-
-        cy.xpath('(//h4[text()="FUNNEL CRITERIA"])[2]//following::button[1]').click();
-        cy.xpath('//a[text()="Select Month"]').click()
-        cy.get('[title="2024-01"]').click();
-
-        cy.xpath('(//span[text()="Run Analysis"])[2]').click();
-        cy.wait(2000)
-        cy.get('.mt-24',{timeout : extraTimeOut }).should('be.visible');
-
-        cy.xpath('//span[text()="Save"]').click()
-        cy.get('[placeholder="Report Name"]').type(testName)
-        cy.get('[placeholder="Description (Optional)"]').type('Testing Report')
-
-        cy.xpath('//span[text()="Add to Dashboard"]').click();
-        cy.xpath('//span[text()="Please Select"]').click()
-        cy.xpath('//span[text()="Please Select"]').type('aut')
-        cy.get('[title="Automation"]').click()
-        cy.xpath('//h3[text()="Create New Report"]').click({ force: true })
-        cy.xpath('(//span[text()="Save"])[2]').click({ force: true })
-
-
-        cy.get('.ant-notification-notice',{timeout : extraTimeOut }).should('be.visible');
-        cy.xpath('(//span[text()="Close"])[1]').click({force:true})
-        cy.xpath('//h1[text()="Automation folder"]').click()
-        cy.xpath('//h4[text()="Automation"]').click()
-        cy.wait(2000)
-        cy.xpath('//h4[text()="Data from"]//following::button[4]').trigger('mouseover', { force: true });
-        cy.xpath('//a[text()="Delete Widget"]').click()
-        cy.xpath('//span[text()="Confirm"]').click()
-        cy.wait(1000)
-        cy.xpath('//h4[text()="Drafts"]').click()
-        cy.xpath('//th[text()="Date"]//following::button[1]').trigger('mouseover', { force: true });
-        cy.xpath('//*[text()="Delete Report"]').click();
-        cy.xpath('//span[text()="Confirm"]').click()
+        cy.wait(Timeout.md)
+        methods.scrollWithXpath(locators.Account_Pagetitle)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisibilityofElement(locators.account_pageloaded)
+        cy.wait(Timeout.sm)
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        cy.wait(Timeout.xs)
+        methods.VisibilityofElement(locators.Dashboards_Title)
+        methods.typeElement(locators.Search_dashboard, 'Auto')
+        methods.clickElementByXPath(locators.Automate)
+        cy.wait(Timeout.xs)
+        methods.clickElement(locators.New_Report_CSS)
+        methods.clickElementByXPath(locators.Funnel_Report)
+        methods.VisibilityofElementXpath(locators.FUNNEL)
+        methods.clickElementByXPath(locators.Add_First_Event)
+        methods.typeElement(locators.search_1, 'Webs')
+        methods.clickElement0(locators.Website_Session, 0)
+        methods.clickElementByXPath(locators.Add_another_event)
+        methods.clickElement0(locators.Linkedin_Company_Engagements, 0)
+        methods.clickElement(locators.Linkedin_Ad_Clicked)
+        methods.clickElementByXPath(locators.Add_New_Breakdown)
+        methods.clickElement0(locators.All_Account, 0)
+        methods.clickElementByXPath(locators.Filter_option1)
+        methods.clickElementByXPath(locators.calender_MenuList)
+        methods.clickElementByXPath(locators.Select_Month)
+        methods.clickElementByXPath(locators.date_choosen)
+        methods.clickElementByXPath(locators.Run_Anal)
+        cy.wait(Timeout.md)
+        methods.VisibilityofElement(locators.Attri_pageloaded)
+        methods.clickElementByXPath(locators.Save_1)
+        methods.typeElement(locators.Report_Name, testName)
+        methods.typeElement(locators.Description_OP, 'Testing Report')
+        methods.clickElementByXPath(locators.save1)
+        methods.VisibilityofElement(locators.notification_popup)
+        cy.wait(Timeout.xs)
+        methods.clickElementByXPath(locators.Closed)
+        cy.wait(Timeout.xs)
+        methods.clickElementByXPath(locators.Automation_Delete)
+        methods.clickElementByXPath(locators.Delete_Widget)
+        methods.clickElementByXPath(locators.confirm_1)
+        cy.wait(Timeout.xs)
+        methods.clickElementByXPath(locators.Drafts)
+        methods.MouseoverWithXpath(locators.Saved_report_option)
+        methods.clickElementByXPath(locators.Delete_Report)
+        methods.clickElementByXPath(locators.confirm_1)
+        cy.wait(Timeout.xs)
 
     })
 })

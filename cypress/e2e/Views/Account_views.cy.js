@@ -1,7 +1,9 @@
 import Login1 from '../PageObjects/Login1';
-import { deviceViewport, extraTimeOut } from '../Utils';
+import { deviceViewport, extraTimeOut, Timeout } from '../Utils.js';
+import methods from '../../support/Common_Method.js'
+import locators from '../../support/Locators.js'
 
-describe('Login', () => {
+describe('Accounts view Login', () => {
 
     beforeEach(() => {
 
@@ -18,120 +20,82 @@ describe('Login', () => {
 
     it('Accounts view', () => {
 
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-        cy.wait(2000)
-        cy.get(':nth-child(2) > .ant-table-cell-fix-left', { timeout: extraTimeOut }).should('be.visible');
+        cy.wait(Timeout.md)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisibilityofElement(locators.account_pageloaded)
 
         // select account & birdview
 
-        cy.get('.relative > .ant-btn').click();
-        cy.wait(1000)
-        cy.xpath('//*[@placeholder="Search Accounts"]').type('infosys.com');
-        cy.wait(1000)
-        cy.xpath('//*[@placeholder="Search Accounts"]').type('{enter}');
-        cy.wait(1000)
-        cy.xpath('(//h4[text()="lightinfosys.com"])[1]').click();
-        cy.wait(1000)
-        cy.get('.timeline-view', { timeout: extraTimeOut }).should('be.visible');
-        cy.wait(1000)
+        methods.clickElement(locators.search_button)
+        methods.typeElementByXPath(locators.search_area, 'infosys.com')
+        methods.EnterXpath(locators.search_area)
+        methods.assertElementContainsText(locators.account_pageloaded, 'infosys.com')
+        methods.MouseoverWithXpath(locators.open_account)
+        methods.clickElementByXPath(locators.open_account)
+        methods.clickElementByXPath(locators.BirdView)
+        methods.VisibilityofElement(locators.View_visible)
 
         // expand the pageView and verify the show less visibility
 
-        cy.get('.collapse-btn--left').click({ force: true });
-        cy.wait(1000)
-        // cy.xpath('(//div[text()=" Show Less"])[1]').scrollIntoView();
-        // cy.wait(1000)
-        // cy.xpath('(//div[text()=" Show Less"])[1]').should('be.visible');
-        // cy.wait(1000)
+        methods.clickElementByXPath(locators.Expand)
 
         // contract the pageview 
 
-        cy.get('.collapse-btn--right').click({ force: true });
-        cy.wait(1000)
-        cy.xpath('//*[contains(text(),"infosys")]//following::div[@class="tag"][1]').scrollIntoView();
-        cy.wait(1000)
-        cy.xpath('//*[contains(text(),"infosys")]//following::div[@class="tag"][1]').should('be.visible');
-        cy.wait(1000)
+        methods.clickElementByXPath(locators.collapse)
+        methods.scrollWithXpath(locators.First_value)
+        methods.VisibilityofElementXpath(locators.First_value)
 
         // event select
 
-        cy.get('.timeline-actions__group > .ant-btn-lg').click({ force: true });
-        cy.wait(1000)
-        cy.xpath('//h4[text()="Company Created"]').click();
-        cy.wait(1000)
-        cy.get(':nth-child(1) > .bg-gradient--44px.pb-NaN > .timeline-events').should('not.be.empty');
-        cy.wait(1000)
-        cy.xpath('//h4[text()="Company Created"]').click();
-        cy.wait(1000)
+        methods.clickElementByXPath(locators.Birdview_option)
+        methods.clickElementByXPath(locators.Company_Created)
+        methods.AssertNotEmpty(locators.Event_validation)
+        methods.clickElementByXPath(locators.Company_Created)
 
         // user property
 
-        cy.get('#rc-tabs-1-tab-properties > .fa-activity-filter--tabname').click();
-        cy.wait(1000)
-        cy.xpath('//input[@placeholder="Select a User Property"]//following::div[7]').click({ force: true });
-        cy.xpath('//*[text()="Date and Time"]//following::h4[2]').should('not.be.empty')
-        cy.wait(1000)
-        cy.xpath('//input[@placeholder="Select a User Property"]//following::div[11]').click({ force: true });
-        cy.xpath('//*[text()="Date and Time"]//following::h4[2]').should('not.be.empty')
-        cy.wait(1000)
+        methods.clickElement(locators.Birdview_properties)
+        methods.clickElementByXPath(locators.Birdview_properties_option1)
+        methods.AssertNotEmptyWithXpath(locators.property_validation)
+        methods.clickElementByXPath(locators.Birdview_properties_option1)
+        methods.AssertNotEmptyWithXpath(locators.property_validation)
 
         // // left side filter
 
-        cy.xpath('//h4[text()="Company domain"]//following::button[1]').trigger('mouseover', { force: true }).click({ force: true });
-        cy.wait(1000)
-        cy.xpath('//*[text()="Add property"]').click({ force: true });
-        cy.wait(1000)
-        cy.get('[title="Identified Companies"]').eq(0).click({ force: true });
-        cy.get('[placeholder="Select Property"]').type('dom')
-        cy.wait(1000)
-        cy.get('[title="Company domain"]').click({force:true});
-        cy.wait(1000)
+        methods.clickElementByXPath(locators.Add_Property1)
+        methods.clickElement0(locators.Company_Identification, 0)
+        methods.typeElement(locators.select_property, 'dom')
+        methods.clickElement(locators.Company_domain)
+        methods.MouseoverAndClick(locators.Company_domain_delete)
 
         // account activity
 
-        cy.get('.timeline-actions__group > .ant-dropdown-trigger').click({ force: true });
-        cy.wait(1000)
-        cy.xpath('//*[text()="Timestamp"]').click();
-        cy.wait(1000)
-        cy.get(':nth-child(1) > :nth-child(1) > .timestamp').should('not.be.empty');
-        cy.wait(1000)
-        cy.get('.timeline-actions__group > .ant-dropdown-trigger').click({ force: true });
-        cy.wait(1000)
-        cy.xpath('//*[text()="Hourly"]').click();
-        cy.wait(1000)
-        cy.get(':nth-child(1) > :nth-child(1) > .timestamp').should('not.be.empty');
-        cy.wait(1000)
-        cy.get('.timeline-actions__group > .ant-dropdown-trigger').click({ force: true });
-        cy.wait(1000)
-        cy.xpath('//*[text()="Weekly"]').click();
-        cy.wait(1000)
-        cy.get(':nth-child(1) > :nth-child(1) > .timestamp').should('not.be.empty');
-        cy.wait(1000)
-        cy.get('.timeline-actions__group > .ant-dropdown-trigger').click({ force: true });
-        cy.wait(1000)
-        cy.xpath('//*[text()="Monthly"]').click();
-        cy.wait(1000)
-        cy.get(':nth-child(1) > :nth-child(1) > .timestamp').should('not.be.empty');
-        cy.wait(1000)
-        cy.get('.timeline-actions__group > .ant-dropdown-trigger').click({ force: true });
-        cy.wait(1000)
-        cy.xpath('//*[text()="Daily"]').click();
-        cy.wait(1000)
-        cy.get(':nth-child(1) > :nth-child(1) > .timestamp').should('not.be.empty');
-        cy.wait(1000)
+        methods.clickElementByXPath(locators.time_dropdown)
+        methods.clickElementByXPath(locators.Time_stamp)
+        methods.AssertNotEmpty(locators.timestamp_validation)
+        methods.clickElementByXPath(locators.time_dropdown)
+        methods.clickElementByXPath(locators.Hourly)
+        methods.AssertNotEmpty(locators.timestamp_validation)
+        methods.clickElementByXPath(locators.time_dropdown)
+        methods.clickElementByXPath(locators.Weekly)
+        methods.AssertNotEmpty(locators.timestamp_validation)
+        methods.clickElementByXPath(locators.time_dropdown)
+        methods.clickElementByXPath(locators.Monthly)
+        methods.AssertNotEmpty(locators.timestamp_validation)
+        methods.clickElementByXPath(locators.time_dropdown)
+        methods.clickElementByXPath(locators.Daily)
+        methods.AssertNotEmpty(locators.timestamp_validation)
 
         // Timeline
 
-        cy.xpath('//*[text()="Timeline"]').click({ force: true });
-        cy.wait(1000)
-        cy.get('#rc-tabs-0-panel-timeline').should('to.visible');
-        cy.wait(1000)
+        methods.clickElementByXPath(locators.Time_line)
+        methods.VisibleofElement(locators.Time_line_Validation)
 
         // Overview
 
-        cy.xpath('//*[text()="Overview"]').click({ force: true });
-        cy.wait(1000)
-        cy.get('.overview', { timeout: extraTimeOut }).should('to.visible');
-        
+        methods.clickElementByXPath(locators.Over_view)
+        cy.wait(Timeout.sm)
+        methods.VisibleofElement(locators.Over_view_validation)
+
     })
 })

@@ -1,8 +1,9 @@
-import envDetails from '../../fixtures/envDetails.json';
-import Login3 from '../PageObjects/Login3';
-import { deviceViewport, extraTimeOut } from '../Utils';
+import Login1 from '../PageObjects/Login1';
+import { deviceViewport, extraTimeOut, Timeout } from '../Utils.js';
+import methods from '../../support/Common_Method.js'
+import locators from '../../support/Locators.js'
 
-describe('Login', () => {
+describe('Charts Login', () => {
 
     beforeEach(() => {
 
@@ -13,81 +14,76 @@ describe('Login', () => {
         });
 
         //login before run test
-        Login3();
+        Login1();
 
     })
 
     it('TC_RE_01_Charts - companies have been visited', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-link--journeys').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Dashboards"]').click();
-        cy.wait(8000)
-        cy.get('#fa-at-text--dashboard-title', { timeout: extraTimeOut }).should('be.visible');
-        cy.xpath('//div[text()="New Reports"]').click();
-        cy.xpath('//div[text()="Event Report"]').click();
-        cy.xpath('(//span[text()="Add First Event"])[2]', { timeout: extraTimeOut }).click();
-        cy.get('.fa-filter-select > .ant-input-affix-wrapper > .ant-input').type('web');
-        cy.wait(1000)
-        cy.get(':nth-child(2) > .flex-row > :nth-child(2) > .ant-typography').should('be.visible').click();
-        cy.get('.query_card_open-add > :nth-child(1) > .QueryComposer_composer_footer__LVpKT > .fa-custom-datepicker > .ant-btn').click();
-        cy.wait(1000)
-        cy.get('[data-menu-id]').eq(8).click();
-        cy.wait(1000)
-        cy.get('.query_card_open-add > :nth-child(1) > .QueryComposer_composer_footer__LVpKT > .ant-btn-primary').click();
-        cy.xpath('//span[text()="Sparkline"]').trigger('mouseover', { force: true });
-        cy.xpath('//h1[text()="Line Chart"]').click({ force: true })
-
+        cy.wait(Timeout.md)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisibilityofElement(locators.account_pageloaded)
+        cy.wait(Timeout.sm)
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        methods.VisibilityofElement(locators.Dashboards_Title)
+        methods.clickElementByXPath(locators.Add_Report_1)
+        methods.clickElementByXPath(locators.Event_Report)
+        methods.clickElementByXPath(locators.Add_First_Event)
+        methods.typeElement(locators.search_1, 'webs')
+        cy.wait(Timeout.sm)
+        methods.ElementVisibleandClick(locators.web_options)
+        methods.clickElementByXPath(locators.KPI_Cal)
+        cy.wait(Timeout.sm)
+        methods.clickElement0(locators.choose_date, 8)
+        cy.wait(Timeout.sm)
+        methods.clickElement(locators.Run_analysis_css)
+        methods.MouseoverWithXpath(locators.Sparkline)
+        methods.clickElementByXPath(locators.Line_Chart)
     })
 
     it('TC_RE_02_Charts - Local filters, Local break down', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-link--journeys').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Dashboards"]').click();
-        cy.wait(8000)
-        cy.get('#fa-at-text--dashboard-title', { timeout: extraTimeOut }).should('be.visible');
-        cy.xpath('//div[text()="New Reports"]', { timeout: extraTimeOut }).click();
-        cy.xpath('//div[text()="Event Report"]').click();
-        cy.xpath('(//span[text()="Add First Event"])[2]', { timeout: extraTimeOut }).click();
-        cy.get('[placeholder="Search"]').type('webs');
-        cy.wait(1000)
-        cy.get('[title="Website Session"]').eq(0).should('be.visible').click();
-
-        cy.xpath('(//h4[text()="EVENTS"])[2]//following::button[3]').trigger('mouseover', { force: true }).click({ force: true });
-        cy.get('[title="Session properties"]').eq(0).click();
-        cy.get('[placeholder="Search"]').type('Session landing');
-        cy.get('[title="Session Landing Page URL"]').click();
-        cy.wait(1000)
-        cy.xpath('//input[@placeholder="Search"]//following::div[3]').click({force:true});
-        cy.wait(1000)
-        cy.xpath('//span[text()="Apply"]').click();
-        cy.wait(1000)
-        cy.xpath('(//h4[text()="EVENTS"])[2]//following::button[3]').trigger('mouseover', { force: true }).click({ force: true });
-        cy.wait(1000)
-        cy.get('[title="Session properties"]').eq(0).click();
-        cy.wait(1000)
-        cy.xpath('//input[@placeholder="Search"]//following::div[3]').click({force:true});
-        cy.wait(1000)
-        cy.xpath('//input[@placeholder="Search"]//following::div[3]').click({force:true});
-        cy.wait(1000)
-        cy.xpath('//span[text()="Apply"]').click();
-        cy.xpath('(//h4[text()="EVENTS"])[2]//following::button[2]').trigger('mouseover', { force: true }).click({ force: true });
-        cy.xpath('//span[text()="Breakdown"]').click();
-        cy.get('[title="Traffic source"]').eq(0).click();
-        cy.get('[title="Channel"]').click();
-        cy.xpath('(//h4[text()="EVENTS"])[2]//following::button[2]').trigger('mouseover', { force: true }).click({ force: true });
-        cy.xpath('//span[text()="Breakdown"]').click();
-        cy.get('[title="Session properties"]').eq(0).click();
-        cy.get('[title="Session Exit Page URL"]').click();
-        cy.get('.query_card_open-add > :nth-child(1) > .QueryComposer_composer_footer__LVpKT > .fa-custom-datepicker > .ant-btn').click();
-        cy.wait(1000)
-        cy.get('[data-menu-id]').eq(6).click();
-        cy.get('.query_card_open-add > :nth-child(1) > .QueryComposer_composer_footer__LVpKT > .ant-btn-primary').click();
+        cy.wait(Timeout.md)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisibilityofElement(locators.account_pageloaded)
+        cy.wait(Timeout.sm)
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        methods.VisibilityofElement(locators.Dashboards_Title)
+        methods.clickElementByXPath(locators.Add_Report_1)
+        methods.clickElementByXPath(locators.Event_Report)
+        methods.clickElementByXPath(locators.Add_First_Event)
+        methods.typeElement(locators.search_1, 'webs')
+        methods.clickElement0(locators.Website_Session, 0)
+        methods.MouseoverAndClick(locators.Filter_this_event)
+        methods.clickElementByXPath(locators.account_filter)
+        cy.wait(Timeout.xs)
+        methods.clickElementByXPath(locators.account_filter)
+        cy.wait(Timeout.xs)
+        methods.clickElementByXPath(locators.account_filter)
+        cy.wait(Timeout.xs)
+        methods.clickElementByXPath(locators.Apply1)
+        methods.MouseoverAndClick(locators.Filter_this_event)
+        cy.wait(Timeout.xs)
+        methods.clickElementByXPath(locators.account_filter)
+        cy.wait(Timeout.xs)
+        methods.clickElementByXPath(locators.account_filter)
+        cy.wait(Timeout.xs)
+        methods.clickElementByXPath(locators.account_filter)
+        cy.wait(Timeout.xs)
+        methods.clickElementByXPath(locators.Apply1)
+        methods.MouseoverAndClick(locators.breakdown_option)
+        methods.clickElementByXPath(locators.BreakDown)
+        methods.clickElementByXPath(locators.Filter_option1)
+        methods.clickElementByXPath(locators.Filter_option1)
+        methods.MouseoverAndClick(locators.breakdown_option)
+        methods.clickElementByXPath(locators.BreakDown)
+        methods.clickElementByXPath(locators.Filter_option1)
+        methods.clickElementByXPath(locators.Filter_option1)
+        methods.clickElementByXPath(locators.KPI_Cal)
+        methods.clickElement0(locators.choose_date, 6)
+        methods.clickElement(locators.Run_analysis_css)
 
     })
 })

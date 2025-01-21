@@ -1,8 +1,10 @@
-import Login3 from '../PageObjects/Login3';
-import { deviceViewport, extraTimeOut } from '../Utils';
-import dayjs from 'dayjs'; 
+import Login1 from '../PageObjects/Login1';
+import { deviceViewport, extraTimeOut, Timeout } from '../Utils.js';
+import dayjs from 'dayjs';
+import methods from '../../support/Common_Method.js';
+import locators from '../../support/Locators.js';
 
-describe('Profile Report Login', () => {
+describe('Profile Report Regression', () => {
 
     beforeEach(() => {
 
@@ -13,360 +15,335 @@ describe('Profile Report Login', () => {
         });
 
         //login before run test
-        Login3();
+        Login1();
 
     })
 
     it('TC_RE_01 - Profile Report - New Report', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-link--journeys').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Dashboards"]').click();
-        cy.wait(8000)
-        cy.get('#fa-at-text--dashboard-title', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('#fa-at-btn--new-report').click()
-        cy.xpath('//div[text()="Profile Report"]').click()
-
+        cy.wait(Timeout.md)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        cy.wait(Timeout.sm)
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        methods.VisibilityofElement(locators.Dashboards_Title)
+        methods.clickElement(locators.New_Report_CSS)
+        methods.clickElementByXPath(locators.Profile_Report)
+        methods.VisibilityofElementXpath(locators.PROFILESTOANALYSE)
     })
 
     it('TC_RE_02 - Profile Report - Add event', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-link--journeys').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Dashboards"]').click();
-        cy.wait(8000)
-        cy.get('#fa-at-text--dashboard-title', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('#fa-at-btn--new-report').click()
-        cy.xpath('//div[text()="Profile Report"]').click()
-        cy.wait(2000)
-        cy.xpath('(//span[text()="Add New"])[2]',{timeout : extraTimeOut}).click({force: true})
-        cy.get('[title="Website Visitors"]').click()
+        cy.wait(Timeout.md)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        cy.wait(Timeout.sm)
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        methods.VisibilityofElement(locators.Dashboards_Title)
+        methods.clickElement(locators.New_Report_CSS)
+        methods.clickElementByXPath(locators.Profile_Report)
+        methods.VisibilityofElementXpath(locators.PROFILESTOANALYSE)
+        methods.clickElementByXPath(locators.Add_New_1)
+        methods.clickElement(locators.Website_Visitors)
 
     })
 
     it('TC_RE_03 - Profile Report - Add multiple event', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-link--journeys').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Dashboards"]').click();
-        cy.wait(8000)
-        cy.get('#fa-at-text--dashboard-title', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('#fa-at-btn--new-report').click()
-        cy.xpath('//div[text()="Profile Report"]').click()
-        cy.wait(2000)
-        cy.xpath('(//span[text()="Add New"])[2]',{timeout : extraTimeOut}).click({force: true})
-        cy.get('[title="Website Visitors"]').click()
-        cy.xpath('(//span[text()="Add New"])[2]',{timeout : extraTimeOut}).click({force: true})
-        cy.get('[title="Hubspot Contacts"]').click()
+        cy.wait(Timeout.md)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        cy.wait(Timeout.sm)
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        methods.VisibilityofElement(locators.Dashboards_Title)
+        methods.clickElement(locators.New_Report_CSS)
+        methods.clickElementByXPath(locators.Profile_Report)
+        methods.VisibilityofElementXpath(locators.PROFILESTOANALYSE)
+        methods.clickElementByXPath(locators.Add_New_1)
+        methods.clickElement(locators.Website_Visitors)
+        methods.clickElementByXPath(locators.Add_New_1)
+        methods.clickElement(locators.Hubspot_Contacts)
     })
 
     it('TC_RE_04 - Profile Report - Add local filter', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-link--journeys').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Dashboards"]').click();
-        cy.wait(8000)
-        cy.get('#fa-at-text--dashboard-title', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('#fa-at-btn--new-report').click()
-        cy.xpath('//div[text()="Profile Report"]').click()
-        cy.wait(2000)
-        cy.xpath('(//span[text()="Add New"])[2]',{timeout : extraTimeOut}).click({force: true})
-        cy.get('[title="Website Visitors"]').click()
-        
-        cy.xpath('(//h4[text()="PROFILES TO ANALYSE"])[2]//following::button[3]').trigger('mouseover', { force: true }).click({ force: true });
-        cy.get('[title="OTHERS"]').eq(0).click();
-        cy.xpath('//input[@placeholder="Search"]//following::div[3]',{timeout:extraTimeOut}).click();
-        cy.wait(1000)
-        cy.xpath('//input[@placeholder="Search"]//following::div[3]',{timeout:extraTimeOut}).click();
-        cy.xpath('//span[text()="Apply"]',{timeout:extraTimeOut}).click()
-        cy.xpath('(//span[text()="equals"])[2]').click()
-        cy.get('.fa-select-dropdown > .flex').should('be.visible')
-        cy.get('[title="equals"]').click()
+        cy.wait(Timeout.md)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        cy.wait(Timeout.sm)
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        methods.VisibilityofElement(locators.Dashboards_Title)
+        methods.clickElement(locators.New_Report_CSS)
+        methods.clickElementByXPath(locators.Profile_Report)
+        methods.VisibilityofElementXpath(locators.PROFILESTOANALYSE)
+        methods.clickElementByXPath(locators.Add_New_1)
+        methods.clickElement(locators.Website_Visitors)
+        methods.MouseoverAndClick(locators.Filte_this_Profile)
+        methods.clickElement0(locators.others, 0)
+        methods.clickElementByXPath(locators.account_filter)
+        methods.clickElementByXPath(locators.not_Set)
+        methods.clickElementByXPath(locators.Apply1)
     })
 
     it('TC_RE_05 - Profile Report - Checking global filter ', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-link--journeys').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Dashboards"]').click();
-        cy.wait(8000)
-        cy.get('#fa-at-text--dashboard-title', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('#fa-at-btn--new-report').click()
-        cy.xpath('//div[text()="Profile Report"]').click()
-        cy.wait(2000)
-        cy.xpath('(//span[text()="Add New"])[2]',{timeout : extraTimeOut}).click({force: true})
-        cy.get('[title="Website Visitors"]').click()
-        
-        cy.xpath('(//h4[text()="FILTER BY"])[2]//following::span[text()="Add new"][1]').should('be.visible')
-    
+        cy.wait(Timeout.md)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        cy.wait(Timeout.sm)
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        methods.VisibilityofElement(locators.Dashboards_Title)
+        methods.clickElement(locators.New_Report_CSS)
+        methods.clickElementByXPath(locators.Profile_Report)
+        methods.VisibilityofElementXpath(locators.PROFILESTOANALYSE)
+        methods.clickElementByXPath(locators.Add_New_1)
+        methods.clickElement(locators.Website_Visitors)
+        methods.VisibilityofElementXpath(locators.Add_New_FilterBy)
     })
 
     it('TC_RE_06 - Profile Report - Add multiple local filter ', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-link--journeys').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Dashboards"]').click();
-        cy.wait(8000)
-        cy.get('#fa-at-text--dashboard-title', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('#fa-at-btn--new-report').click()
-        cy.xpath('//div[text()="Profile Report"]').click()
-        cy.wait(2000)
-        cy.xpath('(//span[text()="Add New"])[2]',{timeout : extraTimeOut}).click({force: true})
-        cy.get('[title="Website Visitors"]').click()
-        
-        cy.xpath('(//h4[text()="PROFILES TO ANALYSE"])[2]//following::button[3]').trigger('mouseover', { force: true }).click({ force: true });
-        cy.get('[title="OTHERS"]').eq(0).click()
-        cy.xpath('//input[@placeholder="Search"]//following::div[3]',{timeout:extraTimeOut}).click();
-        cy.wait(1000)
-        cy.xpath('//input[@placeholder="Search"]//following::div[3]',{timeout:extraTimeOut}).click();
-        cy.xpath('//span[text()="Apply"]',{timeout:extraTimeOut}).click()
-
-        cy.xpath('(//h4[text()="PROFILES TO ANALYSE"])[2]//following::button[3]').trigger('mouseover', { force: true }).click({ force: true });
-        cy.wait(2000)
-        cy.get('[title="Page properties"]').eq(0).click({force:true})
-        cy.get('[title="User Latest Page URL"]').click()
-        cy.xpath('//span[text()="Clear all"]//following::div[1]').click()
-        cy.xpath('//span[text()="Apply"]').click();
+        cy.wait(Timeout.md)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        cy.wait(Timeout.sm)
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        methods.VisibilityofElement(locators.Dashboards_Title)
+        methods.clickElement(locators.New_Report_CSS)
+        methods.clickElementByXPath(locators.Profile_Report)
+        methods.VisibilityofElementXpath(locators.PROFILESTOANALYSE)
+        methods.clickElementByXPath(locators.Add_New_1)
+        methods.clickElement(locators.Website_Visitors)
+        methods.MouseoverAndClick(locators.Filte_this_Profile)
+        methods.clickElement0(locators.others, 0)
+        methods.clickElementByXPath(locators.account_filter)
+        methods.clickElementByXPath(locators.not_Set)
+        methods.clickElementByXPath(locators.Apply1)
+        methods.MouseoverAndClick(locators.Filte_this_Profile)
+        methods.clickElement0(locators.User_identification, 0)
+        methods.clickElementByXPath(locators.pageview_option1)
+        methods.clickElementByXPath(locators.false)
+        methods.clickElementByXPath(locators.Apply1)
 
     })
 
     it('TC_RE_07 - Profile Report - Delete event ', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-link--journeys').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Dashboards"]').click();
-        cy.wait(8000)
-        cy.get('#fa-at-text--dashboard-title', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('#fa-at-btn--new-report').click()
-        cy.xpath('//div[text()="Profile Report"]').click()
-        cy.wait(2000)
-        cy.xpath('(//span[text()="Add New"])[2]',{timeout : extraTimeOut}).click({force: true})
-        cy.get('[title="Website Visitors"]').click()
-        cy.xpath('(//span[text()="Add New"])[2]',{timeout : extraTimeOut}).click({force: true})
-        cy.get('[title="Hubspot Contacts"]').click()
-
-        cy.xpath('(//h4[text()="PROFILES TO ANALYSE"])[2]//following::button[4]').trigger('mouseover', { force: true }).click({ force: true });
+        cy.wait(Timeout.md)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        cy.wait(Timeout.sm)
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        methods.VisibilityofElement(locators.Dashboards_Title)
+        methods.clickElement(locators.New_Report_CSS)
+        methods.clickElementByXPath(locators.Profile_Report)
+        methods.VisibilityofElementXpath(locators.PROFILESTOANALYSE)
+        methods.clickElementByXPath(locators.Add_New_1)
+        methods.clickElement(locators.Website_Visitors)
+        methods.clickElementByXPath(locators.Add_New_1)
+        methods.clickElement(locators.Hubspot_Contacts)
+        methods.MouseoverAndClick(locators.Delete_this_Profile)
     })
 
     it('TC_RE_08 - Profile Report - Add global filter ', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-link--journeys').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Dashboards"]').click();
-        cy.wait(8000)
-        cy.get('#fa-at-text--dashboard-title', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('#fa-at-btn--new-report').click()
-        cy.xpath('//div[text()="Profile Report"]').click()
-        cy.wait(2000)
-        cy.xpath('(//span[text()="Add New"])[2]',{timeout : extraTimeOut}).click({force: true})
-        cy.get('[title="Website Visitors"]').click()
-
-        cy.xpath('(//h4[text()="FILTER BY"])[2]//following::span[text()="Add new"][1]').click();
-        cy.get('[title="Traffic source"]').eq(0).click()
-        cy.get('[title="User Latest Campaign"]').click()
-        cy.xpath('//span[text()="Clear all"]//following::div[1]').click()
-        cy.xpath('//span[text()="Apply"]').click();
-
+        cy.wait(Timeout.md)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        cy.wait(Timeout.sm)
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        methods.VisibilityofElement(locators.Dashboards_Title)
+        methods.clickElement(locators.New_Report_CSS)
+        methods.clickElementByXPath(locators.Profile_Report)
+        methods.VisibilityofElementXpath(locators.PROFILESTOANALYSE)
+        methods.clickElementByXPath(locators.Add_New_1)
+        methods.clickElement(locators.Website_Visitors)
+        methods.clickElementByXPath(locators.Add_New_FilterBy)
+        methods.clickElement0(locators.Traffic_source, 0)
+        methods.clickElementByXPath(locators.pageview_option1)
+        methods.clickElementByXPath(locators.false)
+        methods.clickElementByXPath(locators.Apply1)
     })
 
     it('TC_RE_09 - Profile Report - Add multiple global filter ', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-link--journeys').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Dashboards"]').click();
-        cy.wait(8000)
-        cy.get('#fa-at-text--dashboard-title', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('#fa-at-btn--new-report').click()
-        cy.xpath('//div[text()="Profile Report"]').click()
-        cy.wait(2000)
-        cy.xpath('(//span[text()="Add New"])[2]',{timeout : extraTimeOut}).click({force: true})
-        cy.get('[title="Website Visitors"]').click()
-
-        cy.xpath('(//h4[text()="FILTER BY"])[2]//following::span[text()="Add new"][1]').click();
-        cy.get('[title="Traffic source"]').eq(0).click()
-        cy.get('[title="User Latest Campaign"]').click()
-        cy.xpath('//span[text()="Clear all"]//following::div[1]',{timeout:extraTimeOut}).click()
-        cy.xpath('//span[text()="Apply"]').click();
-
-        cy.xpath('(//h4[text()="FILTER BY"])[2]//following::span[text()="Add new"][1]').click();
-        cy.wait(2000)
-        cy.get('[title="User identification"]').eq(0).click()
-        cy.xpath('//input[@placeholder="Search"]//following::div[3]',{timeout:extraTimeOut}).click();
-        cy.wait(1000)
-        cy.xpath('//span[text()="Clear all"]//following::div[1]',{timeout:extraTimeOut}).click()
-        cy.xpath('//span[text()="Apply"]').click();
+        cy.wait(Timeout.md)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        cy.wait(Timeout.sm)
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        methods.VisibilityofElement(locators.Dashboards_Title)
+        methods.clickElement(locators.New_Report_CSS)
+        methods.clickElementByXPath(locators.Profile_Report)
+        methods.VisibilityofElementXpath(locators.PROFILESTOANALYSE)
+        methods.clickElementByXPath(locators.Add_New_1)
+        methods.clickElement(locators.Website_Visitors)
+        methods.clickElementByXPath(locators.Add_New_FilterBy)
+        methods.clickElement0(locators.Traffic_source, 0)
+        methods.clickElementByXPath(locators.pageview_option1)
+        methods.clickElementByXPath(locators.false)
+        methods.clickElementByXPath(locators.Apply1)
+        methods.clickElementByXPath(locators.Add_New_FilterBy)
+        methods.clickElement0(locators.User_identification, 0)
+        methods.clickElementByXPath(locators.pageview_option1)
+        methods.clickElementByXPath(locators.false)
+        methods.clickElementByXPath(locators.Apply1)
 
     })
 
     it('TC_RE_10 - Profile Report - Use + button ', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-link--journeys').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Dashboards"]').click();
-        cy.wait(8000)
-        cy.get('#fa-at-text--dashboard-title', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('#fa-at-btn--new-report').click()
-        cy.xpath('//div[text()="Profile Report"]').click()
-        cy.wait(2000)
-        cy.xpath('(//span[text()="Add New"])[2]',{timeout : extraTimeOut}).click({force: true})
-        cy.get('[title="Website Visitors"]').click()
-
-        cy.xpath('(//h4[text()="PROFILES TO ANALYSE"])[2]//following::button[3]').trigger('mouseover', { force: true }).click({ force: true });
-        cy.get('[title="OTHERS"]').eq(0).click()
-        cy.xpath('//input[@placeholder="Search"]//following::div[3]',{timeout:extraTimeOut}).click();
-        cy.wait(1000)
-        cy.xpath('//input[@placeholder="Search"]//following::div[3]',{timeout:extraTimeOut}).click();
-        cy.xpath('//span[text()="Apply"]').click();
-
-        cy.xpath('(//h4[text()="Filter by"])[2]//following::button[5]').click();
-        cy.wait(2000)
-        cy.get('[title="OTHERS"]').eq(0).click()
-        cy.xpath('//input[@placeholder="Search"]//following::div[3]',{timeout:extraTimeOut}).click();
-        cy.wait(1000)
-        cy.xpath('//input[@placeholder="Search"]//following::div[3]',{timeout:extraTimeOut}).click();
-        cy.xpath('//span[text()="Apply"]').click();
-
-        cy.xpath('(//h4[text()="Filter by"])[2]//following::h4[1]').should('contain','or')
-
+        cy.wait(Timeout.md)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        cy.wait(Timeout.sm)
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        methods.VisibilityofElement(locators.Dashboards_Title)
+        methods.clickElement(locators.New_Report_CSS)
+        methods.clickElementByXPath(locators.Profile_Report)
+        methods.VisibilityofElementXpath(locators.PROFILESTOANALYSE)
+        methods.clickElementByXPath(locators.Add_New_1)
+        methods.clickElement(locators.Website_Visitors)
+        methods.MouseoverAndClick(locators.Filte_this_Profile)
+        methods.clickElement0(locators.others, 0)
+        methods.clickElementByXPath(locators.account_filter)
+        cy.wait(Timeout.sm)
+        methods.clickElementByXPath(locators.account_filter)
+        methods.clickElementByXPath(locators.Apply1)
+        methods.clickElementByXPath(locators.Add_Plus_button)
+        methods.clickElement0(locators.others, 0)
+        methods.clickElementByXPath(locators.account_filter)
+        cy.wait(Timeout.sm)
+        methods.clickElementByXPath(locators.account_filter)
+        methods.clickElementByXPath(locators.Apply1)
+        methods.assertElementContainsTextxpath(locators.or_1, 'or')
     })
 
     it('TC_RE_11 - Profile Report - Add breakdown ', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-link--journeys').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Dashboards"]').click();
-        cy.wait(8000)
-        cy.get('#fa-at-text--dashboard-title', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('#fa-at-btn--new-report').click()
-        cy.xpath('//div[text()="Profile Report"]').click()
-        cy.wait(2000)
-        cy.xpath('(//span[text()="Add New"])[2]',{timeout : extraTimeOut}).click({force: true})
-        cy.get('[title="Website Visitors"]').click()
-
-        cy.xpath('(//h4[text()="FILTER BY"])[2]//following::span[text()="Add new"][1]').click();
-        cy.get('[title="Traffic source"]').eq(0).click()
-        cy.get('[title="User Latest Campaign"]').click()
-        cy.xpath('//span[text()="Clear all"]//following::div[1]').click()
-        cy.xpath('//span[text()="Apply"]').click();
-
-        cy.xpath('(//h4[text()="BREAKDOWN"])[2]//following::span[text()="Add new"][1]').click();
-        cy.get('[title="OTHERS"]').eq(0).click();
-        cy.xpath('//input[@placeholder="Select Property"]//following::div[3]',{timeout:extraTimeOut}).click();
-
-        cy.xpath('(//h4[text()="BREAKDOWN"])[2]//following::span[text()="Add new"][1]').click();
-        cy.get('[title="OTHERS"]').eq(0).click();
-        cy.xpath('//input[@placeholder="Select Property"]//following::div[4]',{timeout:extraTimeOut}).click();
+        cy.wait(Timeout.md)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        cy.wait(Timeout.sm)
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        methods.VisibilityofElement(locators.Dashboards_Title)
+        methods.clickElement(locators.New_Report_CSS)
+        methods.clickElementByXPath(locators.Profile_Report)
+        methods.VisibilityofElementXpath(locators.PROFILESTOANALYSE)
+        methods.clickElementByXPath(locators.Add_New_1)
+        methods.clickElement(locators.Website_Visitors)
+        methods.clickElementByXPath(locators.Add_New_FilterBy)
+        methods.clickElement0(locators.Traffic_source, 0)
+        methods.clickElementByXPath(locators.pageview_option1)
+        methods.clickElementByXPath(locators.false)
+        methods.clickElementByXPath(locators.Apply1)
+        methods.clickElementByXPath(locators.BreakDown_AddNew)
+        methods.clickElement0(locators.others, 0)
+        methods.clickElementByXPath(locators.Filter_option1)
+        methods.clickElementByXPath(locators.BreakDown_AddNew)
+        methods.clickElement0(locators.others, 0)
+        methods.clickElementByXPath(locators.Filter_option2)
 
     })
 
     it('TC_RE_12 - Profile Report - Run analyse ', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-link--journeys').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Dashboards"]').click();
-        cy.wait(8000)
-        cy.get('#fa-at-text--dashboard-title', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('#fa-at-btn--new-report').click()
-        cy.xpath('//div[text()="Profile Report"]').click()
-        cy.wait(2000)
-        cy.xpath('(//span[text()="Add New"])[2]',{timeout : extraTimeOut}).click({force: true})
-        cy.get('[title="Website Visitors"]').click()
-
-        cy.xpath('(//h4[text()="FILTER BY"])[2]//following::span[text()="Add new"][1]').click();
-        cy.get('[title="Traffic source"]').eq(0).click()
-        cy.get('[title="User Latest Campaign"]').click()
-        cy.xpath('//span[text()="Clear all"]//following::div[1]').click()
-        cy.xpath('//span[text()="Apply"]').click();
-
-        cy.xpath('(//h4[text()="BREAKDOWN"])[2]//following::span[text()="Add new"][1]').click();
-        cy.get('[title="OTHERS"]').eq(0).click();
-        cy.xpath('//input[@placeholder="Select Property"]//following::div[3]',{timeout:extraTimeOut}).click();
-
-        cy.xpath('(//span[text()="Run Analysis"])[2]').click()
-        cy.get('.mt-12 > .justify-center',{timeout:extraTimeOut}).should('be.visible')
-
+        cy.wait(Timeout.md)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        cy.wait(Timeout.sm)
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        methods.VisibilityofElement(locators.Dashboards_Title)
+        methods.clickElement(locators.New_Report_CSS)
+        methods.clickElementByXPath(locators.Profile_Report)
+        methods.VisibilityofElementXpath(locators.PROFILESTOANALYSE)
+        methods.clickElementByXPath(locators.Add_New_1)
+        methods.clickElement(locators.Website_Visitors)
+        methods.clickElementByXPath(locators.Add_New_FilterBy)
+        methods.clickElement0(locators.Traffic_source, 0)
+        methods.clickElementByXPath(locators.pageview_option1)
+        methods.clickElementByXPath(locators.false)
+        methods.clickElementByXPath(locators.Apply1)
+        methods.clickElementByXPath(locators.BreakDown_AddNew)
+        methods.clickElement0(locators.others, 0)
+        methods.clickElementByXPath(locators.Filter_option1)
+        methods.clickElementByXPath(locators.Run_Anal)
+        methods.VisibilityofElement(locators.Profile_report_gen)
     })
 
     it('TC_RE_13 - Profile Report - Download csv ', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-link--journeys').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Dashboards"]').click();
-        cy.wait(8000)
-        cy.get('#fa-at-text--dashboard-title', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('#fa-at-btn--new-report').click()
-        cy.xpath('//div[text()="Profile Report"]').click()
-        cy.wait(2000)
-        cy.xpath('(//span[text()="Add New"])[2]',{timeout : extraTimeOut}).click({force: true})
-        cy.get('[title="Website Visitors"]').click()
-
-        cy.xpath('(//h4[text()="FILTER BY"])[2]//following::span[text()="Add new"][1]').click();
-        cy.get('[title="Traffic source"]').eq(0).click()
-        cy.get('[title="User Latest Campaign"]').click()
-        cy.xpath('//span[text()="Clear all"]//following::div[1]').click()
-        cy.xpath('//span[text()="Apply"]').click();
-
-        cy.xpath('(//span[text()="Run Analysis"])[2]').click()
-        cy.get(':nth-child(3) > .justify-center',{timeout:extraTimeOut}).should('be.visible')
-        cy.get('[id="csvLink"]').click({force:true})
-       
+        cy.wait(Timeout.md)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        cy.wait(Timeout.sm)
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        methods.VisibilityofElement(locators.Dashboards_Title)
+        methods.clickElement(locators.New_Report_CSS)
+        methods.clickElementByXPath(locators.Profile_Report)
+        methods.VisibilityofElementXpath(locators.PROFILESTOANALYSE)
+        methods.clickElementByXPath(locators.Add_New_1)
+        methods.clickElement(locators.Website_Visitors)
+        methods.clickElementByXPath(locators.Add_New_FilterBy)
+        methods.clickElement0(locators.Traffic_source, 0)
+        methods.clickElementByXPath(locators.pageview_option1)
+        methods.clickElementByXPath(locators.false)
+        methods.clickElementByXPath(locators.Apply1)
+        methods.clickElementByXPath(locators.Run_Anal)
+        methods.VisibilityofElement(locators.Profile_report_gen)
+        methods.ScrollAndClickxpath(locators.CSVlink)
     })
 
     it('TC_RE_14 - Profile Report - Search ', () => {
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-link--journeys').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Dashboards"]').click();
-        cy.wait(8000)
-        cy.get('#fa-at-text--dashboard-title', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('#fa-at-btn--new-report').click()
-        cy.xpath('//div[text()="Profile Report"]').click()
-        cy.wait(2000)
-        cy.xpath('(//span[text()="Add New"])[2]',{timeout : extraTimeOut}).click({force: true})
-        cy.get('[title="Website Visitors"]').click()
-
-        cy.xpath('(//h4[text()="BREAKDOWN"])[2]//following::span[text()="Add new"][1]').click();
-        cy.get('[title="OTHERS"]').eq(0).click()
-        cy.get('[placeholder="Select Property"]').type('cou')
-        cy.wait(1000)
-        cy.get('[title="Country"]').click({force: true})
-
-        cy.xpath('(//span[text()="Run Analysis"])[2]').click()
-
-        cy.xpath('//div[text()="Break-up"]').scrollIntoView();
-        cy.xpath('//div[text()="Break-up"]//following::button[1]').click()
-        cy.get('[placeholder="Search"]').type('fra')
-
-        cy.xpath('(//div[text()="Country"]//following::tbody//td)[5]').should('contain','FRANCE')
-       
+        cy.wait(Timeout.md)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        cy.wait(Timeout.sm)
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        methods.VisibilityofElement(locators.Dashboards_Title)
+        methods.clickElement(locators.New_Report_CSS)
+        methods.clickElementByXPath(locators.Profile_Report)
+        methods.VisibilityofElementXpath(locators.PROFILESTOANALYSE)
+        methods.clickElementByXPath(locators.Add_New_1)
+        methods.clickElement(locators.Website_Visitors)
+        methods.clickElementByXPath(locators.BreakDown_AddNew)
+        methods.typeElement(locators.select_property, "compa")
+        methods.clickElement0(locators.Country_Breakdown, 0)
+        methods.clickElementByXPath(locators.Run_Anal)
+        methods.VisibilityofElement(locators.Profile_report_gen)
+        methods.scrollWithXpath(locators.Break_up)
+        methods.clickElementByXPath(locators.Breakup_Search)
+        methods.typeElement(locators.search_1, 'In')
+        methods.assertElementContainsTextxpath(locators.Country_Search_result, 'India')
     })
 
     it('TC_RE_15 - Profile Report - Save ', () => {
@@ -374,39 +351,36 @@ describe('Profile Report Login', () => {
         const nowTime = dayjs().format('H:m:s');
         const testName = `Demo_${nowTime}`;
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-link--journeys').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Dashboards"]').click();
-        cy.wait(8000)
-        cy.get('#fa-at-text--dashboard-title', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('#fa-at-btn--new-report').click()
-        cy.xpath('//div[text()="Profile Report"]').click()
-        cy.wait(2000)
-        cy.xpath('(//span[text()="Add New"])[2]',{timeout : extraTimeOut}).click({force: true})
-        cy.get('[title="Website Visitors"]').click()
-
-        cy.xpath('(//h4[text()="BREAKDOWN"])[2]//following::span[text()="Add new"][1]').click();
-        cy.get('[title="OTHERS"]').eq(0).click()
-        cy.get('[placeholder="Select Property"]').type('cou')
-        cy.wait(1000)
-        cy.get('[title="Country"]').click({force: true})
-        cy.xpath('(//span[text()="Run Analysis"])[2]').click()
-
-        cy.get('.mt-24',{timeout : extraTimeOut }).should('be.visible');
-
-        cy.xpath('//span[text()="Save"]').click()
-        cy.get('[placeholder="Report Name"]').type(testName)
-        cy.get('[placeholder="Description (Optional)"]').type('Testing Report')
-        cy.xpath('(//span[text()="Save"])[2]').click()
-
-        cy.get('.ant-notification-notice',{timeout : extraTimeOut }).should('be.visible');
-        cy.xpath('(//span[text()="Close"])[1]').click({force:true})
-        cy.xpath('//h4[text()="Drafts"]').click()
-        cy.xpath('//th[text()="Date"]//following::button[1]').trigger('mouseover', { force: true });
-        cy.xpath('//*[text()="Delete Report"]').click();
-        cy.xpath('//span[text()="Confirm"]').click()
+        cy.wait(Timeout.md)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        cy.wait(Timeout.sm)
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        methods.VisibilityofElement(locators.Dashboards_Title)
+        methods.clickElementByXPath(locators.Drafts)
+        methods.clickElement(locators.New_Report_CSS)
+        methods.clickElementByXPath(locators.Profile_Report)
+        methods.VisibilityofElementXpath(locators.PROFILESTOANALYSE)
+        methods.clickElementByXPath(locators.Add_New_1)
+        methods.clickElement(locators.Website_Visitors)
+        methods.clickElementByXPath(locators.BreakDown_AddNew)
+        methods.clickElement0(locators.others, 0)
+        methods.clickElementByXPath(locators.Filter_option1)
+        methods.clickElementByXPath(locators.Run_Anal)
+        methods.VisibilityofElement(locators.Attri_pageloaded)
+        methods.clickElementByXPath(locators.Save_1)
+        methods.typeElement(locators.Report_Name, testName)
+        methods.typeElement(locators.Description_OP, 'Testing Report')
+        methods.clickElementByXPath(locators.save1)
+        methods.GetText(locators.notification_popup, "Report Saved Successfully")
+        cy.wait(Timeout.sm)
+        cy.xpath(`//h4[text()="${testName}"]//following::button[1]`,{ timeout: extraTimeOut }).trigger('mouseover', { force: true });
+        methods.clickElementByXPath(locators.Delete_Report)
+        cy.wait(Timeout.xs)
+        methods.clickElementByXPath(locators.confirm_1)
+        cy.wait(Timeout.xs)
     })
 
     it('TC_RE_16 - Profile Report - report to the dashboard ', () => {
@@ -414,56 +388,61 @@ describe('Profile Report Login', () => {
         const nowTime = dayjs().format('H:m:s');
         const testName = `Demo_${nowTime}`;
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-link--journeys').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Dashboards"]').click();
-        cy.wait(8000)
-        cy.get('#fa-at-text--dashboard-title', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('#fa-at-btn--new-report').click()
-        cy.xpath('//div[text()="Profile Report"]').click()
-        cy.wait(2000)
-        cy.xpath('(//span[text()="Add New"])[2]',{timeout : extraTimeOut}).click({force: true})
-        cy.get('[title="Website Visitors"]').click()
-
-        cy.xpath('(//h4[text()="BREAKDOWN"])[2]//following::span[text()="Add new"][1]').click();
-        cy.get('[title="OTHERS"]').eq(0).click()
-        cy.get('[placeholder="Select Property"]').type('cou')
-        cy.wait(1000)
-        cy.get('[title="Country"]').click({force: true})
-        cy.xpath('(//span[text()="Run Analysis"])[2]').click()
-        
-        cy.get('.mt-24',{timeout : extraTimeOut }).should('be.visible');
-
-        cy.xpath('//span[text()="Save"]').click()
-        cy.get('[placeholder="Report Name"]').type(testName)
-        cy.get('[placeholder="Description (Optional)"]').type('Testing Report')
-        cy.xpath('(//span[text()="Save"])[2]').click()
-
-        cy.xpath('//h4[contains(text(),"Reports")]//following::button[1]').trigger('mouseover', { force: true });
-        cy.xpath('//*[text()="Add to Dashboard"]').click()
-        cy.xpath('//span[text()="Please Select"]').click()
-        cy.xpath('//span[text()="Please Select"]').type('aut')
-        cy.get('[title="Automation"]').click()
-        cy.xpath('//h4[text()="Add to Dashboard"]').click()
-        cy.xpath('(//span[text()="Save"])[3]').click({ force: true })
-
-        cy.get('.ant-notification-notice',{timeout : extraTimeOut }).should('be.visible');
-        cy.xpath('(//span[text()="Close"])[1]').click({force:true})
-
-        cy.xpath('//h1[text()="Automation folder"]').click()
-        cy.xpath('//h4[text()="Automation"]').click()
-        cy.wait(2000)
-        cy.xpath('//h4[text()="Data from"]//following::button[4]').trigger('mouseover', { force: true });
-        cy.xpath('//a[text()="Delete Widget"]').click()
-        cy.xpath('//span[text()="Confirm"]').click()
-
-        cy.xpath('//h4[text()="Drafts"]').click()
-        cy.xpath('//th[text()="Date"]//following::button[1]').trigger('mouseover', { force: true });
-        cy.xpath('//*[text()="Delete Report"]').click();
-        cy.xpath('//span[text()="Confirm"]').click()
+        cy.wait(Timeout.md)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        cy.wait(Timeout.sm)
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.Dashboards)
+        methods.VisibilityofElement(locators.Dashboards_Title)
+        methods.clickElementByXPath(locators.Drafts)
+        methods.VisibilityofElement(locators.Table_Body_1)
+        methods.clickElement(locators.New_Report_CSS)
+        methods.clickElementByXPath(locators.Profile_Report)
+        methods.VisibilityofElementXpath(locators.PROFILESTOANALYSE)
+        methods.clickElementByXPath(locators.Add_New_1)
+        methods.clickElement(locators.Website_Visitors)
+        methods.clickElementByXPath(locators.BreakDown_AddNew)
+        methods.clickElement0(locators.others, 0)
+        methods.clickElementByXPath(locators.Filter_option1)
+        methods.clickElementByXPath(locators.Run_Anal)
+        methods.VisibilityofElement(locators.Attri_pageloaded)
+        methods.clickElementByXPath(locators.Save_1)
+        methods.typeElement(locators.Report_Name, testName)
+        methods.typeElement(locators.Description_OP, 'Testing Report')
+        methods.clickElementByXPath(locators.save1)
+        cy.wait(Timeout.sm)
+        cy.xpath(`//h4[text()='${testName}']`, {}).click({ force: true })
+        cy.wait(Timeout.sm)
+        methods.MouseoverWithXpath(locators.Profile_Report_option)
+        methods.clickElementByXPath(locators.Add_to_Dashboard)
+        cy.wait(Timeout.sm)
+        methods.clickElementByXPath(locators.Please_Select)
+        methods.typeElementByXPath(locators.Please_Select, 'aut')
+        cy.wait(Timeout.sm)
+        methods.clickElement(locators.Automation_1)
+        methods.clickElementByXPath(locators.Add_to_Dashboard_title)
+        methods.clickElementByXPath(locators.Save_2)
+        methods.VisibilityofElement(locators.notification_popup)
+        methods.VisibilityofElement(locators.Attri_pageloaded)
+        methods.clickElementByXPath(locators.Closed)
+        cy.wait(Timeout.xs)
+        methods.typeElement(locators.Search_dashboard, 'Auto')
+        methods.clickElementByXPath(locators.Automate)
+        methods.clickElementByXPath(locators.Automation_Delete)
+        methods.clickElementByXPath(locators.Delete_Widget)
+        cy.wait(Timeout.xs)
+        methods.clickElementByXPath(locators.confirm_1)
+        cy.wait(Timeout.sm)
+        methods.clickElementByXPath(locators.Drafts)
+        methods.VisibilityofElement(locators.Table_Body_1)
+        cy.xpath(`//h4[text()="${testName}"]//following::button[1]`,{ timeout: extraTimeOut }).trigger('mouseover', { force: true });
+        methods.clickElementByXPath(locators.Delete_Report)
+        cy.wait(Timeout.xs)
+        methods.clickElementByXPath(locators.confirm_1)
+        cy.wait(Timeout.xs)
 
     })
-    
+
 })

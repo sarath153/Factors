@@ -1,8 +1,9 @@
-import envDetails from '../../fixtures/envDetails.json';
-import Login from '../PageObjects/Login';
-import {deviceViewport, extraTimeOut } from '../Utils';  
+import Login1 from '../PageObjects/Login1';
+import { deviceViewport, extraTimeOut, Timeout } from '../Utils';
+import methods from '../../support/Common_Method.js'
+import locators from '../../support/Locators.js'
 
-describe('Login', () => {
+describe('Attribution Page Login', () => {
 
     beforeEach(() => {
 
@@ -13,24 +14,18 @@ describe('Login', () => {
         });
 
         //login before run test
-        Login();
+        Login1();
 
     })
 
     it('Attribution Page', () => {
 
-        //attribution accessibility
-
-        cy.wait(5000)
-        cy.get('#fa-at-link--journeys',{timeout:extraTimeOut}).trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Attribution"]').click({ force: true });
-        cy.wait(1000);
-        cy.url().should('contain', `${envDetails.backendApiUrl}/attribution`);
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('be.visible');
-        cy.get('#fa-at-text--page-title').contains('Attribution');
-
-
+        cy.wait(Timeout.sm)
+        methods.Mouseover(locators.report_dropdown)
+        methods.clickElementByXPath(locators.attributes)
+        cy.wait(Timeout.xs);
+        methods.UrlValidation('/attribution')
+        methods.VisibilityofElement(locators.Page_title1)
+        methods.Titletextcontains(locators.Page_title1, 'Attribution')
     });
-
-
 })

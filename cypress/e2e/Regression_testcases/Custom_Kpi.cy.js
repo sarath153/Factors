@@ -1,6 +1,8 @@
-import Login3 from '../PageObjects/Login3';
-import { deviceViewport, extraTimeOut } from '../Utils';
+import Login1 from '../PageObjects/Login1';
+import { deviceViewport, extraTimeOut, Timeout } from '../Utils.js';
 import dayjs from 'dayjs';
+import methods from '../../support/Common_Method.js'
+import locators from '../../support/Locators.js'
 
 describe('Custom Kpi Login', () => {
 
@@ -13,7 +15,7 @@ describe('Custom Kpi Login', () => {
         });
 
         //login before run test
-        Login3();
+        Login1();
 
     })
 
@@ -23,37 +25,41 @@ describe('Custom Kpi Login', () => {
         const testName = `Demo_${randomNumber}`;
 
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-        cy.get('#fa-at-dropdown--config').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Custom KPIs"]').click();
-        cy.xpath('//span[text()="Add New"]', { timeout: extraTimeOut }).click()
-        cy.get('#name',{timeout:extraTimeOut}).type(testName)
-        cy.get('#description').type('Testing Purpose')
+        cy.wait(Timeout.md)
+        methods.scrollWithXpath(locators.Account_Pagetitle)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisibilityofElement(locators.account_pageloaded)
+        cy.wait(Timeout.sm)
+        methods.clickElement(locators.setting)
+        methods.clickElementByXPath(locators.Custom_Definitions)
+        methods.clickElementByXPath(locators.Add_New)
+        methods.typeElement(locators.Name, testName)
+        methods.typeElement(locators.description, 'Testing Purpose')
 
-        cy.get('[title="Default"]').click({force:true})
-        cy.get('[title="Derived KPI"]').click({force:true})
+        methods.clickElement(locators.Default)
+        methods.clickElement(locators.Derived_KPI)
+        cy.wait(Timeout.sm)
+        methods.clickElementByXPath(locators.Add_KPI1)
+        cy.wait(Timeout.sm)
+        methods.clickElement0(locators.Website_Session, 0)
+        methods.typeElement(locators.Select_Event, 'tot')
+        methods.clickElement(locators.Total_Session)
+        methods.clickElementByXPath(locators.Add_another_KPI)
+        methods.clickElement0(locators.Website_Session, 0)
+        methods.clickElementByXPath(locators.KPI_option_1)
 
-        cy.xpath('//span[text()="Add KPI"]').click()
-        cy.get('[title="Website Session"]').eq(0).click()
-        cy.get('[placeholder="Select Event"]').type('tot')
-        cy.get('[title="Total Sessions"]').click()
-        cy.xpath('//span[text()="Add another KPI"]').click()
-        cy.get('[title="Website Session"]').eq(0).click()
-        cy.xpath('//input[@placeholder="Select Event"]//following::div[4]').click()
+        methods.typeElement(locators.Formula, 'A+B')
+        methods.clickElement(locators.showAspercentage)
 
-        cy.get('#for').type('A+B')
-        cy.get('#showAspercentage').click()
+        methods.scroll(locators.done)
+        methods.clickElement(locators.done)
 
-        cy.get('[type="submit"]').scrollIntoView()
-        cy.get('[type="submit"]').click()
-
-        cy.get('.ant-notification-notice', { timeout: extraTimeOut }).should('be.visible');
+        methods.VisibilityofElement(locators.notification_popup)
         cy.xpath(`//h4[text()='${testName}']`, { timeout: extraTimeOut }).scrollIntoView();
-        cy.xpath(`//h4[text()='${testName}']//following::button[1]`).click({ force: true });
-        cy.xpath('//span[text()="Remove"]').click()
-        cy.get('.ant-notification-notice', { timeout: extraTimeOut }).should('be.visible');
-
+        cy.xpath(`//h4[text()='${testName}']//following::button[1]`, { timeout: extraTimeOut }).click({ force: true });
+        methods.clickElementByXPath(locators.Remove_1)
+        methods.VisibilityofElement(locators.notification_popup)
+        cy.wait(Timeout.xs)
 
     })
 })

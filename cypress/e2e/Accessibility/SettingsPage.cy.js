@@ -1,8 +1,10 @@
 import envDetails from '../../fixtures/envDetails.json';
-import Login from '../PageObjects/Login';
-import {deviceViewport, extraTimeOut } from '../Utils';
+import Login1 from '../PageObjects/Login1';
+import { deviceViewport, extraTimeOut, Timeout} from '../Utils.js';
+import methods from '../../support/Common_Method.js'
+import locators from '../../support/Locators.js'
 
-describe('Login', () => {
+describe('Settings Page Login', () => {
 
     beforeEach(() => {
 
@@ -13,7 +15,7 @@ describe('Login', () => {
         });
 
         //login before run test
-        Login();
+        Login1();
 
     })
 
@@ -22,28 +24,20 @@ describe('Login', () => {
         //settings dropdown and pages accessibility check 
 
         [
-            { key: 'Basic Details', index: 2, url: 'general' },
-            { key: 'Users and Roles', index: 3, url: 'user' },
-            { key: 'Integrations', index: 5, url: 'integration' },
-            { key: 'Javascript SDK', index: 6, url: 'sdk' },
-            { key: 'Sharing', index: 8, url: 'sharing' },
-            { key: 'Pricing', index: 10, url: 'pricing?activeTab=billing' }
+            { key: 'General', index: 1, url: 'general' },
+            { key: 'Members', index: 2, url: 'members' },
+            { key: 'Plans & Billing', index: 3, url: 'pricing?activeTab=billing' },
+            { key: 'Sharing', index: 4, url: 'project/sharing' },
+            { key: 'Login and Security', index: 5, url: 'login_security' },
+
         ].map((item) => {
-            cy.wait(5000);
-            cy.get('#fa-at-dropdown--settings', { timeout: extraTimeOut }).click();
-            cy.get(`.fa-at-overlay--settings > ul > li:nth-child(${item.index}) > span > a`).click({ force: true });
-            cy.wait(1000);
-
-            cy.url().should('eq', `${envDetails.backendApiUrl}/settings/${item.url}`);
-            if (item.key == 'Pricing') {
-                cy.get('.ant-breadcrumb',{ timeout: extraTimeOut }).should('be.visible');
-                cy.get(`.ant-breadcrumb span:nth-child(3) > span.ant-breadcrumb-link`).should('have.text', 'Billing');
-            } else {
-                cy.get('#fa-at-text--page-title').should('be.visible');
-                cy.get('#fa-at-text--page-title').contains(item.key);
-            }
+            cy.wait(Timeout.sm);
+            methods.clickElement(locators.setting)
+            cy.xpath(`//h4[text()="Project Settings"]//following::h4[${item.index}]`).click({ force: true });
+            cy.wait(Timeout.xs)
+            methods.UrlValidationset(item.url)
+            methods.Titletextcontains1(locators.Page_title, 0, item.key)
         });
-
     });
 
 

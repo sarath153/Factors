@@ -1,6 +1,8 @@
 import Login1 from '../PageObjects/Login1';
-import { deviceViewport, extraTimeOut } from '../Utils';
+import { deviceViewport, extraTimeOut, Timeout } from '../Utils.js';
 import dayjs from 'dayjs';
+import methods from '../../support/Common_Method.js'
+import locators from '../../support/Locators.js'
 
 describe('Content_groups Login', () => {
 
@@ -22,35 +24,40 @@ describe('Content_groups Login', () => {
         const randomNumber = Math.floor(Math.random() * 90) + 10;
         const testName = `Demo_${randomNumber}`;
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-dropdown--config').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Content Groups"]').click();
-        cy.xpath('//span[text()="Add New"]', { timeout: extraTimeOut }).click()
-        cy.get('#content_group_name', { timeout: extraTimeOut }).type(testName)
-        cy.get('#content_group_description').type('Testing Purpose')
-        cy.xpath('//span[text()="New value"]').click()
-        cy.get('#content_group_value', { timeout: extraTimeOut }).type('Testing1')
-        cy.xpath('//span[text()="Add rule"]').click()
-        cy.get('#rule_0_va').type('25')
-        cy.get('[type="submit"]').eq(1).click({ force: true })
-        cy.wait(1000)
-        cy.xpath('//span[text()="New value"]').click()
-        cy.get('#content_group_value', { timeout: extraTimeOut }).type('Testing2')
-        cy.get('[value="OR"]').click({ force: true })
-        cy.xpath('//span[text()="Add rule"]').click()
-        cy.get('[title="Contains"]').click({ force: true })
-        cy.get('[title="Equals"]').click({ force: true })
-        cy.get('#rule_0_va').type('26')
-        cy.get('[type="submit"]').eq(1).click({ force: true })
-        cy.wait(1000)
-        cy.get('[type="submit"]').click({ force: true })
-        cy.get('.ant-notification-notice', { timeout: extraTimeOut }).should('be.visible');
-        cy.wait(1000)
-        cy.xpath(`//th[text()="Values"]//following::button[1]`).click({ force: true });
-        cy.xpath('//a[text()="Remove"]').click()
-        cy.xpath('//span[text()="Confirm"]').click()
-        cy.get('.ant-notification-notice', { timeout: extraTimeOut }).should('be.visible');
+        cy.wait(Timeout.md)
+        methods.scrollWithXpath(locators.Account_Pagetitle)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisibilityofElement(locators.account_pageloaded)
+        cy.wait(Timeout.sm)
+        methods.clickElement(locators.setting)
+        methods.clickElementByXPath(locators.Touchpoints)
+        methods.clickElementByXPath(locators.Content_Groups)
+        methods.VisibilityofElementIndexInput(locators.identi_table, 1)
+        methods.clickElementByXPath(locators.Add_New)
+        methods.typeElement(locators.content_group_name, testName)
+        methods.typeElement(locators.content_group_description, 'Testing Purpose')
+        methods.clickElementByXPath(locators.New_Value)
+        methods.typeElement(locators.content_group_value, 'Test_1')
+        methods.clickElementByXPath(locators.Add_Rule)
+        methods.typeElement(locators.page_value, '50')
+        methods.clickElement0(locators.done, 1)
+        cy.wait(Timeout.sm)
+        methods.clickElementByXPath(locators.New_Value)
+        methods.typeElement(locators.content_group_value, 'Test_2')
+        methods.clickElement(locators.Or_value)
+        methods.clickElementByXPath(locators.Add_Rule)
+        methods.clickElement(locators.Contains)
+        methods.clickElement(locators.Equals)
+        methods.typeElement(locators.page_value, '60')
+        methods.clickElement0(locators.done, 1)
+        methods.clickElement(locators.done)
+        methods.assertElementContainsText(locators.notification_popup, "SuccessContent Group rules created successfully")
+        cy.wait(Timeout.sm)
+        cy.xpath(`//span[text()="${testName}"]//following::button[1]`, { timeout: extraTimeOut }).click({ force: true })
+        methods.clickElementByXPath(locators.Remove)
+        cy.wait(Timeout.xs)
+        methods.clickElementByXPath(locators.confirm_1)
+        methods.assertElementContainsText(locators.notification_popup, "SuccessDeleted content group successfully")
+        cy.wait(Timeout.xs)
     })
 })

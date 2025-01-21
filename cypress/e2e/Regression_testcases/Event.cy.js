@@ -1,8 +1,10 @@
-import Login3 from '../PageObjects/Login3';
-import { deviceViewport, extraTimeOut } from '../Utils';
+import Login1 from '../PageObjects/Login1';
+import { deviceViewport, extraTimeOut, Timeout } from '../Utils.js';
 import dayjs from 'dayjs';
+import methods from '../../support/Common_Method.js';
+import locators from '../../support/Locators.js';
 
-describe('Event Login', () => {
+describe('Custom Event Login', () => {
 
     beforeEach(() => {
 
@@ -13,39 +15,41 @@ describe('Event Login', () => {
         });
 
         //login before run test
-        Login3();
+        Login1();
 
     })
 
-    it('Event', () => {
+    it('Custom Event', () => {
 
         const nowTime = dayjs().format('H:m:s');
         const testName = `Demo_${nowTime}`;
 
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title', { timeout: extraTimeOut }).should('contain', 'All Accounts');
-
-        cy.get('#fa-at-dropdown--config').trigger('mouseover', { force: true });
-        cy.xpath('//h4[text()="Events"]').click();
-        cy.xpath('//span[text()="New Event"]', { timeout: extraTimeOut }).click()
-        cy.get('.ant-form > :nth-child(1) > :nth-child(1) > .ant-typography', { timeout: extraTimeOut }).should('contain', 'New Custom Event');
-        cy.get('#name').type(testName)
-        cy.get('#description').type(testName)
-        cy.get('#source').click();
-        cy.get('[title="Hubspot"]', { timeout: extraTimeOut }).click({ force: true });
-        cy.get('#object_type').click();
-        cy.get('[title="contact"]').click();
-        cy.get('#property_name').click()
-        cy.get('[title="city"]', { timeout: extraTimeOut }).click({ force: true })
-        cy.xpath('//span[text()="Record modified time"]').click({ force: true })
-
-        cy.xpath('//span[text()="Save"]', { timeout: extraTimeOut }).scrollIntoView();
-        cy.xpath('//span[text()="Save"]').click()
-
-        cy.get('.ant-message-notice-content', { timeout: extraTimeOut }).should('be.visible')
-        cy.wait(2000)
-        cy.xpath('(//span[text()="hubspot"])[1]//following::button[1]').trigger('mouseover', { force: true });
-        cy.xpath('//a[text()="Remove Event"]').click({ force: true })
-        cy.get('.ant-message-notice-content', { timeout: extraTimeOut }).should('be.visible')
+        cy.wait(Timeout.md)
+        methods.scrollWithXpath(locators.Account_Pagetitle)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.VisibilityofElement(locators.account_pageloaded)
+        cy.wait(Timeout.sm)
+        methods.clickElement(locators.setting)
+        methods.clickElementByXPath(locators.Custom_Definitions)
+        methods.clickElementByXPath(locators.Event)
+        methods.clickElementByXPath(locators.New_Event)
+        methods.assertElementContainsText(locators.Event_Title, 'New Custom Event')
+        methods.typeElement(locators.Name, testName)
+        methods.typeElement(locators.description, testName)
+        methods.clickElement(locators.Source)
+        methods.clickElement(locators.Hubspot)
+        methods.clickElement(locators.Object_type)
+        methods.clickElement(locators.Deal)
+        methods.clickElement(locators.Property_name)
+        methods.clickElement(locators.Affiliate_Partner)
+        methods.clickElementByXPath(locators.Record_modified_time)
+        methods.scrollWithXpath(locators.Save_1)
+        methods.clickElementByXPath(locators.Save_1)
+        methods.VisibilityofElement(locators.Popup_Message)
+        cy.wait(Timeout.xs)
+        methods.clickElementByXPath(locators.Event_option)
+        methods.clickElementByXPath(locators.Remove_Event)
+        methods.VisibilityofElement(locators.Popup_Message)
+        cy.wait(Timeout.xs)
     })
 })

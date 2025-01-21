@@ -1,9 +1,10 @@
-import userDetails from '../../fixtures/userDetails.json';
-import envDetails from '../../fixtures/envDetails.json';
-import Login from '../PageObjects/Login';
-import {deviceViewport, extraTimeOut } from '../Utils'; 
+import userDetails1 from '../../fixtures/userDetails1.json';
+import Login1 from '../PageObjects/Login1';
+import { deviceViewport, extraTimeOut, Timeout } from '../Utils.js';
+import methods from '../../support/Common_Method.js'
+import locators from '../../support/Locators.js'
 
-describe('Login', () => {
+describe('Login Page Login', () => {
 
     beforeEach(() => {
 
@@ -17,22 +18,19 @@ describe('Login', () => {
 
     it('Login Page - Success', () => {
 
-        Login();
+        Login1();
 
         //checking if Login is success
-        cy.url().should('eq', `${envDetails.backendApiUrl}/`);
+
+        methods.launchUrl()
 
         //Displays logged in user details
-        cy.wait(5000)
-        cy.get('#fa-at-dropdown--projects div.opacity-80',{ timeout: extraTimeOut }).should('be.visible')
-        cy.get('#fa-at-dropdown--projects div.opacity-80',{ timeout: extraTimeOut }).should('have.text', userDetails.email);
+        methods.VisibilityofElement(locators.usermail)
+        methods.VisibilityofElement1(locators.usermail, userDetails1.email)
 
         //landing in default screen - All account
-        cy.wait(5000)
-        cy.get('#fa-at-text--page-title',{ timeout: extraTimeOut }).should('be.visible');
-        cy.get('#fa-at-text--page-title',{ timeout: extraTimeOut }).should('have.text', 'All Accounts');
-
+        methods.scrollWithXpath(locators.Account_Pagetitle)
+        methods.VisibilityofElementXpath(locators.Account_Pagetitle)
+        methods.VisibilityofElementXpath(locators.Account_Pagetitle, 'All Accounts')
     });
-
-
 })

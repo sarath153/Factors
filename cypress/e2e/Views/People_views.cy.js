@@ -1,8 +1,9 @@
 import Login1 from '../PageObjects/Login1';
-import {deviceViewport, extraTimeOut } from '../Utils';  
-import envDetails from '../../fixtures/envDetails.json';  
+import { deviceViewport, extraTimeOut, Timeout } from '../Utils';
+import methods from '../../support/Common_Method.js'
+import locators from '../../support/Locators.js'
 
-describe('Login', () => {
+describe('People view Login', () => {
 
     beforeEach(() => {
 
@@ -19,144 +20,86 @@ describe('Login', () => {
 
     it('People view', () => {
 
-        cy.get('#fa-at-text--page-title',{timeout:extraTimeOut}).should('contain','All Accounts');
-        cy.wait(1000)
-        cy.visit(`${envDetails.backendApiUrl}/profiles/people`);
-        cy.wait(1000)
-        cy.url().should('contain', `${envDetails.backendApiUrl}/profiles/people`);
-        cy.wait(1000)
-        cy.get('#fa-at-text--page-title',{timeout:extraTimeOut}).should('contain','All People');
-        cy.wait(1000)
-        cy.get(':nth-child(2) > .ant-table-cell-fix-left',{timeout:extraTimeOut}).should('be.visible');
+        cy.wait(Timeout.md)
+        methods.assertElementContainsTextxpath(locators.Account_Pagetitle, 'All Accounts')
+        methods.navigateToUrlPeople()
+        methods.UrlValidationPeople()
+        methods.assertElementContainsTextxpath(locators.all_People_Title, 'All People')
+        methods.VisibilityofElement(locators.account_pageloaded)
 
         // select account & birdview
 
-        cy.get('.relative > .ant-btn').click();
-        cy.wait(1000)
-        cy.wait(1000)
-        cy.xpath('//*[@placeholder="Search Users"]').type('saurabh.singh@webengage.com');
-        cy.wait(1000)
-        cy.xpath('//*[@placeholder="Search Users"]').type('{enter}');
-        cy.wait(1000)
-        cy.get(':nth-child(2) > .ant-table-cell-fix-left').click();
-        cy.wait(1000)
-        cy.get('.timeline-view',{timeout:extraTimeOut}).should('be.visible');
-        cy.wait(1000)
-        cy.get(':nth-child(1) > .bg-gradient--120px > .timeline-events > .timeline-events__event > .tag > .inline-flex > .event-name--sm > span',{timeout:extraTimeOut}).trigger('mouseover', { force: true });
-        cy.wait(1000)
-        cy.get('.fa-popupcard').should('be.visible');
-        cy.wait(1000)
-        cy.get('.fa-popupcard').should('not.be.empty');
-        cy.wait(1000)
-        cy.get(':nth-child(1) > :nth-child(1) > .timestamp').trigger('mouseout',{ force: true });
-        cy.wait(1000)
+        methods.clickElement(locators.search_button)
+        methods.typeElementByXPath(locators.Search1, 'sarath_tdfect@factors.ai')
+        methods.EnterXpath(locators.Search1)
+        methods.clickElement(locators.account_pageloaded)
+        methods.VisibilityofElement(locators.View_visible)
+        methods.MouseoverWithXpath(locators.people_firstvalue)
+        methods.VisibilityofElement(locators.popupcard)
+        methods.AssertNotEmpty(locators.popupcard)
+        methods.Mouseover(locators.timestamp_validation)
 
         // expand the pageView and verify the show less visibility
 
-        cy.get('.collapse-btn--left').click({ force: true });
-        cy.wait(1000)
-        // cy.xpath('(//div[text()=" Show Less"])[1]').scrollIntoView();
-        // cy.xpath('(//*[text()=" Show Less"])[1]').should('be.visible');
-        // cy.wait(1000)
+        methods.clickElementByXPath(locators.Expand)
 
         // contract the pageview 
 
-        cy.get('.collapse-btn--right').click({ force: true });
-        cy.wait(1000)
-        cy.get(':nth-child(1) > .bg-gradient--120px > .timeline-events > .timeline-events__num').should('be.visible');
-        cy.wait(1000)
+        methods.clickElementByXPath(locators.collapse)
 
         // event select
 
-        cy.get('.timeline-actions__group > .ant-btn-lg').click({ force: true });
-        cy.wait(1000)
-        cy.xpath('//h4[text()="Contact List"]').click();
-        cy.wait(1000)
-        cy.get(':nth-child(1) > .bg-gradient--44px.pb-NaN > .timeline-events').should('not.be.empty');
-        cy.wait(1000)
-        cy.xpath('//h4[text()="Contact List"]').click();
-        cy.wait(1000)
+        methods.clickElementByXPath(locators.Birdview_option)
+        methods.clickElementByXPath(locators.Login_Event)
+        methods.AssertNotEmptyWithXpath(locators.people_firstvalue)
+        methods.clickElementByXPath(locators.Login_Event)
 
         // user millistone
 
-        cy.xpath('//*[text()="Milestones"]').click();
-        cy.wait(1000)
-        cy.xpath('//input[@placeholder="Select Upto 5 Milestones"]//following::div[11]').click();
-        cy.wait(1000)
-        cy.xpath('//input[@placeholder="Select Upto 5 Milestones"]//following::div[27]').click();
-        cy.wait(1000)
-        cy.xpath('//input[@placeholder="Select Upto 5 Milestones"]//following::div[29]').click();
-        cy.wait(1000)
-        cy.get('.ant-notification-notice-with-icon').should('be.visible');
-        cy.wait(1000)
-        cy.xpath('//*[text()="Apply"]').click();
-        cy.wait(1000)
-        cy.get('.timeline-actions__group > .ant-btn-lg').click();
-        cy.wait(1000)
+        methods.clickElementByXPath(locators.Milestones)
+        methods.clickElementByXPath(locators.Milestones_option1)
+        methods.clickElementByXPath(locators.Milestones_option2)
+        methods.clickElementByXPath(locators.Milestones_option3)
+        methods.VisibilityofElement(locators.notification_popup2)
+        methods.clickElementByXPath(locators.Apply2)
+        methods.clickElementByXPath(locators.Birdview_option)
 
         // left side filter
 
-        cy.xpath('//h4[text()="User First Page URL"]//following::button[1]').trigger('mouseover', { force: true }).click({force: true});
-        cy.wait(1000)
-        cy.xpath('//h4[text()="email"]//following::button[1]').trigger('mouseover', { force: true }).click({force: true});
-        cy.wait(1000)
-        cy.xpath('//*[text()="Add property"]',{timeout:extraTimeOut}).click({force: true});
-        cy.wait(1000)
-        cy.get('[title="OTHERS"]').eq(0,{timeout:extraTimeOut}).click({force: true});
-        cy.wait(1000)
-        cy.get('[placeholder="Select Property"]').type('ema')
-        cy.wait(1000)
-        cy.get('[title="email"]',{timeout:extraTimeOut}).click();
-        cy.wait(1000)
-        cy.xpath('//*[text()="Add property"]',{timeout:extraTimeOut}).click({force: true});
-        cy.wait(1000)
-        cy.get('[title="Page properties"]').eq(0,{timeout:extraTimeOut}).click({force: true});
-        cy.wait(1000)
-        cy.get('[placeholder="Select Property"]').type('User First Page URL')
-        cy.wait(1000)
-        cy.get('[title="User First Page URL"]',{timeout:extraTimeOut}).click();
-        cy.wait(1000)
+        methods.clickElementByXPath(locators.Add_Property1)
+        methods.clickElementByXPath(locators.Filter_option1)
+        methods.typeElement(locators.select_property, 'Domain')
+        methods.clickElement(locators.Company_domain)
+        methods.clickElementByXPath(locators.Add_Property1)
+        methods.clickElement0(locators.others, 0)
+        methods.typeElement(locators.select_property, 'ema')
+        methods.clickElement(locators.email)
+        methods.clickElementByXPath(locators.Company_Domain_Delete)
+        methods.clickElementByXPath(locators.Email_Delete)
 
         // account activity
 
-        cy.get('.timeline-actions__group > .ant-dropdown-trigger').click({force: true});
-        cy.wait(1000)
-        cy.xpath('//*[text()="Timestamp"]').click({force: true});
-        cy.wait(1000)
-        cy.get(':nth-child(1) > :nth-child(1) > .timestamp').should('not.be.empty');
-        cy.wait(1000)
-        cy.get('.timeline-actions__group > .ant-dropdown-trigger').click({force: true});
-        cy.wait(1000)
-        cy.xpath('//*[text()="Hourly"]').click({force: true});
-        cy.wait(1000)
-        cy.get(':nth-child(1) > :nth-child(1) > .timestamp').should('not.be.empty');
-        cy.wait(1000)
-        cy.get('.timeline-actions__group > .ant-dropdown-trigger').click({force: true});
-        cy.wait(1000)
-        cy.xpath('//*[text()="Weekly"]').click({force: true});
-        cy.wait(1000)
-        cy.get(':nth-child(1) > :nth-child(1) > .timestamp').should('not.be.empty');
-        cy.wait(1000)
-        cy.get('.timeline-actions__group > .ant-dropdown-trigger').click({force: true});
-        cy.wait(1000)
-        cy.xpath('//*[text()="Monthly"]').click({force: true});
-        cy.wait(1000)
-        cy.get(':nth-child(1) > :nth-child(1) > .timestamp').should('not.be.empty');
-        cy.wait(1000)
-        cy.get('.timeline-actions__group > .ant-dropdown-trigger').click({force: true});
-        cy.wait(1000)
-        cy.xpath('//*[text()="Daily"]').click({force: true});
-        cy.wait(1000)
-        cy.get(':nth-child(1) > :nth-child(1) > .timestamp').should('not.be.empty');
-        cy.wait(1000)
+        methods.clickElementByXPath(locators.time_dropdown)
+        methods.clickElementByXPath(locators.Time_stamp)
+        methods.AssertNotEmpty(locators.timestamp_validation)
+        methods.clickElementByXPath(locators.time_dropdown)
+        methods.clickElementByXPath(locators.Hourly)
+        methods.AssertNotEmpty(locators.timestamp_validation)
+        methods.clickElementByXPath(locators.time_dropdown)
+        methods.clickElementByXPath(locators.Weekly)
+        methods.AssertNotEmpty(locators.timestamp_validation)
+        methods.clickElementByXPath(locators.time_dropdown)
+        methods.clickElementByXPath(locators.Monthly)
+        methods.AssertNotEmpty(locators.timestamp_validation)
+        methods.clickElementByXPath(locators.time_dropdown)
+        methods.clickElementByXPath(locators.Daily)
+        methods.AssertNotEmpty(locators.timestamp_validation)
 
         // Timeline
 
-        cy.xpath('//*[text()="Timeline"]').click({ force: true });
-        cy.wait(1000)
-        cy.get('#rc-tabs-0-panel-timeline').should('to.visible');
-        cy.wait(1000)
-
+        methods.clickElementByXPath(locators.Time_line)
+        cy.wait(Timeout.sm)
+        methods.VisibleofElement(locators.Time_line_Validation)
 
     })
 })
